@@ -1,0 +1,60 @@
+<div>
+    <form [formGroup]="userSignupForm" (submit)="submitForm()">
+        <table>
+            <tr>
+                <td>First Name: </td>
+                <td>
+                    <input type="text" formControlName="firstName">
+                </td>
+            </tr>
+            <tr>
+                <td>Last Name:</td>
+                <td>
+                    <input type="text" formControlName="lastName">
+                </td>
+            </tr>
+            <tr>
+                <td>Email: </td>
+                <td>
+                    <input type="email" formControlName="email">
+                </td>
+            </tr>
+            <tr>
+                <td>Phone Number: </td>
+                <td>
+                    <input type="number" formControlName="phoneNumber">
+                </td>
+            </tr>
+            <tr>
+                <td>Address: </td>
+                <td>
+                    <textarea cols="30" rows="5" formControlName="address"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td>Username: </td>
+                <td>
+                    <input type="text" formControlName="username">
+                </td>
+            </tr>
+            <tr>
+                <td>Password: </td>
+                <td>
+                    <input type="password" formControlName="password">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <button type="submit" [disabled]="userSignupForm.invalid">Sign Up</button>
+                </td>
+                <td>
+                    <button type="button" (click)="resetForm()">Reset</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+
+<div>
+    <a [routerLink]="['/merchant-signup']">Sign Up as Merchant</a>
+</div>
