@@ -10,6 +10,7 @@ import { UserSignupComponent } from './user-signup/user-signup.component';
 import { MerchantSignupComponent } from './merchant-signup/merchant-signup.component';
 import { MerchantLoginComponent } from './merchant-login/merchant-login.component';
 import { UserLoginComponent } from './user-login/user-login.component';
+import { BackendService } from './backend.service';
 
 const appRoutes: Routes = [
   {path: '', component: HomeComponent},
@@ -27,7 +28,7 @@ const appRoutes: Routes = [
     UserSignupComponent,
     MerchantSignupComponent,
     MerchantLoginComponent,
-    UserLoginComponent
+    UserLoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -35,7 +36,7 @@ const appRoutes: Routes = [
     HttpClientModule,
     RouterModule.forRoot(appRoutes, {useHash: true})
   ],
-  providers: [],
+  providers: [BackendService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

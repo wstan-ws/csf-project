@@ -1,46 +1,82 @@
 <div>
+    <h1>User Sign Up</h1>
+</div>
+<div>
     <form [formGroup]="userSignupForm" (submit)="submitForm()">
         <table>
             <tr>
                 <td>First Name: </td>
                 <td>
                     <input type="text" formControlName="firstName">
+                    <span *ngIf="userSignupForm?.get('firstName')?.hasError('required') && userSignupForm.get('firstName')?.touched"  >
+                        *First Name is Mandatory
+                    </span>
                 </td>
             </tr>
             <tr>
                 <td>Last Name:</td>
                 <td>
                     <input type="text" formControlName="lastName">
+                    <span *ngIf="userSignupForm?.get('lastName')?.hasError('required') && userSignupForm.get('lastName')?.touched"  >
+                        *Last Name is Mandatory
+                    </span>
                 </td>
             </tr>
             <tr>
                 <td>Email: </td>
                 <td>
                     <input type="email" formControlName="email">
+                    <span *ngIf="userSignupForm?.get('email')?.hasError('required') && userSignupForm.get('email')?.touched"  >
+                        *Email is Mandatory
+                    </span>
+                    <span *ngIf="userSignupForm?.get('email')?.hasError('email') && userSignupForm.get('email')?.touched"  >
+                        *Email format required
+                    </span>
                 </td>
             </tr>
             <tr>
                 <td>Phone Number: </td>
                 <td>
-                    <input type="number" formControlName="phoneNumber">
+                    <input type="text" formControlName="phoneNumber">
+                    <span *ngIf="userSignupForm?.get('phoneNumber')?.hasError('required') && userSignupForm.get('phoneNumber')?.touched"  >
+                        *Phone Number is Mandatory
+                    </span>
+                    <span *ngIf="userSignupForm?.get('phoneNumber')?.hasError('pattern') && userSignupForm.get('phoneNumber')?.touched"  >
+                        *Phone Number format required
+                    </span>
                 </td>
             </tr>
             <tr>
                 <td>Address: </td>
                 <td>
                     <textarea cols="30" rows="5" formControlName="address"></textarea>
+                    <span *ngIf="userSignupForm?.get('address')?.hasError('required') && userSignupForm.get('address')?.touched"  >
+                        *Address is Mandatory
+                    </span>
                 </td>
             </tr>
             <tr>
                 <td>Username: </td>
                 <td>
                     <input type="text" formControlName="username">
+                    <span *ngIf="userSignupForm?.get('username')?.hasError('required') && userSignupForm.get('username')?.touched"  >
+                        *Username is Mandatory
+                    </span>
+                    <span *ngIf="userSignupForm?.get('username')?.hasError('minlength') && userSignupForm.get('username')?.touched"  >
+                        *Min 3 characters
+                    </span>
                 </td>
             </tr>
             <tr>
                 <td>Password: </td>
                 <td>
                     <input type="password" formControlName="password">
+                    <span *ngIf="userSignupForm?.get('password')?.hasError('required') && userSignupForm.get('password')?.touched"  >
+                        *Password is Mandatory
+                    </span>
+                    <span *ngIf="userSignupForm?.get('password')?.hasError('minlength') && userSignupForm.get('password')?.touched"  >
+                        *Min 8 characters
+                    </span>
                 </td>
             </tr>
             <tr>
