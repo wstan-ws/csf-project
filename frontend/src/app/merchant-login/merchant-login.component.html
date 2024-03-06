@@ -1,1 +1,32 @@
-<p>merchant-login works!</p>
+<div>
+    <h1>Merchant Login</h1>
+</div>
+
+<div>
+    <form [formGroup]="merchantLoginForm" (submit)="login()">
+        <table>
+            <tr>
+                <td>Username: </td>
+                <td>
+                    <input type="text" formControlName="username">
+                </td>
+            </tr>
+            <tr>
+                <td>Password: </td>
+                <td>
+                    <input type="password" formControlName="password">
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <button type="submit">Login</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+
+<div>
+    <a [routerLink]="['/user-login']">Login as User</a>
+</div>

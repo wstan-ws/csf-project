@@ -25,10 +25,22 @@ export class MerchantSignupComponent implements OnInit {
   }
 
   submitForm(): void {
-    this.merchant = this.merchantSignupForm.value
-    console.info(">>> merchant sign up: ", this.merchant)
-    this.backendSvc.merchantSignup(this.merchant).subscribe()
-    this.merchantSignupForm = this.createMerchantSignupForm()
+    if (this.merchantSignupForm?.get('elec')?.value === false && 
+        this.merchantSignupForm?.get('plum')?.value === false && 
+        this.merchantSignupForm?.get('aircon')?.value === false) {
+      alert("Please select at least 1 specialty")
+    } else if ((this.merchantSignupForm?.get('elec')?.value === true && 
+        this.merchantSignupForm?.get('elecLicenseNo')?.value === '') || 
+        (this.merchantSignupForm?.get('plum')?.value === true && 
+        this.merchantSignupForm?.get('plumLicenseNo')?.value === '') || 
+        (this.merchantSignupForm?.get('aircon')?.value === true && 
+        this.merchantSignupForm?.get('airconLicenseNo')?.value === '')) {
+      alert("Please enter License Number")
+    } else {
+      this.merchant = this.merchantSignupForm.value
+      this.backendSvc.merchantSignup(this.merchant).subscribe()
+      this.merchantSignupForm = this.createMerchantSignupForm()
+    }
   }
 
   private createMerchantSignupForm(): FormGroup {

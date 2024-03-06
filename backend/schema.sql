@@ -12,7 +12,7 @@ create table users (
     email varchar(128) not null,
     phone_number char(8) not null,
     address text not null,
-    username varchar(64) not null unique,
+    username varchar(64) not null,
     password varchar(64) not null,
 
     primary key (id)
@@ -26,7 +26,7 @@ create table merchants (
     email varchar(128) not null,
     phone_number char(8) not null,
     company_name varchar(128) not null,
-    username varchar(64) not null unique,
+    username varchar(64) not null,
     password varchar(64) not null,
     electrician boolean default false,
     electrician_license_no varchar(64),

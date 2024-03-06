@@ -13,6 +13,7 @@ import jakarta.json.Json;
 import jakarta.json.JsonArray;
 import jakarta.json.JsonArrayBuilder;
 import jakarta.json.JsonObjectBuilder;
+import vttp.iss.backend.models.LoginDetails;
 import vttp.iss.backend.services.MainService;
 
 @RestController
@@ -23,24 +24,43 @@ public class CustomController {
     @Autowired
     private MainService mainSvc;
 
-    @GetMapping(path = "/usernamelist")
-    public ResponseEntity<String> getUsersUsername() {
+    @GetMapping(path = "/userlogindetails")
+    public ResponseEntity<String> getUsersLoginDetails() {
 
-        List<String> usernameList = mainSvc.getUsersUsername();
+        List<LoginDetails> loginDetailsList = mainSvc.getUsersLoginDetails();
 
         JsonArrayBuilder arrBuilder = Json.createArrayBuilder();
 
-        for (String username : usernameList) {
+        for (LoginDetails loginDetails : loginDetailsList) {
             JsonObjectBuilder objBuilder = Json.createObjectBuilder();
-            JsonObjectBuilder o = objBuilder.add("username", username);
+            JsonObjectBuilder o = objBuilder
+                .add("username", loginDetails.getUsername())
+                .add("password", loginDetails.getPassword());
             arrBuilder.add(o);
         }
 
         JsonArray arr = arrBuilder.build();
-        System.out.println(arr);
 
         return ResponseEntity.ok().body(arr.toString());
     }
 
-    
+    @GetMapping(path = "/merchantlogindetails")
+    public ResponseEntity<String> getMerchantsLoginDetails() {
+
+        List<LoginDetails> loginDetailsList = mainSvc.getMerchantsLoginDetails();
+
+        JsonArrayBuilder arrBuilder = Json.createArrayBuilder();
+
+        for (LoginDetails loginDetails : loginDetailsList) {
+            JsonObjectBuilder objBuilder = Json.createObjectBuilder();
+            JsonObjectBuilder o = objBuilder
+                .add("username", loginDetails.getUsername())
+                .add("password", loginDetails.getPassword());
+            arrBuilder.add(o);
+        }
+
+        JsonArray arr = arrBuilder.build();
+
+        return ResponseEntity.ok().body(arr.toString());
+    }
 }

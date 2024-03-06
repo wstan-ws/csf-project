@@ -1,1 +1,32 @@
-<a [routerLink]="['/merchant-login']">Login as Merchant</a>
+<div>
+    <h1>User Login</h1>
+</div>
+
+<div>
+    <form [formGroup]="userLoginForm" (submit)="login()">
+        <table>
+            <tr>
+                <td>Username: </td>
+                <td>
+                    <input type="text" formControlName="username">
+                </td>
+            </tr>
+            <tr>
+                <td>Password: </td>
+                <td>
+                    <input type="password" formControlName="password">
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <button type="submit">Login</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+
+<div>
+    <a [routerLink]="['/merchant-login']">Login as Merchant</a>
+</div>

@@ -23,3 +23,8 @@ export interface MerchantSignUpDetails {
     aircon: boolean
     airconLicenseNo: string
 }
+
+export interface LoginDetails {
+    username: string
+    password: string
+}

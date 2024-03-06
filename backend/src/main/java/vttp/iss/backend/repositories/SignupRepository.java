@@ -9,6 +9,7 @@ import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Repository;
 
 import vttp.iss.backend.Utils;
+import vttp.iss.backend.models.LoginDetails;
 import vttp.iss.backend.models.Merchant;
 import vttp.iss.backend.models.User;
 
@@ -49,15 +50,31 @@ public class SignupRepository {
             merchant.getAirconLicenseNo());
     }
 
-    public List<String> getUsersUsername() {
+    public List<LoginDetails> getUsersLoginDetails() {
 
-        SqlRowSet rs = template.queryForRowSet(Utils.SQL_GET_USER_USERNAME);
-        List<String> usernameList = new ArrayList<>();
+        SqlRowSet rs = template.queryForRowSet(Utils.SQL_GET_USER_USERNAME_PASSWORD);
+        List<LoginDetails> loginDetailsList = new ArrayList<>();
         while (rs.next()) {
             String username = rs.getString("username");
-            usernameList.add(username);
+            String password = rs.getString("password");
+            LoginDetails loginDetails = new LoginDetails(username, password);
+            loginDetailsList.add(loginDetails);
         }
 
-        return usernameList;
+        return loginDetailsList;
+    }
+
+    public List<LoginDetails> getMerchantsLoginDetails() {
+
+        SqlRowSet rs = template.queryForRowSet(Utils.SQL_GET_MERCHANT_USERNAME_PASSWORD);
+        List<LoginDetails> loginDetailsList = new ArrayList<>();
+        while (rs.next()) {
+            String username = rs.getString("username");
+            String password = rs.getString("password");
+            LoginDetails loginDetails = new LoginDetails(username, password);
+            loginDetailsList.add(loginDetails);
+        }
+
+        return loginDetailsList;
     }
 }

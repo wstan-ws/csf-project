@@ -16,8 +16,13 @@ public class Utils {
                 (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             """;
 
-    public static final String SQL_GET_USER_USERNAME = """
-            SELECT username
+    public static final String SQL_GET_USER_USERNAME_PASSWORD = """
+            SELECT username, password
             FROM users
+            """;
+
+    public static final String SQL_GET_MERCHANT_USERNAME_PASSWORD = """
+            SELECT username, password
+            FROM merchants
             """;
 }

@@ -11,6 +11,8 @@ import { MerchantSignupComponent } from './merchant-signup/merchant-signup.compo
 import { MerchantLoginComponent } from './merchant-login/merchant-login.component';
 import { UserLoginComponent } from './user-login/user-login.component';
 import { BackendService } from './backend.service';
+import { UserhomepageComponent } from './userhomepage/userhomepage.component';
+import { MerchanthomepageComponent } from './merchanthomepage/merchanthomepage.component';
 
 const appRoutes: Routes = [
   {path: '', component: HomeComponent},
@@ -18,6 +20,8 @@ const appRoutes: Routes = [
   {path: 'merchant-signup', component: MerchantSignupComponent},
   {path: 'user-login', component: UserLoginComponent},
   {path: 'merchant-login', component: MerchantLoginComponent},
+  {path: 'user-homepage', component: UserhomepageComponent},
+  {path: 'merchant-homepage', component: MerchanthomepageComponent},
   {path: '**', redirectTo: '/', pathMatch: 'full'}
 ]
 
@@ -29,6 +33,8 @@ const appRoutes: Routes = [
     MerchantSignupComponent,
     MerchantLoginComponent,
     UserLoginComponent,
+    UserhomepageComponent,
+    MerchanthomepageComponent,
   ],
   imports: [
     BrowserModule,

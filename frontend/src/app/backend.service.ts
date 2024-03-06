@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable, inject } from "@angular/core";
-import { MerchantSignUpDetails, UserSignUpDetails } from "./models";
+import { LoginDetails, MerchantSignUpDetails, UserSignUpDetails } from "./models";
 import { Observable, lastValueFrom } from "rxjs";
 
 @Injectable()
@@ -18,8 +18,13 @@ export class BackendService {
         return this.http.post<MerchantSignUpDetails>(url, body)
     }
 
-    getUsernameList(): Promise<any> {
-        const url: string = 'http://localhost:8080/api/usernamelist'
-        return lastValueFrom(this.http.get(url)) 
+    getUserLoginDetails(): Promise<LoginDetails[]> {
+        const url: string = 'http://localhost:8080/api/userlogindetails'
+        return lastValueFrom(this.http.get<LoginDetails[]>(url)) 
+    }
+
+    getMerchantLoginDetails(): Promise<LoginDetails[]> {
+        const url: string = 'http://localhost:8080/api/merchantlogindetails'
+        return lastValueFrom(this.http.get<LoginDetails[]>(url)) 
     }
 }
