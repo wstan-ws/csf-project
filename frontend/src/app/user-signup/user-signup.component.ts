@@ -12,12 +12,16 @@ export class UserSignupComponent implements OnInit {
 
   userSignupForm!: FormGroup
   user!: UserSignUpDetails
+  username: string[] = []
+  match: boolean = false
   
   private fb = inject(FormBuilder)
   private backendSvc = inject(BackendService)
 
   ngOnInit(): void {
     this.userSignupForm = this.createUserSignupForm()
+    this.backendSvc.getUserLoginDetails()
+      .then(result => result.forEach(r => this.username.push(r.username)))
   }
 
   resetForm(): void {
@@ -26,9 +30,18 @@ export class UserSignupComponent implements OnInit {
 
   submitForm(): void {
     this.user = this.userSignupForm.value
-    this.backendSvc.userSignup(this.user)
-      .then()
-    this.userSignupForm = this.createUserSignupForm()
+    for (let i = 0; i < this.username.length; i++) {
+      if (this.user.username === this.username[i]) {
+        this.match = true
+        break
+      } 
+    }
+    if (!this.match) {
+      this.backendSvc.userSignup(this.user).then()
+      this.userSignupForm = this.createUserSignupForm()
+    } else {
+      alert('Username already exists')
+    }
   }
 
   createUserSignupForm(): FormGroup {

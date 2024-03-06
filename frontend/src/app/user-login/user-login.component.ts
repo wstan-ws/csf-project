@@ -32,8 +32,6 @@ export class UserLoginComponent implements OnInit {
       if (username === this.loginDetailList[i].username && password === this.loginDetailList[i].password) {
         this.match = true
         break
-      } else {
-        this.match = false
       }
     }
     if (this.match) {

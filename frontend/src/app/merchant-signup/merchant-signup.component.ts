@@ -12,12 +12,16 @@ export class MerchantSignupComponent implements OnInit {
 
   merchantSignupForm!: FormGroup
   merchant!: MerchantSignUpDetails
+  username: string[] = []
+  match: boolean = false
 
   private fb = inject(FormBuilder)
   private backendSvc = inject(BackendService)
 
   ngOnInit(): void {
     this.merchantSignupForm = this.createMerchantSignupForm()
+    this.backendSvc.getMerchantLoginDetails()
+      .then(result => result.forEach(r => this.username.push(r.username)))
   }
 
   resetForm(): void {
@@ -38,8 +42,18 @@ export class MerchantSignupComponent implements OnInit {
       alert("Please enter License Number")
     } else {
       this.merchant = this.merchantSignupForm.value
-      this.backendSvc.merchantSignup(this.merchant).subscribe()
-      this.merchantSignupForm = this.createMerchantSignupForm()
+      for (let i = 0; i < this.username.length; i++) {
+        if (this.merchant.username === this.username[i]) {
+          this.match = true
+          break
+        } 
+      }
+      if (!this.match) {
+        this.backendSvc.merchantSignup(this.merchant).subscribe()
+        this.merchantSignupForm = this.createMerchantSignupForm()
+      } else {
+        alert('Username already exists')
+      }
     }
   }
 
