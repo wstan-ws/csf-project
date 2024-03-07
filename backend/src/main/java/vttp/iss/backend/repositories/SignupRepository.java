@@ -130,4 +130,38 @@ public class SignupRepository {
             username
         );
     }
+
+    public Merchant getMerchantDetails(String filter) {
+
+        Merchant merchant = null;
+        
+        SqlRowSet rs = template.queryForRowSet(Utils.SQL_GET_MERCHANT_DETAILS, filter);
+        while (rs.next()) {
+            String firstName = rs.getString("first_name");
+            String lastName = rs.getString("last_name");
+            String email = rs.getString("email");
+            String phoneNumber = rs.getString("phone_number");
+            String companyName = rs.getString("company_name");
+            String username = rs.getString("username");
+            String password = rs.getString("password");
+            Boolean elec = rs.getBoolean("electrician");
+            String elecLicenseNo = rs.getString("electrician_license_no");
+            Boolean plum = rs.getBoolean("plumber");
+            String plumLicenseNo = rs.getString("plumber_license_no");
+            Boolean aircon = rs.getBoolean("aircon");
+            String airconLicenseNo = rs.getString("aircon_license_no");
+            merchant = new Merchant(firstName, lastName, email, phoneNumber, companyName, username, password, elec, elecLicenseNo, plum, plumLicenseNo, aircon, airconLicenseNo);
+        }
+        
+        return merchant;
+    } 
+
+    public void editMerchantPassword(String username, String password) {
+
+        template.update(
+            Utils.SQL_EDIT_MERCHANT_PASSWORD,
+            password,
+            username
+        );
+    }
 }

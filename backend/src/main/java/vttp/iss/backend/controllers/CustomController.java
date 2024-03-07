@@ -18,6 +18,7 @@ import jakarta.json.JsonArrayBuilder;
 import jakarta.json.JsonObject;
 import jakarta.json.JsonObjectBuilder;
 import vttp.iss.backend.models.LoginDetails;
+import vttp.iss.backend.models.Merchant;
 import vttp.iss.backend.models.User;
 import vttp.iss.backend.services.MainService;
 
@@ -100,6 +101,39 @@ public class CustomController {
     public ResponseEntity<String> editUserPassword(@PathVariable String filter, @RequestBody String password) {
 
         mainSvc.editUserPassword(filter, password);
+
+        return ResponseEntity.ok().body("{}");
+    }
+
+    @GetMapping(path = "/merchantdetails/{filter}")
+    public ResponseEntity<String> getMerchantDetails(@PathVariable String filter) {
+
+        Merchant merchant = mainSvc.getMerchantDetails(filter);
+
+        JsonObjectBuilder objBuilder = Json.createObjectBuilder();
+        JsonObject o = objBuilder
+            .add("firstName", merchant.getFirstName())
+            .add("lastName", merchant.getLastName())
+            .add("email", merchant.getEmail())
+            .add("phoneNumber", merchant.getPhoneNumber())
+            .add("companyName", merchant.getCompanyName())
+            .add("username", merchant.getUsername())
+            .add("password", merchant.getPassword())
+            .add("elec", merchant.getElec())
+            .add("elecLicenseNo", merchant.getElecLicenseNo())
+            .add("plum", merchant.getPlum())
+            .add("plumLicenseNo", merchant.getPlumLicenseNo())
+            .add("aircon", merchant.getAircon())
+            .add("airconLicenseNo", merchant.getAirconLicenseNo())
+            .build();
+
+        return ResponseEntity.ok().body(o.toString());
+    }
+
+    @PatchMapping(path = "/editmerchantpassword/{filter}")
+    public ResponseEntity<String> editMerchantPassword(@PathVariable String filter, @RequestBody String password) {
+
+        mainSvc.editMerchantPassword(filter, password);
 
         return ResponseEntity.ok().body("{}");
     }

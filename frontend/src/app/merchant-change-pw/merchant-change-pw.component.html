@@ -1,0 +1,42 @@
+<div>
+    <h1>Change Password</h1>
+</div>
+
+<div>
+    <form [formGroup]="merchantChangePwForm" (submit)="changePw()">
+        <table>
+            <tr>
+                <td>New Password: </td>
+                <td>
+                    <input type="password" formControlName="newpw">
+                    <span *ngIf="merchantChangePwForm?.get('newpw')?.hasError('required') && merchantChangePwForm.get('newpw')?.touched"  >
+                        *This Field is Mandatory
+                    </span>
+                    <span *ngIf="merchantChangePwForm?.get('newpw')?.hasError('minlength') && merchantChangePwForm.get('newpw')?.touched"  >
+                        *Min 8 Characters
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td>Confirm Password: </td>
+                <td>
+                    <input type="password" formControlName="confirmpw">
+                    <span *ngIf="merchantChangePwForm?.get('confirmpw')?.hasError('required') && merchantChangePwForm.get('confirmpw')?.touched"  >
+                        *This Field is Mandatory
+                    </span>
+                    <span *ngIf="merchantChangePwForm?.get('confirmpw')?.hasError('minlength') && merchantChangePwForm.get('confirmpw')?.touched"  >
+                        *Min 8 Characters
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <button type="submit" [disabled]="merchantChangePwForm.invalid">Submit</button>
+                </td>
+                <td>
+                    <button type="button" (click)="cancel()">Cancel</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>

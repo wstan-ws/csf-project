@@ -4,13 +4,13 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { BackendService } from '../backend.service';
 
 @Component({
-  selector: 'app-user-change-pw',
-  templateUrl: './user-change-pw.component.html',
-  styleUrl: './user-change-pw.component.css'
+  selector: 'app-merchant-change-pw',
+  templateUrl: './merchant-change-pw.component.html',
+  styleUrl: './merchant-change-pw.component.css'
 })
-export class UserChangePwComponent implements OnInit {
+export class MerchantChangePwComponent implements OnInit {
 
-  userChangePwForm!: FormGroup
+  merchantChangePwForm!: FormGroup
   currPassword!: string
 
   private fb = inject(FormBuilder)
@@ -20,31 +20,31 @@ export class UserChangePwComponent implements OnInit {
 
   ngOnInit(): void {
     const username = this.activatedRoute.snapshot.params['username']
-    this.userChangePwForm = this.createUserChangePwForm()
-    this.backendSvc.getUserDetails(username)
+    this.merchantChangePwForm = this.createMerchantChangePwForm()
+    this.backendSvc.getMerchantDetails(username)
       .subscribe(result => this.currPassword = result.password)
   }
 
   changePw(): void {
-    if (this.userChangePwForm.get('newpw')?.value != this.userChangePwForm.get('confirmpw')?.value) {
+    if (this.merchantChangePwForm.get('newpw')?.value != this.merchantChangePwForm.get('confirmpw')?.value) {
       alert('Password does not match')
-    } else if (this.userChangePwForm.get('newpw')?.value === this.currPassword) {
+    } else if (this.merchantChangePwForm.get('newpw')?.value === this.currPassword) {
       alert('New password cannot be the same as your existing password')
     } else {
       const username = this.activatedRoute.snapshot.params['username']
-      const newpw = this.userChangePwForm.get('newpw')?.value
-      this.backendSvc.editUserPassword(username, newpw).subscribe()
+      const newpw = this.merchantChangePwForm.get('newpw')?.value
+      this.backendSvc.editMerchantPassword(username, newpw).subscribe()
       alert('Password Changed')
-      this.router.navigate(['/user-profile', username])
+      this.router.navigate(['/merchant-profile', username])
     }
   }
 
   cancel(): void {
     const username = this.activatedRoute.snapshot.params['username']
-    this.router.navigate(['/user-profile', username])
+    this.router.navigate(['/merchant-profile', username])
   }
 
-  private createUserChangePwForm(): FormGroup {
+  private createMerchantChangePwForm(): FormGroup {
     return this.fb.group({
       newpw: this.fb.control<string>("", [ Validators.required, Validators.minLength(8) ]),
       confirmpw: this.fb.control<string>("", [ Validators.required, Validators.minLength(8) ])

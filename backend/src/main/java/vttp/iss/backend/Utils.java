@@ -47,4 +47,16 @@ public class Utils {
             SET password = ?
             WHERE username = ?
             """;
+
+    public static final String SQL_GET_MERCHANT_DETAILS = """
+            SELECT *
+            FROM merchants
+            WHERE username = ?
+            """;
+
+    public static final String SQL_EDIT_MERCHANT_PASSWORD = """
+            UPDATE merchants
+            SET password = ?
+            WHERE username = ?        
+            """;
 }

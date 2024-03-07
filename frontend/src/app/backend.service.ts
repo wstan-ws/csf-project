@@ -52,4 +52,14 @@ export class BackendService {
         const url: string = `http://localhost:8080/api/edituserpassword/${filter}`
         return this.http.patch(url, body)
     }
+
+    getMerchantDetails(filter: string): Observable<MerchantSignUpDetails> {
+        const url: string = `http://localhost:8080/api/merchantdetails/${filter}`
+        return this.http.get<MerchantSignUpDetails>(url)
+    }
+
+    editMerchantPassword(filter: string, body: any): Observable<any> {
+        const url: string = `http://localhost:8080/api/editmerchantpassword/${filter}`
+        return this.http.patch(url, body)
+    }
 }

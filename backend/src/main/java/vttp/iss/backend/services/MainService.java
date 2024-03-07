@@ -43,4 +43,12 @@ public class MainService {
     public void editUserPassword(String filter, String password) {
         signupRepo.editUserPassword(filter, password);
     }
+
+    public Merchant getMerchantDetails(String filter) {
+        return signupRepo.getMerchantDetails(filter);
+    }
+
+    public void editMerchantPassword(String filter, String password) {
+        signupRepo.editMerchantPassword(filter, password);
+    }
 }
