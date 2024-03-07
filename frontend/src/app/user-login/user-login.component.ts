@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BackendService } from '../backend.service';
 import { LoginDetails } from '../models';
 import { Router } from '@angular/router';
+import { LoginStore } from '../login.store';
 
 @Component({
   selector: 'app-user-login',
@@ -18,6 +19,7 @@ export class UserLoginComponent implements OnInit {
   private fb = inject(FormBuilder)
   private backendSvc = inject(BackendService)
   private router = inject(Router)
+  private loginStore = inject(LoginStore)
 
   ngOnInit(): void {
     this.userLoginForm = this.createUserLoginForm()
@@ -35,6 +37,11 @@ export class UserLoginComponent implements OnInit {
       }
     }
     if (this.match) {
+      const user: LoginDetails = {
+        username: username, 
+        password: password
+      }
+      this.loginStore.addLoginDetail(user)
       this.router.navigate(['/user-homepage'])
       this.match = false
     } else {

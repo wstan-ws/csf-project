@@ -1,0 +1,37 @@
+<div>
+    <h1>User Profile</h1>
+    <button type="button" (click)="back()">Back</button>
+</div>
+
+<div>
+    <table *ngIf="userDetails$ | async as userDetails">
+        <tr>
+            <td>First Name: </td>
+            <td>{{ userDetails.firstName }}</td>
+        </tr>
+        <tr>
+            <td>Last Name: </td>
+            <td>{{ userDetails.lastName }}</td>
+        </tr>
+        <tr>
+            <td>Email: </td>
+            <td>{{ userDetails.email }}</td>
+        </tr>
+        <tr>
+            <td>Phone Number: </td>
+            <td>{{ userDetails.phoneNumber }}</td>
+        </tr>
+        <tr>
+            <td>Address: </td>
+            <td>{{ userDetails.address }}</td>
+        </tr>
+        <tr>
+            <td>
+                <button type="button" (click)="edit()">Edit Profile</button>
+            </td>
+            <td>
+                <button type="button" (click)="changepw()">Change Password</button>
+            </td>
+        </tr>
+    </table>
+</div>

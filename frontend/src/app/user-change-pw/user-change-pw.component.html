@@ -1,0 +1,42 @@
+<div>
+    <h1>Change Password</h1>
+</div>
+
+<div>
+    <form [formGroup]="userChangePwForm" (submit)="changePw()">
+        <table>
+            <tr>
+                <td>New Password: </td>
+                <td>
+                    <input type="password" formControlName="newpw">
+                    <span *ngIf="userChangePwForm?.get('newpw')?.hasError('required') && userChangePwForm.get('newpw')?.touched"  >
+                        *This Field is Mandatory
+                    </span>
+                    <span *ngIf="userChangePwForm?.get('newpw')?.hasError('minlength') && userChangePwForm.get('newpw')?.touched"  >
+                        *Min 8 Characters
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td>Confirm Password: </td>
+                <td>
+                    <input type="password" formControlName="confirmpw">
+                    <span *ngIf="userChangePwForm?.get('confirmpw')?.hasError('required') && userChangePwForm.get('confirmpw')?.touched"  >
+                        *This Field is Mandatory
+                    </span>
+                    <span *ngIf="userChangePwForm?.get('confirmpw')?.hasError('minlength') && userChangePwForm.get('confirmpw')?.touched"  >
+                        *Min 8 Characters
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <button type="submit" [disabled]="userChangePwForm.invalid">Submit</button>
+                </td>
+                <td>
+                    <button type="button" (click)="cancel()">Cancel</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>

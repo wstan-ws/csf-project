@@ -1,5 +1,6 @@
 package vttp.iss.backend.repositories;
 
+import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,6 +9,9 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Repository;
 
+import jakarta.json.Json;
+import jakarta.json.JsonObject;
+import jakarta.json.JsonReader;
 import vttp.iss.backend.Utils;
 import vttp.iss.backend.models.LoginDetails;
 import vttp.iss.backend.models.Merchant;
@@ -76,5 +80,54 @@ public class SignupRepository {
         }
 
         return loginDetailsList;
+    }
+
+    public User getUserDetails(String filter) {
+
+        User user = null;
+        
+        SqlRowSet rs = template.queryForRowSet(Utils.SQL_GET_USER_DETAILS, filter);
+        while (rs.next()) {
+            String firstName = rs.getString("first_name");
+            String lastName = rs.getString("last_name");
+            String email = rs.getString("email");
+            String phoneNumber = rs.getString("phone_number");
+            String address = rs.getString("address");
+            String username = rs.getString("username");
+            String password = rs.getString("password");
+            user = new User(firstName, lastName, email, phoneNumber, address, username, password);
+        }
+        
+        return user;
+    }
+
+    public void editUserDetails(String username, String payload) {
+
+        JsonReader reader = Json.createReader(new StringReader(payload));
+        JsonObject o = reader.readObject();
+        String firstName = o.getString("firstName");
+        String lastName = o.getString("lastName");
+        String email = o.getString("email");
+        String phoneNumber = o.getString("phoneNumber");
+        String address = o.getString("address");
+
+        template.update(
+            Utils.SQL_EDIT_USER_DETAILS, 
+            firstName, 
+            lastName, 
+            email, 
+            phoneNumber, 
+            address,
+            username
+        );
+    }
+
+    public void editUserPassword(String username, String password) {
+
+        template.update(
+            Utils.SQL_EDIT_USER_PASSWORD,
+            password,
+            username
+        );
     }
 }

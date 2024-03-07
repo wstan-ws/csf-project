@@ -41,7 +41,7 @@
                     <span *ngIf="userSignupForm?.get('phoneNumber')?.hasError('required') && userSignupForm.get('phoneNumber')?.touched"  >
                         *Phone Number is Mandatory
                     </span>
-                    <span *ngIf="userSignupForm?.get('phoneNumber')?.hasError('pattern') && userSignupForm.get('phoneNumber')?.touched"  >
+                    <span *ngIf="(userSignupForm?.get('phoneNumber')?.hasError('pattern') || userSignupForm?.get('phoneNumber')?.hasError('maxlength')) && userSignupForm.get('phoneNumber')?.touched"  >
                         *Phone Number format required
                     </span>
                 </td>
@@ -63,7 +63,7 @@
                         *Username is Mandatory
                     </span>
                     <span *ngIf="userSignupForm?.get('username')?.hasError('minlength') && userSignupForm.get('username')?.touched"  >
-                        *Min 3 characters
+                        *Min 3 Characters
                     </span>
                 </td>
             </tr>
@@ -75,7 +75,7 @@
                         *Password is Mandatory
                     </span>
                     <span *ngIf="userSignupForm?.get('password')?.hasError('minlength') && userSignupForm.get('password')?.touched"  >
-                        *Min 8 characters
+                        *Min 8 Characters
                     </span>
                 </td>
             </tr>

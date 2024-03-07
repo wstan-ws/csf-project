@@ -13,6 +13,10 @@ import { UserLoginComponent } from './user-login/user-login.component';
 import { BackendService } from './backend.service';
 import { UserhomepageComponent } from './userhomepage/userhomepage.component';
 import { MerchanthomepageComponent } from './merchanthomepage/merchanthomepage.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
+import { LoginStore } from './login.store';
+import { UserEditProfileComponent } from './user-edit-profile/user-edit-profile.component';
+import { UserChangePwComponent } from './user-change-pw/user-change-pw.component';
 
 const appRoutes: Routes = [
   {path: '', component: HomeComponent},
@@ -22,6 +26,9 @@ const appRoutes: Routes = [
   {path: 'merchant-login', component: MerchantLoginComponent},
   {path: 'user-homepage', component: UserhomepageComponent},
   {path: 'merchant-homepage', component: MerchanthomepageComponent},
+  {path: 'user-profile/:username', component: UserProfileComponent},
+  {path: 'user-edit-profile/:username', component: UserEditProfileComponent},
+  {path: 'user-change-password/:username', component: UserChangePwComponent},
   {path: '**', redirectTo: '/', pathMatch: 'full'}
 ]
 
@@ -35,6 +42,9 @@ const appRoutes: Routes = [
     UserLoginComponent,
     UserhomepageComponent,
     MerchanthomepageComponent,
+    UserProfileComponent,
+    UserEditProfileComponent,
+    UserChangePwComponent,
   ],
   imports: [
     BrowserModule,
@@ -42,7 +52,7 @@ const appRoutes: Routes = [
     HttpClientModule,
     RouterModule.forRoot(appRoutes, {useHash: true})
   ],
-  providers: [BackendService],
+  providers: [BackendService, LoginStore],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

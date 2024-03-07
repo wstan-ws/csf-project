@@ -28,3 +28,11 @@ export interface LoginDetails {
     username: string
     password: string
 }
+
+export interface LoginDetailsSlice {
+    loginDetails: LoginDetails[]
+}
+
+export interface UserSignUpDetailsSlice {
+    userSignUpDetails: UserSignUpDetails[]
+}

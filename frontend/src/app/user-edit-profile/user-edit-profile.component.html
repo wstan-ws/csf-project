@@ -1,0 +1,69 @@
+<div>
+    <h1>Edit Profile</h1>
+</div>
+
+<div>
+    <form [formGroup]="userEditForm" (submit)="editForm()">
+        <table>
+            <tr>
+                <td>First Name: </td>
+                <td>
+                    <input type="text" formControlName="firstName">
+                    <span *ngIf="userEditForm?.get('firstName')?.hasError('required') && userEditForm.get('firstName')?.touched"  >
+                        *First Name is Mandatory
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td>Last Name: </td>
+                <td>
+                    <input type="text" formControlName="lastName">
+                    <span *ngIf="userEditForm?.get('lastName')?.hasError('required') && userEditForm.get('lastName')?.touched"  >
+                        *Last Name is Mandatory
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td>Email: </td>
+                <td>
+                    <input type="email" formControlName="email">
+                    <span *ngIf="userEditForm?.get('email')?.hasError('required') && userEditForm.get('email')?.touched"  >
+                        *Email is Mandatory
+                    </span>
+                    <span *ngIf="userEditForm?.get('email')?.hasError('email') && userEditForm.get('email')?.touched"  >
+                        *Email format required
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td>Phone Number: </td>
+                <td>
+                    <input type="text" formControlName="phoneNumber">
+                    <span *ngIf="userEditForm?.get('phoneNumber')?.hasError('required') && userEditForm.get('phoneNumber')?.touched"  >
+                        *Phone Number is Mandatory
+                    </span>
+                    <span *ngIf="(userEditForm?.get('phoneNumber')?.hasError('pattern') || userEditForm?.get('phoneNumber')?.hasError('maxlength')) && userEditForm.get('phoneNumber')?.touched"  >
+                        *Phone Number format required
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td>Address: </td>
+                <td>
+                    <textarea cols="30" rows="5" formControlName="address"></textarea>
+                    <span *ngIf="userEditForm?.get('address')?.hasError('required') && userEditForm.get('address')?.touched"  >
+                        *Address is Mandatory
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <button type="submit">Save</button>
+                </td>
+                <td>
+                    <button type="button" (click)="cancel()">Cancel</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>

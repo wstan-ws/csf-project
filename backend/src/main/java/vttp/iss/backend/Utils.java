@@ -25,4 +25,26 @@ public class Utils {
             SELECT username, password
             FROM merchants
             """;
+
+    public static final String SQL_GET_USER_DETAILS = """
+            SELECT *
+            FROM users
+            WHERE username = ?
+            """;
+
+    public static final String SQL_EDIT_USER_DETAILS = """
+            UPDATE users
+            SET first_name = ?,
+                last_name = ?,
+                email = ?,
+                phone_number = ?,
+                address = ?
+            WHERE username = ?
+            """;
+
+    public static final String SQL_EDIT_USER_PASSWORD = """
+            UPDATE users
+            SET password = ?
+            WHERE username = ?
+            """;
 }

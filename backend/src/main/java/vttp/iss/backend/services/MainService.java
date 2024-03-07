@@ -31,4 +31,16 @@ public class MainService {
     public List<LoginDetails> getMerchantsLoginDetails() {
         return signupRepo.getMerchantsLoginDetails();
     }
+
+    public User getUserDetails(String filter) {
+        return signupRepo.getUserDetails(filter);
+    }
+
+    public void editUserDetails(String filter, String payload) {
+        signupRepo.editUserDetails(filter, payload);
+    }
+
+    public void editUserPassword(String filter, String password) {
+        signupRepo.editUserPassword(filter, password);
+    }
 }
