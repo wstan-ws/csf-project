@@ -7,6 +7,7 @@ import { Observable, lastValueFrom } from "rxjs";
 export class BackendService {
 
     user!: UserSignUpDetails
+    merchant!: MerchantSignUpDetails
 
     private http = inject(HttpClient)
 
@@ -16,6 +17,14 @@ export class BackendService {
 
     getUser(): UserSignUpDetails {
         return this.user
+    }
+
+    setMerchant(merchant: MerchantSignUpDetails): void {
+        this.merchant = merchant
+    }
+
+    getMerchant(): MerchantSignUpDetails {
+        return this.merchant
     }
 
     userSignup(body: UserSignUpDetails): Promise<any> {
@@ -56,6 +65,11 @@ export class BackendService {
     getMerchantDetails(filter: string): Observable<MerchantSignUpDetails> {
         const url: string = `http://localhost:8080/api/merchantdetails/${filter}`
         return this.http.get<MerchantSignUpDetails>(url)
+    }
+
+    editMerchantDetails(filter: string, body: any): Observable<any> {
+        const url: string = `http://localhost:8080/api/editmerchantdetails/${filter}`
+        return this.http.patch(url, body)
     }
 
     editMerchantPassword(filter: string, body: any): Observable<any> {

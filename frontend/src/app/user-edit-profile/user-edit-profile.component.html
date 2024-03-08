@@ -58,7 +58,7 @@
             </tr>
             <tr>
                 <td>
-                    <button type="submit">Save</button>
+                    <button type="submit" [disabled]="userEditForm.invalid">Save</button>
                 </td>
                 <td>
                     <button type="button" (click)="cancel()">Cancel</button>

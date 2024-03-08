@@ -156,6 +156,40 @@ public class SignupRepository {
         return merchant;
     } 
 
+    public void editMerchantDetails(String username, String payload) {
+
+        JsonReader reader = Json.createReader(new StringReader(payload));
+        JsonObject o = reader.readObject();
+        String firstName = o.getString("firstName");
+        String lastName = o.getString("lastName");
+        String email = o.getString("email");
+        String phoneNumber = o.getString("phoneNumber");
+        String companyName = o.getString("companyName");
+        Boolean elec = o.getBoolean("elec");
+        String elecLicenseNo = o.getString("elecLicenseNo");
+        Boolean plum = o.getBoolean("plum");
+        String plumLicenseNo = o.getString("plumLicenseNo");
+        Boolean aircon = o.getBoolean("aircon");
+        String airconLicenseNo = o.getString("airconLicenseNo");
+
+
+        template.update(
+            Utils.SQL_EDIT_MERCHANT_DETAILS, 
+            firstName, 
+            lastName, 
+            email, 
+            phoneNumber, 
+            companyName,
+            elec,
+            elecLicenseNo,
+            plum,
+            plumLicenseNo,
+            aircon,
+            airconLicenseNo,
+            username
+        );
+    }
+
     public void editMerchantPassword(String username, String password) {
 
         template.update(

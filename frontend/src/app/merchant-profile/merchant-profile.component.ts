@@ -12,6 +12,7 @@ import { MerchantSignUpDetails } from '../models';
 export class MerchantProfileComponent implements OnInit {
 
   merchant$!: Observable<MerchantSignUpDetails>
+  merchant!: MerchantSignUpDetails
 
   private backendSvc = inject(BackendService)
   private activatedRoute = inject(ActivatedRoute)
@@ -20,6 +21,7 @@ export class MerchantProfileComponent implements OnInit {
   ngOnInit(): void {
     const username = this.activatedRoute.snapshot.params['username']
     this.merchant$ = this.backendSvc.getMerchantDetails(username)
+    this.merchant$.subscribe(result => this.merchant = result)
   }
 
   back() {
@@ -27,7 +29,9 @@ export class MerchantProfileComponent implements OnInit {
   }
 
   edit() {
-
+    this.backendSvc.setMerchant(this.merchant)
+    const username = this.activatedRoute.snapshot.params['username']
+    this.router.navigate(['/merchant-edit-profile', username])
   }
 
   changepw() {

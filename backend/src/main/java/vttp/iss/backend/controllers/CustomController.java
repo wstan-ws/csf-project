@@ -130,6 +130,14 @@ public class CustomController {
         return ResponseEntity.ok().body(o.toString());
     }
 
+    @PatchMapping(path = "/editmerchantdetails/{filter}")
+    public ResponseEntity<String> editMerchantDetails(@PathVariable String filter, @RequestBody String payload) {
+
+        mainSvc.editMerchantDetails(filter, payload);
+
+        return ResponseEntity.ok().body("{}");
+    }
+
     @PatchMapping(path = "/editmerchantpassword/{filter}")
     public ResponseEntity<String> editMerchantPassword(@PathVariable String filter, @RequestBody String password) {
 

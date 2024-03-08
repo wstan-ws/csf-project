@@ -54,6 +54,22 @@ public class Utils {
             WHERE username = ?
             """;
 
+    public static final String SQL_EDIT_MERCHANT_DETAILS = """
+            UPDATE users
+            SET first_name = ?,
+                last_name = ?,
+                email = ?,
+                phone_number = ?,
+                company_name = ?,
+                electrician = ?,
+                electrician_license_no = ?,
+                plumber = ?,
+                plumber_license_no = ?,
+                aircon = ?,
+                aircon_license_no = ?
+        WHERE username = ?
+            """;
+
     public static final String SQL_EDIT_MERCHANT_PASSWORD = """
             UPDATE merchants
             SET password = ?

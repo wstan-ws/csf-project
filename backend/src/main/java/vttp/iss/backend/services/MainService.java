@@ -48,6 +48,10 @@ public class MainService {
         return signupRepo.getMerchantDetails(filter);
     }
 
+    public void editMerchantDetails(String filter, String payload) {
+        signupRepo.editMerchantDetails(filter, payload);
+    }
+
     public void editMerchantPassword(String filter, String password) {
         signupRepo.editMerchantPassword(filter, password);
     }
