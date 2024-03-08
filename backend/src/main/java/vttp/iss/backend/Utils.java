@@ -55,7 +55,7 @@ public class Utils {
             """;
 
     public static final String SQL_EDIT_MERCHANT_DETAILS = """
-            UPDATE users
+            UPDATE merchants
             SET first_name = ?,
                 last_name = ?,
                 email = ?,
