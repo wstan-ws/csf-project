@@ -8,51 +8,55 @@ import org.springframework.stereotype.Service;
 import vttp.iss.backend.models.LoginDetails;
 import vttp.iss.backend.models.Merchant;
 import vttp.iss.backend.models.User;
-import vttp.iss.backend.repositories.SignupRepository;
+import vttp.iss.backend.repositories.MerchantRepository;
+import vttp.iss.backend.repositories.UserRepository;
 
 @Service
 public class MainService {
 
     @Autowired
-    private SignupRepository signupRepo;
+    private UserRepository userRepo;
+    private MerchantRepository merchantRepo;
 
+    // User
     public void userSignup(User user) {
-        signupRepo.userSignup(user);
+        userRepo.userSignup(user);
     }
 
-    public void merchantSignup(Merchant merchant) {
-        signupRepo.merchantSignup(merchant);
-    }
-    
     public List<LoginDetails> getUsersLoginDetails() {
-        return signupRepo.getUsersLoginDetails();
-    }
-
-    public List<LoginDetails> getMerchantsLoginDetails() {
-        return signupRepo.getMerchantsLoginDetails();
+        return userRepo.getUsersLoginDetails();
     }
 
     public User getUserDetails(String filter) {
-        return signupRepo.getUserDetails(filter);
+        return userRepo.getUserDetails(filter);
     }
 
     public void editUserDetails(String filter, String payload) {
-        signupRepo.editUserDetails(filter, payload);
+        userRepo.editUserDetails(filter, payload);
     }
 
     public void editUserPassword(String filter, String password) {
-        signupRepo.editUserPassword(filter, password);
+        userRepo.editUserPassword(filter, password);
+    }
+
+    // Merchant
+    public void merchantSignup(Merchant merchant) {
+        merchantRepo.merchantSignup(merchant);
+    }
+
+    public List<LoginDetails> getMerchantsLoginDetails() {
+        return merchantRepo.getMerchantsLoginDetails();
     }
 
     public Merchant getMerchantDetails(String filter) {
-        return signupRepo.getMerchantDetails(filter);
+        return merchantRepo.getMerchantDetails(filter);
     }
 
     public void editMerchantDetails(String filter, String payload) {
-        signupRepo.editMerchantDetails(filter, payload);
+        merchantRepo.editMerchantDetails(filter, payload);
     }
 
     public void editMerchantPassword(String filter, String password) {
-        signupRepo.editMerchantPassword(filter, password);
+        merchantRepo.editMerchantPassword(filter, password);
     }
 }
