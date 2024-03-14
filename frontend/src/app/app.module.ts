@@ -20,6 +20,8 @@ import { UserChangePwComponent } from './user-change-pw/user-change-pw.component
 import { MerchantProfileComponent } from './merchant-profile/merchant-profile.component';
 import { MerchantChangePwComponent } from './merchant-change-pw/merchant-change-pw.component';
 import { MerchantEditProfileComponent } from './merchant-edit-profile/merchant-edit-profile.component';
+import { UserSignupSuccessComponent } from './user-signup-success/user-signup-success.component';
+import { MerchantSignupSuccessComponent } from './merchant-signup-success/merchant-signup-success.component';
 
 const appRoutes: Routes = [
   {path: '', component: HomeComponent},
@@ -35,6 +37,8 @@ const appRoutes: Routes = [
   {path: 'merchant-profile/:username', component: MerchantProfileComponent},
   {path: 'merchant-edit-profile/:username', component: MerchantEditProfileComponent},
   {path: 'merchant-change-password/:username', component: MerchantChangePwComponent},
+  {path: 'user-signup-success', component: UserSignupSuccessComponent},
+  {path: 'merchant-signup-success', component: MerchantSignupSuccessComponent},
   {path: '**', redirectTo: '/', pathMatch: 'full'}
 ]
 
@@ -54,6 +58,8 @@ const appRoutes: Routes = [
     MerchantProfileComponent,
     MerchantChangePwComponent,
     MerchantEditProfileComponent,
+    UserSignupSuccessComponent,
+    MerchantSignupSuccessComponent,
   ],
   imports: [
     BrowserModule,

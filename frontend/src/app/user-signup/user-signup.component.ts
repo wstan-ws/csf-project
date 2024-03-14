@@ -2,6 +2,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserSignUpDetails } from '../models';
 import { BackendService } from '../backend.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-signup',
@@ -17,6 +18,7 @@ export class UserSignupComponent implements OnInit {
   
   private fb = inject(FormBuilder)
   private backendSvc = inject(BackendService)
+  private router = inject(Router)
 
   ngOnInit(): void {
     this.userSignupForm = this.createUserSignupForm()
@@ -39,6 +41,7 @@ export class UserSignupComponent implements OnInit {
     if (!this.match) {
       this.backendSvc.userSignup(this.user).then()
       this.userSignupForm = this.createUserSignupForm()
+      this.router.navigate(['/user-signup-success'])
     } else {
       alert('Username already exists')
     }

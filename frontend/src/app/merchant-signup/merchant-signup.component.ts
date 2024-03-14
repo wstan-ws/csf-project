@@ -2,6 +2,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BackendService } from '../backend.service';
 import { MerchantSignUpDetails } from '../models';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-merchant-signup',
@@ -17,6 +18,7 @@ export class MerchantSignupComponent implements OnInit {
 
   private fb = inject(FormBuilder)
   private backendSvc = inject(BackendService)
+  private router = inject(Router)
 
   ngOnInit(): void {
     this.merchantSignupForm = this.createMerchantSignupForm()
@@ -51,6 +53,7 @@ export class MerchantSignupComponent implements OnInit {
       if (!this.match) {
         this.backendSvc.merchantSignup(this.merchant).subscribe()
         this.merchantSignupForm = this.createMerchantSignupForm()
+        this.router.navigate(['/merchant-signup-success'])
       } else {
         alert('Username already exists')
       }

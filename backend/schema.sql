@@ -6,7 +6,6 @@ use handy;
 
 create table users (
 
-    id int auto_increment,
     first_name varchar(128) not null,
     last_name varchar(128) not null,
     email varchar(128) not null,
@@ -15,12 +14,11 @@ create table users (
     username varchar(64) not null,
     password varchar(64) not null,
 
-    primary key (id)
+    primary key (username)
 );
 
 create table merchants (
 
-    id int auto_increment,
     first_name varchar(128) not null,
     last_name varchar(128) not null,
     email varchar(128) not null,
@@ -35,5 +33,5 @@ create table merchants (
     aircon boolean default false,
     aircon_license_no varchar(64),
 
-    primary key (id)
+    primary key (username)
 );
