@@ -16,6 +16,8 @@ public class MainService {
 
     @Autowired
     private UserRepository userRepo;
+
+    @Autowired
     private MerchantRepository merchantRepo;
 
     // User
