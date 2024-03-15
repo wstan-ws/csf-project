@@ -61,4 +61,16 @@ public class MainService {
     public void editMerchantPassword(String filter, String password) {
         merchantRepo.editMerchantPassword(filter, password);
     }
+
+    public List<Merchant> getElectricians() {
+        return merchantRepo.getElectricians();
+    }
+
+    public List<Merchant> getPlumbers() {
+        return merchantRepo.getPlumbers();
+    }
+
+    public List<Merchant> getAircons() {
+        return merchantRepo.getAircons();
+    }
 }

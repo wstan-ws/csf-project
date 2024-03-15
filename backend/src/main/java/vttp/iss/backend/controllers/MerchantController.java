@@ -105,4 +105,97 @@ public class MerchantController {
 
         return ResponseEntity.ok().body("{}");
     }
+
+    @GetMapping(path = "/getelectricians")
+    public ResponseEntity<String> getElectricians() {
+
+        List<Merchant> merchantList = mainSvc.getElectricians();
+
+        JsonArrayBuilder arrBuilder = Json.createArrayBuilder();
+
+        for (Merchant merchant : merchantList) {
+            JsonObjectBuilder objBuilder = Json.createObjectBuilder();
+            JsonObjectBuilder o = objBuilder
+                .add("firstName", merchant.getFirstName())
+                .add("lastName", merchant.getLastName())
+                .add("email", merchant.getEmail())
+                .add("phoneNumber", merchant.getPhoneNumber())
+                .add("companyName", merchant.getCompanyName())
+                .add("username", merchant.getUsername())
+                .add("password", merchant.getPassword())
+                .add("elec", merchant.getElec())
+                .add("elecLicenseNo", merchant.getElecLicenseNo())
+                .add("plum", merchant.getPlum())
+                .add("plumLicenseNo", merchant.getPlumLicenseNo())
+                .add("aircon", merchant.getAircon())
+                .add("airconLicenseNo", merchant.getAirconLicenseNo());
+            arrBuilder.add(o);
+        }
+
+        JsonArray arr = arrBuilder.build();
+
+        return ResponseEntity.ok().body(arr.toString());
+    }
+
+    @GetMapping(path = "/getplumbers")
+    public ResponseEntity<String> getPlumbers() {
+
+        List<Merchant> merchantList = mainSvc.getPlumbers();
+
+        JsonArrayBuilder arrBuilder = Json.createArrayBuilder();
+
+        for (Merchant merchant : merchantList) {
+            JsonObjectBuilder objBuilder = Json.createObjectBuilder();
+            JsonObjectBuilder o = objBuilder
+                .add("firstName", merchant.getFirstName())
+                .add("lastName", merchant.getLastName())
+                .add("email", merchant.getEmail())
+                .add("phoneNumber", merchant.getPhoneNumber())
+                .add("companyName", merchant.getCompanyName())
+                .add("username", merchant.getUsername())
+                .add("password", merchant.getPassword())
+                .add("elec", merchant.getElec())
+                .add("elecLicenseNo", merchant.getElecLicenseNo())
+                .add("plum", merchant.getPlum())
+                .add("plumLicenseNo", merchant.getPlumLicenseNo())
+                .add("aircon", merchant.getAircon())
+                .add("airconLicenseNo", merchant.getAirconLicenseNo());
+            arrBuilder.add(o);
+        }
+
+        JsonArray arr = arrBuilder.build();
+
+        return ResponseEntity.ok().body(arr.toString());
+    }
+
+    @GetMapping(path = "/getaircons")
+    public ResponseEntity<String> getAircons() {
+
+        List<Merchant> merchantList = mainSvc.getAircons();
+
+        JsonArrayBuilder arrBuilder = Json.createArrayBuilder();
+
+        for (Merchant merchant : merchantList) {
+            JsonObjectBuilder objBuilder = Json.createObjectBuilder();
+            JsonObjectBuilder o = objBuilder
+                .add("firstName", merchant.getFirstName())
+                .add("lastName", merchant.getLastName())
+                .add("email", merchant.getEmail())
+                .add("phoneNumber", merchant.getPhoneNumber())
+                .add("companyName", merchant.getCompanyName())
+                .add("username", merchant.getUsername())
+                .add("password", merchant.getPassword())
+                .add("elec", merchant.getElec())
+                .add("elecLicenseNo", merchant.getElecLicenseNo())
+                .add("plum", merchant.getPlum())
+                .add("plumLicenseNo", merchant.getPlumLicenseNo())
+                .add("aircon", merchant.getAircon())
+                .add("airconLicenseNo", merchant.getAirconLicenseNo());
+            arrBuilder.add(o);
+        }
+
+        JsonArray arr = arrBuilder.build();
+
+        return ResponseEntity.ok().body(arr.toString());
+    }
 }

@@ -22,6 +22,12 @@ import { MerchantChangePwComponent } from './merchant-change-pw/merchant-change-
 import { MerchantEditProfileComponent } from './merchant-edit-profile/merchant-edit-profile.component';
 import { UserSignupSuccessComponent } from './user-signup-success/user-signup-success.component';
 import { MerchantSignupSuccessComponent } from './merchant-signup-success/merchant-signup-success.component';
+import { SearchElectricianComponent } from './search-electrician/search-electrician.component';
+import { ElectricianDetailsComponent } from './electrician-details/electrician-details.component';
+import { SearchPlumberComponent } from './search-plumber/search-plumber.component';
+import { PlumberDetailsComponent } from './plumber-details/plumber-details.component';
+import { SearchAirconComponent } from './search-aircon/search-aircon.component';
+import { AirconDetailsComponent } from './aircon-details/aircon-details.component';
 
 const appRoutes: Routes = [
   {path: '', component: HomeComponent},
@@ -39,6 +45,12 @@ const appRoutes: Routes = [
   {path: 'merchant-change-password/:username', component: MerchantChangePwComponent},
   {path: 'user-signup-success', component: UserSignupSuccessComponent},
   {path: 'merchant-signup-success', component: MerchantSignupSuccessComponent},
+  {path: 'electrician', component: SearchElectricianComponent},
+  {path: 'electrician-details/:username', component: ElectricianDetailsComponent},
+  {path: 'plumber', component: SearchPlumberComponent},
+  {path: 'plumber-details/:username', component: PlumberDetailsComponent},
+  {path: 'aircon', component: SearchAirconComponent},
+  {path: 'aircon-details/:username', component: AirconDetailsComponent},
   {path: '**', redirectTo: '/', pathMatch: 'full'}
 ]
 
@@ -60,6 +72,12 @@ const appRoutes: Routes = [
     MerchantEditProfileComponent,
     UserSignupSuccessComponent,
     MerchantSignupSuccessComponent,
+    SearchElectricianComponent,
+    ElectricianDetailsComponent,
+    SearchPlumberComponent,
+    PlumberDetailsComponent,
+    SearchAirconComponent,
+    AirconDetailsComponent,
   ],
   imports: [
     BrowserModule,

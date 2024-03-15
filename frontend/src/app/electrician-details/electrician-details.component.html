@@ -1,0 +1,27 @@
+<div *ngIf="electrician | async as electrician">
+    <h3>{{ electrician.firstName }} {{ electrician.lastName }}</h3>
+    <hr>
+
+    <ul>
+        <li>Company: {{ electrician.companyName }}</li>
+        <li>License No: {{ electrician.elecLicenseNo }}</li>
+        <li>Rating: INSERT RATING HERE</li>
+    </ul>
+
+    <div>
+        <table border="1">
+            <thead>
+                <th>Reviews</th>
+            </thead>
+            <tbody>
+                <tr>
+                    INSERT REVIEWS HERE
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div>
+    <button type="button" (click)="back()">Back</button>
+</div>

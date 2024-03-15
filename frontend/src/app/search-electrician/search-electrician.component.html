@@ -1,0 +1,16 @@
+<div>
+    <h1>Electricians</h1>
+</div>
+
+<div>
+    <ol *ngIf="electricians | async as electricians">
+        <li *ngFor="let elec of electricians">
+            <a [routerLink]="['/electrician-details', elec.username]">{{ elec.firstName }} {{ elec.lastName }}</a>
+            <span> ({{ elec.companyName }}) INSERT RATING HERE</span>
+        </li>
+    </ol>
+</div>
+
+<div>
+    <button type="button" (click)="back()">Back</button>
+</div>

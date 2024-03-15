@@ -1,0 +1,27 @@
+<div *ngIf="aircon | async as aircon">
+    <h3>{{ aircon.firstName }} {{ aircon.lastName }}</h3>
+    <hr>
+
+    <ul>
+        <li>Company: {{ aircon.companyName }}</li>
+        <li>License No: {{ aircon.airconLicenseNo }}</li>
+        <li>Rating: INSERT RATING HERE</li>
+    </ul>
+
+    <div>
+        <table border="1">
+            <thead>
+                <th>Reviews</th>
+            </thead>
+            <tbody>
+                <tr>
+                    INSERT REVIEWS HERE
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div>
+    <button type="button" (click)="back()">Back</button>
+</div>

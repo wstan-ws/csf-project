@@ -1,0 +1,16 @@
+<div>
+    <h1>Aircon Repairman</h1>
+</div>
+
+<div>
+    <ol *ngIf="aircons | async as aircons">
+        <li *ngFor="let aircon of aircons">
+            <a [routerLink]="['/aircon-details', aircon.username]">{{ aircon.firstName }} {{ aircon.lastName }}</a>
+            <span> ({{ aircon.companyName }}) INSERT RATING HERE</span>
+        </li>
+    </ol>
+</div>
+
+<div>
+    <button type="button" (click)="back()">Back</button>
+</div>

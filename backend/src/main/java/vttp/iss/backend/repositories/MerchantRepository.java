@@ -121,4 +121,82 @@ public class MerchantRepository {
             username
         );
     }
+
+    public List<Merchant> getElectricians() {
+
+        SqlRowSet rs = template.queryForRowSet(Utils.SQL_GET_ELECTRICIANS, 1);
+
+        List<Merchant> merchantList = new ArrayList<>();
+        while (rs.next()) {
+            String firstName = rs.getString("first_name");
+            String lastName = rs.getString("last_name");
+            String email = rs.getString("email");
+            String phoneNumber = rs.getString("phone_number");
+            String companyName = rs.getString("company_name");
+            String username = rs.getString("username");
+            String password = rs.getString("password");
+            Boolean elec = rs.getBoolean("electrician");
+            String elecLicenseNo = rs.getString("electrician_license_no");
+            Boolean plum = rs.getBoolean("plumber");
+            String plumLicenseNo = rs.getString("plumber_license_no");
+            Boolean aircon = rs.getBoolean("aircon");
+            String airconLicenseNo = rs.getString("aircon_license_no");
+            Merchant merchant = new Merchant(firstName, lastName, email, phoneNumber, companyName, username, password, elec, elecLicenseNo, plum, plumLicenseNo, aircon, airconLicenseNo);
+            merchantList.add(merchant);
+        }
+
+        return merchantList;
+    }
+
+    public List<Merchant> getPlumbers() {
+
+        SqlRowSet rs = template.queryForRowSet(Utils.SQL_GET_PLUMBERS, 1);
+
+        List<Merchant> merchantList = new ArrayList<>();
+        while (rs.next()) {
+            String firstName = rs.getString("first_name");
+            String lastName = rs.getString("last_name");
+            String email = rs.getString("email");
+            String phoneNumber = rs.getString("phone_number");
+            String companyName = rs.getString("company_name");
+            String username = rs.getString("username");
+            String password = rs.getString("password");
+            Boolean elec = rs.getBoolean("electrician");
+            String elecLicenseNo = rs.getString("electrician_license_no");
+            Boolean plum = rs.getBoolean("plumber");
+            String plumLicenseNo = rs.getString("plumber_license_no");
+            Boolean aircon = rs.getBoolean("aircon");
+            String airconLicenseNo = rs.getString("aircon_license_no");
+            Merchant merchant = new Merchant(firstName, lastName, email, phoneNumber, companyName, username, password, elec, elecLicenseNo, plum, plumLicenseNo, aircon, airconLicenseNo);
+            merchantList.add(merchant);
+        }
+
+        return merchantList;
+    }
+
+    public List<Merchant> getAircons() {
+
+        SqlRowSet rs = template.queryForRowSet(Utils.SQL_GET_AIRCONS, 1);
+
+        List<Merchant> merchantList = new ArrayList<>();
+        while (rs.next()) {
+            String firstName = rs.getString("first_name");
+            String lastName = rs.getString("last_name");
+            String email = rs.getString("email");
+            String phoneNumber = rs.getString("phone_number");
+            String companyName = rs.getString("company_name");
+            String username = rs.getString("username");
+            String password = rs.getString("password");
+            Boolean elec = rs.getBoolean("electrician");
+            String elecLicenseNo = rs.getString("electrician_license_no");
+            Boolean plum = rs.getBoolean("plumber");
+            String plumLicenseNo = rs.getString("plumber_license_no");
+            Boolean aircon = rs.getBoolean("aircon");
+            String airconLicenseNo = rs.getString("aircon_license_no");
+            Merchant merchant = new Merchant(firstName, lastName, email, phoneNumber, companyName, username, password, elec, elecLicenseNo, plum, plumLicenseNo, aircon, airconLicenseNo);
+            merchantList.add(merchant);
+        }
+
+        return merchantList;
+    }
 }
