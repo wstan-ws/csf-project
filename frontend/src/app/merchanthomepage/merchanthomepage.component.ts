@@ -1,6 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { LoginStore } from '../login.store';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-merchanthomepage',
@@ -12,11 +11,10 @@ export class MerchanthomepageComponent implements OnInit {
   username!: string
 
   private router = inject(Router)
-  private loginStore = inject(LoginStore)
+  private activatedRoute = inject(ActivatedRoute)
 
   ngOnInit(): void {
-    this.loginStore.getLoginDetail
-      .subscribe(result => this.username = result[0]?.username)
+    this.username = this.activatedRoute.snapshot.params['username']
   }
 
   profile() {
@@ -24,7 +22,6 @@ export class MerchanthomepageComponent implements OnInit {
   }
 
   logout() {
-    this.loginStore.clearLoginDetail()
     this.username = ''
     this.router.navigate(['/'])
   }

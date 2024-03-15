@@ -1,6 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { Router } from '@angular/router';
-import { LoginStore } from '../login.store';
+import { ActivatedRoute, Router } from '@angular/router';
+import { BackendService } from '../backend.service';
 
 @Component({
   selector: 'app-userhomepage',
@@ -12,11 +12,12 @@ export class UserhomepageComponent implements OnInit {
   username!: string
 
   private router = inject(Router)
-  private loginStore = inject(LoginStore)
+  private activatedRoute = inject(ActivatedRoute)
+  private backendSvc = inject(BackendService)
 
   ngOnInit(): void {
-    this.loginStore.getLoginDetail
-      .subscribe(result => this.username = result[0]?.username)
+    this.username = this.activatedRoute.snapshot.params['username']
+    this.backendSvc.setUsername(this.username)
   }
 
   profile(): void {
@@ -24,7 +25,6 @@ export class UserhomepageComponent implements OnInit {
   }
 
   logout(): void {
-    this.loginStore.clearLoginDetail()
     this.username = ''
     this.router.navigate(['/'])
   }

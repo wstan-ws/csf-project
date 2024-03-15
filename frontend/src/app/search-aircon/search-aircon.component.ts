@@ -12,15 +12,17 @@ import { Router } from '@angular/router';
 export class SearchAirconComponent {
 
     aircons!: Observable<MerchantSignUpDetails[]>
+    username!: string
 
     private backendSvc = inject(BackendService)
     private router = inject(Router)
 
     ngOnInit(): void {
       this.aircons = this.backendSvc.getAircons()
+      this.username = this.backendSvc.getUsername()
     }
 
     back(): void {
-      this.router.navigate(['/user-homepage'])
+      this.router.navigate(['/user-homepage', this.username])
     }
 }

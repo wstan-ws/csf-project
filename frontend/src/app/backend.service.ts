@@ -8,8 +8,17 @@ export class BackendService {
 
     user!: UserSignUpDetails
     merchant!: MerchantSignUpDetails
+    username!: string
 
     private http = inject(HttpClient)
+
+    setUsername(username: string): void {
+        this.username = username
+    }
+
+    getUsername(): string {
+        return this.username
+    }
 
     setUser(user: UserSignUpDetails): void {
         this.user = user

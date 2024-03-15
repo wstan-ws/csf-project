@@ -13,7 +13,6 @@ export class UserProfileComponent implements OnInit{
 
   userDetails$!: Observable<UserSignUpDetails>
   username: string = ''
-  user!: UserSignUpDetails
 
   private activatedRoute = inject(ActivatedRoute)
   private router = inject(Router)
@@ -22,16 +21,16 @@ export class UserProfileComponent implements OnInit{
   ngOnInit(): void {
     const username = this.activatedRoute.snapshot.params['username']
     this.userDetails$ = this.backendSvc.getUserDetails(username)
-    this.userDetails$.subscribe(result => this.user = result)
     this.username = username
+    this.backendSvc.getUserDetails(username)
+      .subscribe(result => this.backendSvc.setUser(result))
   }
 
   back(): void {
-    this.router.navigate(['/user-homepage'])
+    this.router.navigate(['/user-homepage', this.username])
   }
 
   edit(): void {
-    this.backendSvc.setUser(this.user)
     this.router.navigate(['/user-edit-profile', this.username])
   }
 

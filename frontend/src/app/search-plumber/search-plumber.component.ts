@@ -12,15 +12,17 @@ import { MerchantSignUpDetails } from '../models';
 export class SearchPlumberComponent implements OnInit {
 
     plumbers!: Observable<MerchantSignUpDetails[]>
+    username!: string
 
     private backendSvc = inject(BackendService)
     private router = inject(Router)
 
     ngOnInit(): void {
       this.plumbers = this.backendSvc.getPlumbers()
+      this.username = this.backendSvc.getUsername()
     }
 
     back(): void {
-      this.router.navigate(['/user-homepage'])
+      this.router.navigate(['/user-homepage', this.username])
     }
 }
