@@ -81,18 +81,33 @@ public class Utils {
         public static final String SQL_GET_ELECTRICIANS = """
                 SELECT *
                 FROM merchants
-                WHERE electrician = ?                
+                WHERE electrician = ?
+                AND active = ?                
         """;
 
         public static final String SQL_GET_PLUMBERS = """
                 SELECT *
                 FROM merchants
-                WHERE plumber = ?                
+                WHERE plumber = ?
+                AND active = ?                                
         """;
 
         public static final String SQL_GET_AIRCONS = """
                 SELECT *
                 FROM merchants
-                WHERE aircon = ?                
+                WHERE aircon = ?  
+                AND active = ?                              
+        """;
+
+        public static final String SQL_SET_ACTIVE = """
+                UPDATE merchants
+                SET active = ?
+                WHERE username = ?                
+        """;
+
+        public static final String SQL_SET_INACTIVE = """
+                UPDATE merchants
+                SET active = ?
+                WHERE username = ?                
         """;
 }

@@ -2,8 +2,8 @@
     <h1>Electricians</h1>
 </div>
 
-<div>
-    <ol *ngIf="electricians | async as electricians">
+<div *ngIf="electricians | async as electricians">
+    <ol *ngIf="electricians.length > 0; else noElec">
         <li *ngFor="let elec of electricians">
             <a [routerLink]="['/electrician-details', elec.username]">{{ elec.firstName }} {{ elec.lastName }}</a>
             <span> ({{ elec.companyName }}) INSERT RATING HERE</span>
@@ -14,3 +14,7 @@
 <div>
     <button type="button" (click)="back()">Back</button>
 </div>
+
+<ng-template #noElec>
+    <h4>No Electricians Available</h4>
+</ng-template>

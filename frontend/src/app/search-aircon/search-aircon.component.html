@@ -2,8 +2,8 @@
     <h1>Aircon Repairman</h1>
 </div>
 
-<div>
-    <ol *ngIf="aircons | async as aircons">
+<div *ngIf="aircons | async as aircons">
+    <ol *ngIf="aircons.length > 0; else noAircon">
         <li *ngFor="let aircon of aircons">
             <a [routerLink]="['/aircon-details', aircon.username]">{{ aircon.firstName }} {{ aircon.lastName }}</a>
             <span> ({{ aircon.companyName }}) INSERT RATING HERE</span>
@@ -14,3 +14,7 @@
 <div>
     <button type="button" (click)="back()">Back</button>
 </div>
+
+<ng-template #noAircon>
+    <h4>No Aircon Repairman Available</h4>
+</ng-template>

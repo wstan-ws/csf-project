@@ -73,4 +73,12 @@ public class MainService {
     public List<Merchant> getAircons() {
         return merchantRepo.getAircons();
     }
+
+    public void setActive(String filter, Boolean active) {
+        merchantRepo.setActive(filter, active);
+    }
+
+    public void setInactive(String filter, Boolean active) {
+        merchantRepo.setInactive(filter, active);
+    }
 }

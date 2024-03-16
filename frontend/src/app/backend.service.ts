@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable, inject } from "@angular/core";
-import { LoginDetails, MerchantSignUpDetails, UserSignUpDetails } from "./models";
+import { LoginDetails, MerchantActivity, MerchantSignUpDetails, UserSignUpDetails } from "./models";
 import { Observable, lastValueFrom } from "rxjs";
 
 @Injectable()
@@ -99,5 +99,15 @@ export class BackendService {
     getAircons(): Observable<MerchantSignUpDetails[]> {
         const url: string = 'http://localhost:8080/api/getaircons'
         return this.http.get<MerchantSignUpDetails[]>(url)
+    }
+
+    setActive(filter: string, body: boolean): Promise<any> {
+        const url: string = `http://localhost:8080/api/setactive/${filter}`
+        return lastValueFrom(this.http.patch(url, body)) 
+    }
+
+    setInactive(filter: string, body: boolean): Promise<any> {
+        const url: string = `http://localhost:8080/api/setinactive/${filter}`
+        return lastValueFrom(this.http.patch(url, body)) 
     }
 }

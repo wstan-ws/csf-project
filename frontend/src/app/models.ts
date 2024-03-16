@@ -22,6 +22,7 @@ export interface MerchantSignUpDetails {
     plumLicenseNo: string
     aircon: boolean
     airconLicenseNo: string
+    active: boolean
 }
 
 export interface LoginDetails {
@@ -29,10 +30,7 @@ export interface LoginDetails {
     password: string
 }
 
-export interface LoginDetailsSlice {
-    loginDetails: LoginDetails[]
-}
-
-export interface UserSignUpDetailsSlice {
-    userSignUpDetails: UserSignUpDetails[]
+export interface MerchantActivity {
+    username: string
+    active: boolean
 }

@@ -2,8 +2,8 @@
     <h1>Plumbers</h1>
 </div>
 
-<div>
-    <ol *ngIf="plumbers | async as plumbers">
+<div *ngIf="plumbers | async as plumbers">
+    <ol *ngIf="plumbers.length > 0; else noPlum">
         <li *ngFor="let plum of plumbers">
             <a [routerLink]="['/plumber-details', plum.username]">{{ plum.firstName }} {{ plum.lastName }}</a>
             <span> ({{ plum.companyName }}) INSERT RATING HERE</span>
@@ -14,3 +14,7 @@
 <div>
     <button type="button" (click)="back()">Back</button>
 </div>
+
+<ng-template #noPlum>
+    <h4>No Plumbers Available</h4>
+</ng-template>

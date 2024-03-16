@@ -1,7 +1,7 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BackendService } from '../backend.service';
-import { MerchantSignUpDetails } from '../models';
+import { MerchantActivity, MerchantSignUpDetails } from '../models';
 import { Router } from '@angular/router';
 
 @Component({

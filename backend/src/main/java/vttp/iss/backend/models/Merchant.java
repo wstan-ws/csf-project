@@ -17,7 +17,8 @@ public class Merchant {
     private String plumLicenseNo;
     private Boolean aircon;
     private String airconLicenseNo;
-    
+    private Boolean active;
+
     public Merchant(String firstName, String lastName, String email, String phoneNumber, String companyName,
             String username, String password, Boolean elec, String elecLicenseNo, Boolean plum, String plumLicenseNo,
             Boolean aircon, String airconLicenseNo) {
@@ -34,6 +35,25 @@ public class Merchant {
         this.plumLicenseNo = plumLicenseNo;
         this.aircon = aircon;
         this.airconLicenseNo = airconLicenseNo;
+    }
+
+    public Merchant(String firstName, String lastName, String email, String phoneNumber, String companyName,
+            String username, String password, Boolean elec, String elecLicenseNo, Boolean plum, String plumLicenseNo,
+            Boolean aircon, String airconLicenseNo, Boolean active) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.companyName = companyName;
+        this.username = username;
+        this.password = password;
+        this.elec = elec;
+        this.elecLicenseNo = elecLicenseNo;
+        this.plum = plum;
+        this.plumLicenseNo = plumLicenseNo;
+        this.aircon = aircon;
+        this.airconLicenseNo = airconLicenseNo;
+        this.active = active;
     }
 
     public static Merchant toMerchant(JsonObject obj) {
@@ -159,11 +179,20 @@ public class Merchant {
         this.airconLicenseNo = airconLicenseNo;
     }
 
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
+    }
+
     @Override
     public String toString() {
         return "Merchant [firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + ", phoneNumber="
                 + phoneNumber + ", companyName=" + companyName + ", username=" + username + ", password=" + password
                 + ", elec=" + elec + ", elecLicenseNo=" + elecLicenseNo + ", plum=" + plum + ", plumLicenseNo="
-                + plumLicenseNo + ", aircon=" + aircon + ", airconLicenseNo=" + airconLicenseNo + "]";
+                + plumLicenseNo + ", aircon=" + aircon + ", airconLicenseNo=" + airconLicenseNo + ", active=" + active
+                + "]";
     }
 }

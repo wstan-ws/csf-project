@@ -32,6 +32,7 @@ create table merchants (
     plumber_license_no varchar(64),
     aircon boolean default false,
     aircon_license_no varchar(64),
+    active boolean default false,
 
     primary key (username)
 );

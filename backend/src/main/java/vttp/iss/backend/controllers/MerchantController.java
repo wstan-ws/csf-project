@@ -198,4 +198,20 @@ public class MerchantController {
 
         return ResponseEntity.ok().body(arr.toString());
     }
+
+    @PatchMapping(path = "/setactive/{filter}")
+    public ResponseEntity<String> setActive(@PathVariable String filter, @RequestBody Boolean active) {
+
+        mainSvc.setActive(filter, active);
+
+        return ResponseEntity.ok().body("{}");
+    }
+
+    @PatchMapping(path = "/setinactive/{filter}")
+    public ResponseEntity<String> setInactive(@PathVariable String filter, @RequestBody Boolean active) {
+
+        mainSvc.setInactive(filter, active);
+
+        return ResponseEntity.ok().body("{}");
+    }
 }

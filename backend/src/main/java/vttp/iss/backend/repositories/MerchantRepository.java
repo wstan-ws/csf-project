@@ -37,7 +37,8 @@ public class MerchantRepository {
             merchant.getPlum(),
             merchant.getPlumLicenseNo(),
             merchant.getAircon(),
-            merchant.getAirconLicenseNo());
+            merchant.getAirconLicenseNo()
+        );
     }
 
     public List<LoginDetails> getMerchantsLoginDetails() {
@@ -73,7 +74,8 @@ public class MerchantRepository {
             String plumLicenseNo = rs.getString("plumber_license_no");
             Boolean aircon = rs.getBoolean("aircon");
             String airconLicenseNo = rs.getString("aircon_license_no");
-            merchant = new Merchant(firstName, lastName, email, phoneNumber, companyName, username, password, elec, elecLicenseNo, plum, plumLicenseNo, aircon, airconLicenseNo);
+            Boolean active = rs.getBoolean("active");
+            merchant = new Merchant(firstName, lastName, email, phoneNumber, companyName, username, password, elec, elecLicenseNo, plum, plumLicenseNo, aircon, airconLicenseNo, active);
         }
         
         return merchant;
@@ -124,7 +126,7 @@ public class MerchantRepository {
 
     public List<Merchant> getElectricians() {
 
-        SqlRowSet rs = template.queryForRowSet(Utils.SQL_GET_ELECTRICIANS, 1);
+        SqlRowSet rs = template.queryForRowSet(Utils.SQL_GET_ELECTRICIANS, 1, 1);
 
         List<Merchant> merchantList = new ArrayList<>();
         while (rs.next()) {
@@ -141,7 +143,8 @@ public class MerchantRepository {
             String plumLicenseNo = rs.getString("plumber_license_no");
             Boolean aircon = rs.getBoolean("aircon");
             String airconLicenseNo = rs.getString("aircon_license_no");
-            Merchant merchant = new Merchant(firstName, lastName, email, phoneNumber, companyName, username, password, elec, elecLicenseNo, plum, plumLicenseNo, aircon, airconLicenseNo);
+            Boolean active = rs.getBoolean("active");
+            Merchant merchant = new Merchant(firstName, lastName, email, phoneNumber, companyName, username, password, elec, elecLicenseNo, plum, plumLicenseNo, aircon, airconLicenseNo, active);
             merchantList.add(merchant);
         }
 
@@ -150,7 +153,7 @@ public class MerchantRepository {
 
     public List<Merchant> getPlumbers() {
 
-        SqlRowSet rs = template.queryForRowSet(Utils.SQL_GET_PLUMBERS, 1);
+        SqlRowSet rs = template.queryForRowSet(Utils.SQL_GET_PLUMBERS, 1, 1);
 
         List<Merchant> merchantList = new ArrayList<>();
         while (rs.next()) {
@@ -167,7 +170,8 @@ public class MerchantRepository {
             String plumLicenseNo = rs.getString("plumber_license_no");
             Boolean aircon = rs.getBoolean("aircon");
             String airconLicenseNo = rs.getString("aircon_license_no");
-            Merchant merchant = new Merchant(firstName, lastName, email, phoneNumber, companyName, username, password, elec, elecLicenseNo, plum, plumLicenseNo, aircon, airconLicenseNo);
+            Boolean active = rs.getBoolean("active");
+            Merchant merchant = new Merchant(firstName, lastName, email, phoneNumber, companyName, username, password, elec, elecLicenseNo, plum, plumLicenseNo, aircon, airconLicenseNo, active);
             merchantList.add(merchant);
         }
 
@@ -176,7 +180,7 @@ public class MerchantRepository {
 
     public List<Merchant> getAircons() {
 
-        SqlRowSet rs = template.queryForRowSet(Utils.SQL_GET_AIRCONS, 1);
+        SqlRowSet rs = template.queryForRowSet(Utils.SQL_GET_AIRCONS, 1, 1);
 
         List<Merchant> merchantList = new ArrayList<>();
         while (rs.next()) {
@@ -193,10 +197,27 @@ public class MerchantRepository {
             String plumLicenseNo = rs.getString("plumber_license_no");
             Boolean aircon = rs.getBoolean("aircon");
             String airconLicenseNo = rs.getString("aircon_license_no");
-            Merchant merchant = new Merchant(firstName, lastName, email, phoneNumber, companyName, username, password, elec, elecLicenseNo, plum, plumLicenseNo, aircon, airconLicenseNo);
+            Boolean active = rs.getBoolean("active");
+            Merchant merchant = new Merchant(firstName, lastName, email, phoneNumber, companyName, username, password, elec, elecLicenseNo, plum, plumLicenseNo, aircon, airconLicenseNo, active);
             merchantList.add(merchant);
         }
 
         return merchantList;
+    }
+
+    public void setActive(String filter, Boolean active) {
+
+        template.update(
+            Utils.SQL_SET_ACTIVE, 
+            active, 
+            filter);
+    }
+
+    public void setInactive(String filter, Boolean active) {
+
+        template.update(
+            Utils.SQL_SET_INACTIVE, 
+            active, 
+            filter);
     }
 }
