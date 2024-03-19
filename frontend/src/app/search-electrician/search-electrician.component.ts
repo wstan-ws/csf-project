@@ -3,6 +3,7 @@ import { BackendService } from '../backend.service';
 import { Observable } from 'rxjs';
 import { MerchantSignUpDetails } from '../models';
 import { Router } from '@angular/router';
+import { UsernameService } from '../username.service';
 
 @Component({
   selector: 'app-search-electrician',
@@ -16,10 +17,11 @@ export class SearchElectricianComponent implements OnInit {
 
     private backendSvc = inject(BackendService)
     private router = inject(Router)
+    private userSvc = inject(UsernameService)
 
     ngOnInit(): void {
       this.electricians = this.backendSvc.getElectricians()
-      this.username = this.backendSvc.getUsername()
+      this.username = this.userSvc.getUser().username
     }
 
     back(): void {

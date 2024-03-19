@@ -1,14 +1,17 @@
 package vttp.iss.backend.services;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import vttp.iss.backend.models.LoginDetails;
 import vttp.iss.backend.models.Merchant;
+import vttp.iss.backend.models.Message;
 import vttp.iss.backend.models.User;
 import vttp.iss.backend.repositories.MerchantRepository;
+import vttp.iss.backend.repositories.MessageRepository;
 import vttp.iss.backend.repositories.UserRepository;
 
 @Service
@@ -19,6 +22,9 @@ public class MainService {
 
     @Autowired
     private MerchantRepository merchantRepo;
+
+    @Autowired
+    private MessageRepository messageRepo;
 
     // User
     public void userSignup(User user) {
@@ -80,5 +86,14 @@ public class MainService {
 
     public void setInactive(String filter, Boolean active) {
         merchantRepo.setInactive(filter, active);
+    }
+
+    // Chat
+    public List<Message> getChat(String usernames, String user, String merchant) throws InterruptedException, ExecutionException {
+        return messageRepo.getChat(usernames, user, merchant);
+    }
+
+    public void postMessage(String usernames, Message message) {
+        messageRepo.postMessage(usernames, message);
     }
 }

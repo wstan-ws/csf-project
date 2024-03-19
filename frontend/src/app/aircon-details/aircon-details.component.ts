@@ -26,4 +26,8 @@ export class AirconDetailsComponent implements OnInit {
     back(): void {
       this.router.navigate(['/aircon'])
     }
+
+    chat(): void {
+
+    }
 }

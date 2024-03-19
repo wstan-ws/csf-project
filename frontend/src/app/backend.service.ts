@@ -1,40 +1,12 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable, inject } from "@angular/core";
-import { LoginDetails, MerchantActivity, MerchantSignUpDetails, UserSignUpDetails } from "./models";
+import { LoginDetails, MerchantSignUpDetails, Message, UserSignUpDetails } from "./models";
 import { Observable, lastValueFrom } from "rxjs";
 
 @Injectable()
 export class BackendService {
 
-    user!: UserSignUpDetails
-    merchant!: MerchantSignUpDetails
-    username!: string
-
     private http = inject(HttpClient)
-
-    setUsername(username: string): void {
-        this.username = username
-    }
-
-    getUsername(): string {
-        return this.username
-    }
-
-    setUser(user: UserSignUpDetails): void {
-        this.user = user
-    }
-
-    getUser(): UserSignUpDetails {
-        return this.user
-    }
-
-    setMerchant(merchant: MerchantSignUpDetails): void {
-        this.merchant = merchant
-    }
-
-    getMerchant(): MerchantSignUpDetails {
-        return this.merchant
-    }
 
     userSignup(body: UserSignUpDetails): Promise<any> {
         const url: string = 'http://localhost:8080/api/usersignup'
@@ -109,5 +81,15 @@ export class BackendService {
     setInactive(filter: string, body: boolean): Promise<any> {
         const url: string = `http://localhost:8080/api/setinactive/${filter}`
         return lastValueFrom(this.http.patch(url, body)) 
+    }
+
+    getChat(filter: string): Observable<Message[]> {
+        const url: string = `http://localhost:8080/api/chat/${filter}`
+        return this.http.get<Message[]>(url)
+    }
+
+    postMessage(filter: string, body: Message): Promise<any> {
+        const url: string = `http://localhost:8080/api/chat/post/${filter}`
+        return lastValueFrom(this.http.post<Message>(url, body))
     }
 }

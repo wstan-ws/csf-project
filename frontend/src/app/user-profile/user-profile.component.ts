@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { BackendService } from '../backend.service';
 import { Observable } from 'rxjs';
 import { UserSignUpDetails } from '../models';
+import { UsernameService } from '../username.service';
 
 @Component({
   selector: 'app-user-profile',
@@ -17,13 +18,14 @@ export class UserProfileComponent implements OnInit{
   private activatedRoute = inject(ActivatedRoute)
   private router = inject(Router)
   private backendSvc = inject(BackendService)
+  private userSvc = inject(UsernameService)
 
   ngOnInit(): void {
     const username = this.activatedRoute.snapshot.params['username']
     this.userDetails$ = this.backendSvc.getUserDetails(username)
     this.username = username
     this.backendSvc.getUserDetails(username)
-      .subscribe(result => this.backendSvc.setUser(result))
+      .subscribe(result => this.userSvc.setUser(result))
   }
 
   back(): void {

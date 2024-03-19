@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MerchantSignUpDetails } from '../models';
 import { BackendService } from '../backend.service';
+import { UsernameService } from '../username.service';
 
 @Component({
   selector: 'app-merchant-edit-profile',
@@ -18,9 +19,10 @@ export class MerchantEditProfileComponent implements OnInit {
   private activatedRoute = inject(ActivatedRoute)
   private router = inject(Router)
   private backendSvc = inject(BackendService)
+  private userSvc = inject(UsernameService)
 
   ngOnInit(): void {
-    this.merchant = this.backendSvc.getMerchant()
+    this.merchant = this.userSvc.getMerchant()
     this.merchantEditForm = this.createMerchantEditForm()
   }
 

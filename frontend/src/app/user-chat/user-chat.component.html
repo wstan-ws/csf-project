@@ -1,0 +1,20 @@
+<div>
+    <div>
+        <div class="header">
+            <h2>{{ merchantUsername }}</h2>
+        </div>
+        <div class="chatbox">
+            <ul *ngIf="chat$ | async as chat; else noChat">
+                <li *ngFor="let message of chat">{{ message.message }} - {{ message.timestamp }}</li>
+            </ul>
+        </div>
+        <div class="messagebox">
+            <form [formGroup]="messageForm" (submit)="send()">
+                <input type="text" formControlName="message">
+                <button type="submit">Send</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<ng-template #noChat></ng-template>

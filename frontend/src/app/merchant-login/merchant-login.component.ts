@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BackendService } from '../backend.service';
 import { LoginDetails } from '../models';
 import { Router } from '@angular/router';
+import { UsernameService } from '../username.service';
 
 @Component({
   selector: 'app-merchant-login',
@@ -18,6 +19,7 @@ export class MerchantLoginComponent implements OnInit {
   private fb = inject(FormBuilder)
   private backendSvc = inject(BackendService)
   private router = inject(Router)
+  private userSvc = inject(UsernameService)
 
   ngOnInit(): void {
     this.merchantLoginForm = this.createMerchantLoginForm()
@@ -36,7 +38,7 @@ export class MerchantLoginComponent implements OnInit {
     }
     if (this.match) {
       this.backendSvc.getMerchantDetails(username)
-        .subscribe(result => this.backendSvc.setMerchant(result))
+        .subscribe(result => this.userSvc.setMerchant(result))
       this.router.navigate(['/merchant-homepage', username])
       this.match = false
     } else {

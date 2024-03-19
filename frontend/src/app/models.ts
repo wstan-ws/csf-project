@@ -34,3 +34,9 @@ export interface MerchantActivity {
     username: string
     active: boolean
 }
+
+export interface Message {
+    username: string
+    message: string
+    timestamp: string
+}

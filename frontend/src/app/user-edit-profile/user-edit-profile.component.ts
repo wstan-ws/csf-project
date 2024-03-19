@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BackendService } from '../backend.service';
 import { UserSignUpDetails } from '../models';
 import { ActivatedRoute, Router } from '@angular/router';
+import { UsernameService } from '../username.service';
 
 @Component({
   selector: 'app-user-edit-profile',
@@ -18,9 +19,10 @@ export class UserEditProfileComponent implements OnInit {
   private backendSvc = inject(BackendService)
   private activatedRoute = inject(ActivatedRoute)
   private router = inject(Router)
+  private userSvc = inject(UsernameService)
 
   ngOnInit(): void {
-    this.user = this.backendSvc.getUser()
+    this.user = this.userSvc.getUser()
     this.userEditForm = this.createUserEditForm()
   }
 

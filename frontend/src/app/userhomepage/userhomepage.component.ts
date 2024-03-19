@@ -1,6 +1,7 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BackendService } from '../backend.service';
+import { UsernameService } from '../username.service';
 
 @Component({
   selector: 'app-userhomepage',
@@ -13,11 +14,9 @@ export class UserhomepageComponent implements OnInit {
 
   private router = inject(Router)
   private activatedRoute = inject(ActivatedRoute)
-  private backendSvc = inject(BackendService)
 
   ngOnInit(): void {
     this.username = this.activatedRoute.snapshot.params['username']
-    this.backendSvc.setUsername(this.username)
   }
 
   profile(): void {

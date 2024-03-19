@@ -3,6 +3,7 @@ import { BackendService } from '../backend.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { MerchantSignUpDetails } from '../models';
+import { UsernameService } from '../username.service';
 
 @Component({
   selector: 'app-merchant-profile',
@@ -16,12 +17,13 @@ export class MerchantProfileComponent implements OnInit {
   private backendSvc = inject(BackendService)
   private activatedRoute = inject(ActivatedRoute)
   private router = inject(Router)
+  private userSvc = inject(UsernameService)
 
   ngOnInit(): void {
     const username = this.activatedRoute.snapshot.params['username']
     this.merchant$ = this.backendSvc.getMerchantDetails(username)
     this.backendSvc.getMerchantDetails(username)
-      .subscribe(result => this.backendSvc.setMerchant(result))
+      .subscribe(result => this.userSvc.setMerchant(result))
   }
 
   back() {

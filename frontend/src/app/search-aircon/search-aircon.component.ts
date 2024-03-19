@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { MerchantSignUpDetails } from '../models';
 import { BackendService } from '../backend.service';
 import { Router } from '@angular/router';
+import { UsernameService } from '../username.service';
 
 @Component({
   selector: 'app-search-aircon',
@@ -16,10 +17,11 @@ export class SearchAirconComponent {
 
     private backendSvc = inject(BackendService)
     private router = inject(Router)
+    private userSvc = inject(UsernameService)
 
     ngOnInit(): void {
       this.aircons = this.backendSvc.getAircons()
-      this.username = this.backendSvc.getUsername()
+      this.username = this.userSvc.getUser().username
     }
 
     back(): void {

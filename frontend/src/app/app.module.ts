@@ -27,6 +27,8 @@ import { SearchPlumberComponent } from './search-plumber/search-plumber.componen
 import { PlumberDetailsComponent } from './plumber-details/plumber-details.component';
 import { SearchAirconComponent } from './search-aircon/search-aircon.component';
 import { AirconDetailsComponent } from './aircon-details/aircon-details.component';
+import { UsernameService } from './username.service';
+import { UserChatComponent } from './user-chat/user-chat.component';
 
 const appRoutes: Routes = [
   {path: '', component: HomeComponent},
@@ -50,6 +52,7 @@ const appRoutes: Routes = [
   {path: 'plumber-details/:username', component: PlumberDetailsComponent},
   {path: 'aircon', component: SearchAirconComponent},
   {path: 'aircon-details/:username', component: AirconDetailsComponent},
+  {path: 'userchat/:usernames', component: UserChatComponent},
   {path: '**', redirectTo: '/', pathMatch: 'full'}
 ]
 
@@ -77,6 +80,7 @@ const appRoutes: Routes = [
     PlumberDetailsComponent,
     SearchAirconComponent,
     AirconDetailsComponent,
+    UserChatComponent,
   ],
   imports: [
     BrowserModule,
@@ -84,7 +88,7 @@ const appRoutes: Routes = [
     HttpClientModule,
     RouterModule.forRoot(appRoutes, {useHash: true})
   ],
-  providers: [BackendService],
+  providers: [BackendService, UsernameService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
