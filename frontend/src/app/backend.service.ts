@@ -83,9 +83,9 @@ export class BackendService {
         return lastValueFrom(this.http.patch(url, body)) 
     }
 
-    getChat(filter: string): Observable<Message[]> {
+    getChat(filter: string): Promise<Message[]> {
         const url: string = `http://localhost:8080/api/chat/${filter}`
-        return this.http.get<Message[]>(url)
+        return lastValueFrom(this.http.get<Message[]>(url)) 
     }
 
     postMessage(filter: string, body: Message): Promise<any> {

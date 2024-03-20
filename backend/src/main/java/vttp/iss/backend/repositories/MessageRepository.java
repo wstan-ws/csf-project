@@ -1,5 +1,7 @@
 package vttp.iss.backend.repositories;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -27,6 +29,11 @@ public class MessageRepository {
         QuerySnapshot documents = future.get();
         if (documents.size() != 0) {
             List<Message> list = documents.toObjects(Message.class);
+            Collections.sort(list, new Comparator<Message>() {
+                public int compare(Message m1, Message m2) {
+                    return m1.getTimestamp().compareTo(m2.getTimestamp());
+                }
+            });
             return list;
         } else 
             return null;

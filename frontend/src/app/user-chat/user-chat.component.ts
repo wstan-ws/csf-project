@@ -1,16 +1,17 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BackendService } from '../backend.service';
 import { Observable } from 'rxjs';
 import { Message } from '../models';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { MessageService } from '../message.service';
 
 @Component({
   selector: 'app-user-chat',
   templateUrl: './user-chat.component.html',
   styleUrl: './user-chat.component.css'
 })
-export class UserChatComponent implements OnInit {
+export class UserChatComponent implements OnInit, OnDestroy {
 
   messageForm!: FormGroup
   merchantUsername!: string
@@ -20,22 +21,21 @@ export class UserChatComponent implements OnInit {
   private activatedRoute = inject(ActivatedRoute)
   private backendSvc = inject(BackendService)
   private fb = inject(FormBuilder)
+  msgSvc = inject(MessageService)
 
   ngOnInit(): void {
     this.usernames = this.activatedRoute.snapshot.params['usernames']
     this.merchantUsername = this.usernames.split('-')[1]
-    this.chat$! = this.backendSvc.getChat(this.usernames)
+    this.msgSvc.connect(this.usernames)
     this.messageForm = this.createMessageForm()
   }
 
+  ngOnDestroy(): void {
+    this.msgSvc.disconnect()
+  }
+
   send(): void {
-    const user = this.usernames.split('-')[0]
-    const body: Message = {
-      username: user,
-      message: this.messageForm.value.message,
-      timestamp: ''
-    }
-    this.backendSvc.postMessage(this.usernames, body)
+    this.msgSvc.sendMessage(this.messageForm.value.message, this.usernames)
     this.messageForm.reset()
   }
 

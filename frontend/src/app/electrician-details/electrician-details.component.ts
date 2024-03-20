@@ -19,7 +19,7 @@ export class ElectricianDetailsComponent implements OnInit {
     private activatedRoute = inject(ActivatedRoute)
     private backendSvc = inject(BackendService)
     private router = inject(Router)
-    private UserSvc = inject(UsernameService)
+    private userSvc = inject(UsernameService)
 
     ngOnInit(): void {
       this.electrician = this.backendSvc.getMerchantDetails(this.activatedRoute.snapshot.params['username'])
@@ -33,7 +33,7 @@ export class ElectricianDetailsComponent implements OnInit {
     }
 
     chat(): void {
-      this.userUsername = this.UserSvc.getUser().username
+      this.userUsername = this.userSvc.getUser().username
       const userAndMerchant: string = this.userUsername + '-' + this.electricianUsername
       this.router.navigate(['/userchat', userAndMerchant])
     }

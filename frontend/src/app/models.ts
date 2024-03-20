@@ -38,5 +38,5 @@ export interface MerchantActivity {
 export interface Message {
     username: string
     message: string
-    timestamp: string
+    timestamp: number
 }

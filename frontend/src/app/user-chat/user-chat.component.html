@@ -4,8 +4,8 @@
             <h2>{{ merchantUsername }}</h2>
         </div>
         <div class="chatbox">
-            <ul *ngIf="chat$ | async as chat; else noChat">
-                <li *ngFor="let message of chat">{{ message.message }} - {{ message.timestamp }}</li>
+            <ul *ngFor="let msg of msgSvc.msg">
+                <li>{{msg.username}}: {{ msg.message }}</li>
             </ul>
         </div>
         <div class="messagebox">

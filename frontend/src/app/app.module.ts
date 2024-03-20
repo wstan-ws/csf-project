@@ -29,6 +29,7 @@ import { SearchAirconComponent } from './search-aircon/search-aircon.component';
 import { AirconDetailsComponent } from './aircon-details/aircon-details.component';
 import { UsernameService } from './username.service';
 import { UserChatComponent } from './user-chat/user-chat.component';
+import { MessageService } from './message.service';
 
 const appRoutes: Routes = [
   {path: '', component: HomeComponent},
@@ -88,7 +89,7 @@ const appRoutes: Routes = [
     HttpClientModule,
     RouterModule.forRoot(appRoutes, {useHash: true})
   ],
-  providers: [BackendService, UsernameService],
+  providers: [BackendService, UsernameService, MessageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

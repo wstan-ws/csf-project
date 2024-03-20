@@ -7,13 +7,16 @@ import java.util.concurrent.ExecutionException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import jakarta.json.Json;
 import jakarta.json.JsonArray;
@@ -24,15 +27,19 @@ import jakarta.json.JsonReader;
 import vttp.iss.backend.models.Message;
 import vttp.iss.backend.services.MainService;
 
-@RestController
+@Controller
 @CrossOrigin()
 @RequestMapping(path = "/api")
 public class MessageController {
 
     @Autowired
     private MainService mainSvc;
+
+    @Autowired
+    private SimpMessagingTemplate template;
     
     @GetMapping(path = "/chat/{filter}")
+    @ResponseBody
     public ResponseEntity<String> getChat(@PathVariable String filter) throws InterruptedException, ExecutionException {
 
         String user = filter.split("-")[0];
@@ -60,6 +67,7 @@ public class MessageController {
     }
 
     @PostMapping(path = "/chat/post/{filter}")
+    @ResponseBody
     public ResponseEntity<String> postMessage(@PathVariable String filter, @RequestBody String payload) {
 
         JsonReader reader = Json.createReader(new StringReader(payload));
@@ -74,5 +82,20 @@ public class MessageController {
         mainSvc.postMessage(filter, newMessage);
 
         return ResponseEntity.ok().body("{}");
+    }
+
+    @MessageMapping("/send")
+    public void sendMessage(String payload) {
+
+        JsonReader reader = Json.createReader(new StringReader(payload));
+        JsonObject obj = reader.readObject();
+
+        String username = obj.getString("username");
+        String message = obj.getString("message");
+        Date timestamp = new Date();
+        
+        Message newMessage = new Message(username, message, timestamp);
+
+        template.convertAndSend("/message", newMessage);
     }
 }
