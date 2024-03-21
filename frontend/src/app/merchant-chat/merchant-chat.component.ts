@@ -1,19 +1,19 @@
 import { Component, OnDestroy, OnInit, inject } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { Message } from '../models';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MessageService } from '../message.service';
 
 @Component({
-  selector: 'app-user-chat',
-  templateUrl: './user-chat.component.html',
-  styleUrl: './user-chat.component.css'
+  selector: 'app-merchant-chat',
+  templateUrl: './merchant-chat.component.html',
+  styleUrl: './merchant-chat.component.css'
 })
-export class UserChatComponent implements OnInit, OnDestroy {
+export class MerchantChatComponent implements OnInit, OnDestroy {
 
   messageForm!: FormGroup
-  merchantUsername!: string
+  userUsername!: string
   chat$!: Observable<Message[]>
   usernames!: string
 
@@ -24,7 +24,7 @@ export class UserChatComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.usernames = this.activatedRoute.snapshot.params['usernames']
-    this.merchantUsername = this.usernames.split('-')[1]
+    this.userUsername = this.usernames.split('-')[0]
     this.msgSvc.connect(this.usernames)
     this.messageForm = this.createMessageForm()
   }
@@ -34,12 +34,12 @@ export class UserChatComponent implements OnInit, OnDestroy {
   }
 
   send(): void {
-    this.msgSvc.sendMessageUser(this.messageForm.value.message, this.usernames)
+    this.msgSvc.sendMessageMerchant(this.messageForm.value.message, this.usernames)
     this.messageForm.reset()
   }
 
   conversations(): void {
-    this.router.navigate(['/user-conversations', this.usernames.split('-')[0]])
+    this.router.navigate(['/merchant-conversations', this.usernames.split('-')[1]])
   }
 
   private createMessageForm(): FormGroup {
@@ -47,6 +47,4 @@ export class UserChatComponent implements OnInit, OnDestroy {
       message: this.fb.control<string>("")
     })
   }
-
-
 }

@@ -6,6 +6,7 @@ export class UsernameService {
 
     user!: UserSignUpDetails
     merchant!: MerchantSignUpDetails
+    active!: Boolean
 
     setUser(user: UserSignUpDetails): void {
         this.user = user
@@ -21,5 +22,13 @@ export class UsernameService {
 
     getMerchant(): MerchantSignUpDetails {
         return this.merchant
+    }
+
+    setActivity(status: Boolean): void {
+        this.active = status
+    }
+
+    getActivity(): Boolean {
+        return this.active
     }
 }

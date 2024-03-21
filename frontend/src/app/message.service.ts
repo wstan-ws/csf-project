@@ -1,6 +1,6 @@
 import { Injectable, inject } from "@angular/core";
 import { BackendService } from "./backend.service";
-import { Message } from "./models";
+import { ChatRecord, Message } from "./models";
 declare var SockJS: any;
 declare var Stomp: any;
 
@@ -17,6 +17,13 @@ export class MessageService {
             .then(result => {
                 if (result !== null) {
                     result.forEach(r => this.msg.push(r))
+                } else {
+                    const chatRecord: ChatRecord = {
+                        chatId: 0,
+                        user: usernames.split('-')[0],
+                        merchant: usernames.split('-')[1]
+                    }
+                    this.backendSvc.postChatRecord(chatRecord).then()
                 }
             })
         const serverUrl = 'http://localhost:8080/socket'
@@ -27,6 +34,7 @@ export class MessageService {
             that.stompClient.subscribe('/message', function (message: any) {
                 if (message) {
                     that.msg.push(JSON.parse(message.body))
+                    console.log('>>> in push')
                 }
             })
         })
@@ -34,12 +42,24 @@ export class MessageService {
 
     disconnect(): void {
         this.msg = []
+        this.stompClient.disconnect()
     }
 
-    sendMessage(message: string, usernames: string): void {
+    sendMessageUser(message: string, usernames: string): void {
         const user = usernames.split('-')[0]
         const body: Message = {
             username: user,
+            message: message,
+            timestamp: Date.now()
+          }
+        this.stompClient.send('/app/send', {}, JSON.stringify(body))
+        this.backendSvc.postMessage(usernames, body)
+    }
+
+    sendMessageMerchant(message: string, usernames: string): void {
+        const merchant = usernames.split('-')[1]
+        const body: Message = {
+            username: merchant,
             message: message,
             timestamp: Date.now()
           }

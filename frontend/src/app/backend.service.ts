@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable, inject } from "@angular/core";
-import { LoginDetails, MerchantSignUpDetails, Message, UserSignUpDetails } from "./models";
+import { ChatRecord, LoginDetails, MerchantSignUpDetails, Message, UserSignUpDetails } from "./models";
 import { Observable, lastValueFrom } from "rxjs";
 
 @Injectable()
@@ -91,5 +91,20 @@ export class BackendService {
     postMessage(filter: string, body: Message): Promise<any> {
         const url: string = `http://localhost:8080/api/chat/post/${filter}`
         return lastValueFrom(this.http.post<Message>(url, body))
+    }
+
+    postChatRecord(body: ChatRecord): Promise<any> {
+        const url: string = 'http://localhost:8080/api/postchat'
+        return lastValueFrom(this.http.post<ChatRecord>(url, body))
+    }
+
+    getConversationsMerchant(filter: string): Observable<ChatRecord[]> {
+        const url: string = `http://localhost:8080/api/getconversationsmerchant/${filter}`
+        return this.http.get<ChatRecord[]>(url)
+    }
+
+    getConversationsUser(filter: string): Observable<ChatRecord[]> {
+        const url: string = `http://localhost:8080/api/getconversationsuser/${filter}`
+        return this.http.get<ChatRecord[]>(url)
     }
 }

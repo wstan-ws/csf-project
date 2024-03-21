@@ -1,7 +1,7 @@
 package vttp.iss.backend;
 
 public class Utils {
-    // User
+        // User
         public static final String SQL_INSERT_USER = """
                 INSERT INTO users
                 (first_name, last_name, email, phone_number, address, username, password)
@@ -109,5 +109,24 @@ public class Utils {
                 UPDATE merchants
                 SET active = ?
                 WHERE username = ?                
+        """;
+
+        // Messages
+        public static final String SQL_POST_CHAT_RECORD = """
+                INSERT INTO chats
+                (user, merchant)
+                VALUES
+                (?, ?)
+        """;
+
+        public static final String SQL_GET_CONVERSATIONS_MERCHANT = """
+                SELECT *
+                FROM chats
+                WHERE merchant = ?               
+        """;
+        public static final String SQL_GET_CONVERSATIONS_USER = """
+                SELECT *
+                FROM chats
+                WHERE user = ?               
         """;
 }

@@ -1,0 +1,19 @@
+<div>
+    <h2>{{username}}'s Conversations</h2>
+</div>
+
+<div>
+    <div *ngIf="chats$ | async as chats">
+        <ul *ngIf="chats.length > 0; else noChat">
+            <li *ngFor="let chat of chats"><a [routerLink]="['/merchantchat', chat.user + '-' + username]">{{ chat.user }}</a></li>
+        </ul>
+    </div>
+</div>
+
+<div>
+    <button type="button" [routerLink]="['/merchant-homepage', username]">Home</button>
+</div>
+
+<ng-template #noChat>
+    <h3>No Chats Yet</h3>
+</ng-template>

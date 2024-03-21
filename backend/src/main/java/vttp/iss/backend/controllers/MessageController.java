@@ -24,6 +24,7 @@ import jakarta.json.JsonArrayBuilder;
 import jakarta.json.JsonObject;
 import jakarta.json.JsonObjectBuilder;
 import jakarta.json.JsonReader;
+import vttp.iss.backend.models.ChatRecord;
 import vttp.iss.backend.models.Message;
 import vttp.iss.backend.services.MainService;
 
@@ -97,5 +98,66 @@ public class MessageController {
         Message newMessage = new Message(username, message, timestamp);
 
         template.convertAndSend("/message", newMessage);
+    }
+
+    @PostMapping(path = "/postchat")
+    @ResponseBody
+    public ResponseEntity<String> postChatRecord(@RequestBody String payload) {
+
+        JsonReader reader = Json.createReader(new StringReader(payload));
+        JsonObject obj = reader.readObject();
+
+        String user = obj.getString("user");
+        String merchant = obj.getString("merchant");
+
+        ChatRecord chatRecord = new ChatRecord(user, merchant);
+
+        mainSvc.postChatRecord(chatRecord);
+
+        return ResponseEntity.ok().body("{}");
+    }
+
+    @GetMapping(path = "/getconversationsmerchant/{filter}")
+    @ResponseBody
+    public ResponseEntity<String> getConversationsMerchant(@PathVariable String filter) {
+
+        List<ChatRecord> chatList = mainSvc.getConversationsMerchant(filter);
+
+        JsonArrayBuilder arrBuilder = Json.createArrayBuilder();
+
+        for (ChatRecord chat : chatList) {
+            JsonObjectBuilder objBuilder = Json.createObjectBuilder();
+            objBuilder = objBuilder
+                .add("chatId", chat.getChatId())
+                .add("user", chat.getUser())
+                .add("merchant", chat.getMerchant());
+            arrBuilder.add(objBuilder);
+        }
+
+        JsonArray arr = arrBuilder.build();
+
+        return ResponseEntity.ok().body(arr.toString());
+    }
+
+    @GetMapping(path = "/getconversationsuser/{filter}")
+    @ResponseBody
+    public ResponseEntity<String> getConversationsUser(@PathVariable String filter) {
+
+        List<ChatRecord> chatList = mainSvc.getConversationsUser(filter);
+
+        JsonArrayBuilder arrBuilder = Json.createArrayBuilder();
+
+        for (ChatRecord chat : chatList) {
+            JsonObjectBuilder objBuilder = Json.createObjectBuilder();
+            objBuilder = objBuilder
+                .add("chatId", chat.getChatId())
+                .add("user", chat.getUser())
+                .add("merchant", chat.getMerchant());
+            arrBuilder.add(objBuilder);
+        }
+
+        JsonArray arr = arrBuilder.build();
+
+        return ResponseEntity.ok().body(arr.toString());
     }
 }

@@ -5,5 +5,12 @@
 </div>
 
 <div>
-    <button type="button" (click)="switch()">Toggle Activity</button><span>Status: {{ activity }}</span>
+    <p>Status: {{ status }}</p>
+    <button type="button" (click)="active()">Set Active</button>
+    <button type="button" (click)="inactive()">Set Inactive</button>
+</div>
+
+
+<div>
+    <a [routerLink]="['/merchant-conversations', username]">Conversations</a>
 </div>

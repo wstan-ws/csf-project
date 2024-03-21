@@ -45,7 +45,7 @@ public class MerchantController {
         return ResponseEntity.ok().body("{}");
     }
 
-     @GetMapping(path = "/merchantlogindetails")
+    @GetMapping(path = "/merchantlogindetails")
     public ResponseEntity<String> getMerchantsLoginDetails() {
 
         List<LoginDetails> loginDetailsList = mainSvc.getMerchantsLoginDetails();

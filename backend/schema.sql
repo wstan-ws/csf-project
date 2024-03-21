@@ -36,3 +36,12 @@ create table merchants (
 
     primary key (username)
 );
+
+create table chats (
+
+	chat_id int auto_increment,
+    user varchar(128) not null,
+    merchant varchar(128) not null,
+
+    primary key (chat_id)
+);

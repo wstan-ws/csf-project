@@ -30,6 +30,9 @@ import { AirconDetailsComponent } from './aircon-details/aircon-details.componen
 import { UsernameService } from './username.service';
 import { UserChatComponent } from './user-chat/user-chat.component';
 import { MessageService } from './message.service';
+import { MerchantChatComponent } from './merchant-chat/merchant-chat.component';
+import { MerchantConversationsComponent } from './merchant-conversations/merchant-conversations.component';
+import { UserConversationsComponent } from './user-conversations/user-conversations.component';
 
 const appRoutes: Routes = [
   {path: '', component: HomeComponent},
@@ -54,6 +57,9 @@ const appRoutes: Routes = [
   {path: 'aircon', component: SearchAirconComponent},
   {path: 'aircon-details/:username', component: AirconDetailsComponent},
   {path: 'userchat/:usernames', component: UserChatComponent},
+  {path: 'merchantchat/:usernames', component: MerchantChatComponent},
+  {path: 'user-conversations/:username', component: UserConversationsComponent},
+  {path: 'merchant-conversations/:username', component: MerchantConversationsComponent},
   {path: '**', redirectTo: '/', pathMatch: 'full'}
 ]
 
@@ -82,6 +88,9 @@ const appRoutes: Routes = [
     SearchAirconComponent,
     AirconDetailsComponent,
     UserChatComponent,
+    MerchantChatComponent,
+    MerchantConversationsComponent,
+    UserConversationsComponent,
   ],
   imports: [
     BrowserModule,

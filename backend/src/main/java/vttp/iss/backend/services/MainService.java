@@ -6,6 +6,7 @@ import java.util.concurrent.ExecutionException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import vttp.iss.backend.models.ChatRecord;
 import vttp.iss.backend.models.LoginDetails;
 import vttp.iss.backend.models.Merchant;
 import vttp.iss.backend.models.Message;
@@ -88,12 +89,24 @@ public class MainService {
         merchantRepo.setInactive(filter, active);
     }
 
-    // Chat
+    // Messages
     public List<Message> getChat(String usernames, String user, String merchant) throws InterruptedException, ExecutionException {
         return messageRepo.getChat(usernames, user, merchant);
     }
 
     public void postMessage(String usernames, Message message) {
         messageRepo.postMessage(usernames, message);
+    }
+
+    public void postChatRecord(ChatRecord chatRecord) {
+        messageRepo.postChatRecord(chatRecord);
+    }
+
+    public List<ChatRecord> getConversationsMerchant(String merchant) {
+        return messageRepo.getConversationsMerchant(merchant);
+    }
+
+    public List<ChatRecord> getConversationsUser(String user) {
+        return messageRepo.getConversationsUser(user);
     }
 }

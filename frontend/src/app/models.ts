@@ -40,3 +40,9 @@ export interface Message {
     message: string
     timestamp: number
 }
+
+export interface ChatRecord {
+    chatId: number
+    user: string
+    merchant: string
+}
