@@ -78,6 +78,7 @@ public class UserController {
             .add("email", user.getEmail())
             .add("phoneNumber", user.getPhoneNumber())
             .add("address", user.getAddress())
+            .add("postalCode", user.getPostalCode())
             .add("username", user.getUsername())
             .add("password", user.getPassword())
             .build();

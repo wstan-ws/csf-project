@@ -57,6 +57,18 @@
                 </td>
             </tr>
             <tr>
+                <td>Postal Code: </td>
+                <td>
+                    <input type="text" formControlName="postalCode">
+                    <span *ngIf="merchantEditForm?.get('postalCode')?.hasError('required') && merchantEditForm.get('postalCode')?.touched"  >
+                        *Postal Code is Mandatory
+                    </span>
+                    <span *ngIf="(merchantEditForm?.get('postalCode')?.hasError('pattern') || merchantEditForm?.get('postalCode')?.hasError('maxlength')) && merchantEditForm.get('postalCode')?.touched"  >
+                        *Postal Code format required
+                    </span>
+                </td>
+            </tr>
+            <tr>
                 <td>
                     <h3>Pick Your Specialty</h3>
                 </td>

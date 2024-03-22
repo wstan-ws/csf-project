@@ -54,6 +54,7 @@ export class UserSignupComponent implements OnInit {
       email: this.fb.control<string>("", [ Validators.required, Validators.email ]),
       phoneNumber: this.fb.control<string>("" , [ Validators.required, Validators.pattern(/[8-9]\d{7}/), Validators.maxLength(8) ]),
       address: this.fb.control<string>("", [ Validators.required ]),
+      postalCode: this.fb.control<string>("", [ Validators.required, Validators.pattern(/\d{6}/), Validators.maxLength(6) ]),
       username: this.fb.control<string>("", [ Validators.required, Validators.minLength(3) ]),
       password: this.fb.control<string>("", [ Validators.required, Validators.minLength(8) ])
     })

@@ -4,6 +4,7 @@ export interface UserSignUpDetails {
     email: string
     phoneNumber: string
     address: string
+    postalCode: string
     username: string
     password: string
 }
@@ -14,6 +15,7 @@ export interface MerchantSignUpDetails {
     email: string
     phoneNumber: string
     companyName: string
+    postalCode: string
     username: string
     password: string
     elec: boolean
@@ -28,11 +30,6 @@ export interface MerchantSignUpDetails {
 export interface LoginDetails {
     username: string
     password: string
-}
-
-export interface MerchantActivity {
-    username: string
-    active: boolean
 }
 
 export interface Message {

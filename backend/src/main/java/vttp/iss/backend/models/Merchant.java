@@ -9,6 +9,7 @@ public class Merchant {
     private String email;
     private String phoneNumber;
     private String companyName;
+    private String postalCode;
     private String username;
     private String password;
     private Boolean elec;
@@ -19,14 +20,18 @@ public class Merchant {
     private String airconLicenseNo;
     private Boolean active;
 
+    public Merchant() {
+    }
+    
     public Merchant(String firstName, String lastName, String email, String phoneNumber, String companyName,
-            String username, String password, Boolean elec, String elecLicenseNo, Boolean plum, String plumLicenseNo,
-            Boolean aircon, String airconLicenseNo) {
+            String postalCode, String username, String password, Boolean elec, String elecLicenseNo, Boolean plum,
+            String plumLicenseNo, Boolean aircon, String airconLicenseNo) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.companyName = companyName;
+        this.postalCode = postalCode;
         this.username = username;
         this.password = password;
         this.elec = elec;
@@ -38,13 +43,14 @@ public class Merchant {
     }
 
     public Merchant(String firstName, String lastName, String email, String phoneNumber, String companyName,
-            String username, String password, Boolean elec, String elecLicenseNo, Boolean plum, String plumLicenseNo,
-            Boolean aircon, String airconLicenseNo, Boolean active) {
+            String postalCode, String username, String password, Boolean elec, String elecLicenseNo, Boolean plum,
+            String plumLicenseNo, Boolean aircon, String airconLicenseNo, Boolean active) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.companyName = companyName;
+        this.postalCode = postalCode;
         this.username = username;
         this.password = password;
         this.elec = elec;
@@ -63,6 +69,7 @@ public class Merchant {
         String email = obj.getString("email");
         String phoneNumber = obj.getString("phoneNumber");
         String companyName = obj.getString("companyName");
+        String postalCode = obj.getString("postalCode");
         String username = obj.getString("username");
         String password = obj.getString("password");
         Boolean elec = obj.getBoolean("elec");
@@ -72,7 +79,7 @@ public class Merchant {
         Boolean aircon = obj.getBoolean("aircon");
         String airconLicenseNo = obj.getString("airconLicenseNo");
 
-        return new Merchant(firstName, lastName, email, phoneNumber, companyName, username, password, elec, elecLicenseNo, plum, plumLicenseNo, aircon, airconLicenseNo);
+        return new Merchant(firstName, lastName, email, phoneNumber, companyName, postalCode, username, password, elec, elecLicenseNo, plum, plumLicenseNo, aircon, airconLicenseNo);
     }
 
     public String getFirstName() {
@@ -187,12 +194,20 @@ public class Merchant {
         this.active = active;
     }
 
+    public String getPostalCode() {
+        return postalCode;
+    }
+
+    public void setPostalCode(String postalCode) {
+        this.postalCode = postalCode;
+    }
+
     @Override
     public String toString() {
         return "Merchant [firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + ", phoneNumber="
-                + phoneNumber + ", companyName=" + companyName + ", username=" + username + ", password=" + password
-                + ", elec=" + elec + ", elecLicenseNo=" + elecLicenseNo + ", plum=" + plum + ", plumLicenseNo="
-                + plumLicenseNo + ", aircon=" + aircon + ", airconLicenseNo=" + airconLicenseNo + ", active=" + active
-                + "]";
+                + phoneNumber + ", companyName=" + companyName + ", postalCode=" + postalCode + ", username=" + username
+                + ", password=" + password + ", elec=" + elec + ", elecLicenseNo=" + elecLicenseNo + ", plum=" + plum
+                + ", plumLicenseNo=" + plumLicenseNo + ", aircon=" + aircon + ", airconLicenseNo=" + airconLicenseNo
+                + ", active=" + active + "]";
     }
 }

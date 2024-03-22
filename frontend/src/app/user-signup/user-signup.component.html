@@ -56,6 +56,18 @@
                 </td>
             </tr>
             <tr>
+                <td>Postal Code: </td>
+                <td>
+                    <input type="text" formControlName="postalCode">
+                    <span *ngIf="userSignupForm?.get('postalCode')?.hasError('required') && userSignupForm.get('postalCode')?.touched"  >
+                        *Postal Code is Mandatory
+                    </span>
+                    <span *ngIf="(userSignupForm?.get('postalCode')?.hasError('pattern') || userSignupForm?.get('postalCode')?.hasError('maxlength')) && userSignupForm.get('postalCode')?.touched"  >
+                        *Postal Code format required
+                    </span>
+                </td>
+            </tr>
+            <tr>
                 <td>Username: </td>
                 <td>
                     <input type="text" formControlName="username">

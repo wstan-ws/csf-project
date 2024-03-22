@@ -30,6 +30,7 @@ public class UserRepository {
             user.getEmail(),
             user.getPhoneNumber(),
             user.getAddress(),
+            user.getPostalCode(),
             user.getUsername(),
             user.getPassword());
     }
@@ -59,9 +60,10 @@ public class UserRepository {
             String email = rs.getString("email");
             String phoneNumber = rs.getString("phone_number");
             String address = rs.getString("address");
+            String postalCode = rs.getString("postal_code");
             String username = rs.getString("username");
             String password = rs.getString("password");
-            user = new User(firstName, lastName, email, phoneNumber, address, username, password);
+            user = new User(firstName, lastName, email, phoneNumber, address, postalCode, username, password);
         }
         
         return user;
@@ -76,6 +78,7 @@ public class UserRepository {
         String email = o.getString("email");
         String phoneNumber = o.getString("phoneNumber");
         String address = o.getString("address");
+        String postalCode = o.getString("postalCode");
 
         template.update(
             Utils.SQL_EDIT_USER_DETAILS, 
@@ -84,6 +87,7 @@ public class UserRepository {
             email, 
             phoneNumber, 
             address,
+            postalCode,
             username
         );
     }

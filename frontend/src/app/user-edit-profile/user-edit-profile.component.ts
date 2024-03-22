@@ -45,7 +45,8 @@ export class UserEditProfileComponent implements OnInit {
       lastName: this.fb.control<string>(this.user.lastName, [ Validators.required ]),
       email: this.fb.control<string>(this.user.email, [ Validators.required, Validators.email ]),
       phoneNumber: this.fb.control<string>(this.user.phoneNumber, [ Validators.required, Validators.pattern(/[8-9]\d{7}/), Validators.maxLength(8) ]),
-      address: this.fb.control<string>(this.user.address, [ Validators.required ])
+      address: this.fb.control<string>(this.user.address, [ Validators.required ]),
+      postalCode: this.fb.control<string>(this.user.postalCode, [ Validators.required, Validators.pattern(/\d{6}/), Validators.maxLength(6) ])
     })
   }
 }

@@ -46,6 +46,7 @@ export class MerchantEditProfileComponent implements OnInit {
       email: this.fb.control<string>(this.merchant.email, [ Validators.required, Validators.email ]),
       phoneNumber: this.fb.control<string>(this.merchant.phoneNumber, [ Validators.required, Validators.pattern(/[8-9]\d{7}/), Validators.maxLength(8) ]),
       companyName: this.fb.control<string>(this.merchant.companyName, [ Validators.required ]),
+      postalCode: this.fb.control<string>(this.merchant.postalCode, [ Validators.required, Validators.pattern(/\d{6}/), Validators.maxLength(6) ]),
       elec: this.fb.control<boolean>(this.merchant.elec),
       elecLicenseNo: this.fb.control<string>(this.merchant.elecLicenseNo),
       plum: this.fb.control<boolean>(this.merchant.plum),

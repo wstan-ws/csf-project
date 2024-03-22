@@ -9,19 +9,21 @@ public class User {
     private String email;
     private String phoneNumber;
     private String address;
+    private String postalCode;
     private String username;
     private String password;
     
     public User() {
     }
 
-    public User(String firstName, String lastName, String email, String phoneNumber, String address, String username,
-            String password) {
+    public User(String firstName, String lastName, String email, String phoneNumber, String address, String postalCode,
+            String username, String password) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.address = address;
+        this.postalCode = postalCode;
         this.username = username;
         this.password = password;
     }
@@ -32,10 +34,11 @@ public class User {
         String email = obj.getString("email");
         String phoneNumber = obj.getString("phoneNumber");
         String address = obj.getString("address");
+        String postalCode = obj.getString("postalCode");
         String username = obj.getString("username");
         String password = obj.getString("password");
 
-        return new User(firstName, lastName, email, phoneNumber, address, username, password);
+        return new User(firstName, lastName, email, phoneNumber, address, postalCode, username, password);
     }
 
     public String getFirstName() {
@@ -80,9 +83,17 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
+    public String getPostalCode() {
+        return postalCode;
+    }
+    public void setPostalCode(String postalCode) {
+        this.postalCode = postalCode;
+    }
+
     @Override
     public String toString() {
         return "User [firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + ", phoneNumber="
-                + phoneNumber + ", address=" + address + ", username=" + username + ", password=" + password + "]";
+                + phoneNumber + ", address=" + address + ", postalCode=" + postalCode + ", username=" + username
+                + ", password=" + password + "]";
     }
 }

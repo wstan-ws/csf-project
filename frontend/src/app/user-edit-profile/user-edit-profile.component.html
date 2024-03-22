@@ -57,6 +57,18 @@
                 </td>
             </tr>
             <tr>
+                <td>Postal Code: </td>
+                <td>
+                    <input type="text" formControlName="postalCode">
+                    <span *ngIf="userEditForm?.get('postalCode')?.hasError('required') && userEditForm.get('postalCode')?.touched"  >
+                        *Postal Code is Mandatory
+                    </span>
+                    <span *ngIf="(userEditForm?.get('postalCode')?.hasError('pattern') || userEditForm?.get('postalCode')?.hasError('maxlength')) && userEditForm.get('postalCode')?.touched"  >
+                        *Postal Code format required
+                    </span>
+                </td>
+            </tr>
+            <tr>
                 <td>
                     <button type="submit" [disabled]="userEditForm.invalid">Save</button>
                 </td>
