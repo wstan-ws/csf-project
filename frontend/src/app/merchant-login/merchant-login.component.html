@@ -1,32 +1,20 @@
 <div>
-    <h1>Merchant Login</h1>
+    <button id="back" type="button" (click)="back()" mat-icon-button><mat-icon>keyboard_arrow_left</mat-icon></button>
 </div>
 
-<div>
+<div class="container">
+    <p class="title">Merchant Login</p>
     <form [formGroup]="merchantLoginForm" (submit)="login()">
-        <table>
-            <tr>
-                <td>Username: </td>
-                <td>
-                    <input type="text" formControlName="username">
-                </td>
-            </tr>
-            <tr>
-                <td>Password: </td>
-                <td>
-                    <input type="password" formControlName="password">
-                </td>
-            </tr>
-            <tr>
-                <td></td>
-                <td>
-                    <button type="submit">Login</button>
-                </td>
-            </tr>
-        </table>
+        <mat-form-field>
+            <input type="text" formControlName="username" placeholder="Username" matInput>
+        </mat-form-field>
+        <br>
+        <mat-form-field>
+            <input type="password" formControlName="password" placeholder="Password" matInput>
+        </mat-form-field>
+        <br>
+        <button type="submit" color="primary" mat-raised-button>Login</button>
     </form>
-</div>
-
-<div>
+    <br>
     <a [routerLink]="['/user-login']">Login as User</a>
 </div>

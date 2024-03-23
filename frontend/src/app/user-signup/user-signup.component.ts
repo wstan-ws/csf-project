@@ -47,6 +47,10 @@ export class UserSignupComponent implements OnInit {
     }
   }
 
+  back(): void {
+    this.router.navigate(['/'])
+  }
+
   createUserSignupForm(): FormGroup {
     return this.fb.group({
       firstName: this.fb.control<string>("", [ Validators.required ]),

@@ -27,6 +27,10 @@ export interface MerchantSignUpDetails {
     active: boolean
 }
 
+export interface MerchantSignUpDetailsSlice {
+    merchants: MerchantSignUpDetails[]
+}
+
 export interface LoginDetails {
     username: string
     password: string

@@ -1,0 +1,38 @@
+<div>
+    <button id="back" type="button" (click)="back()" mat-icon-button><mat-icon>keyboard_arrow_left</mat-icon></button>
+</div>
+
+<div class="container">
+    <p class="title">Pick Your Specialty</p>
+    <form [formGroup]="merchantSignUpForm" (submit)="submitForm()">
+        <mat-checkbox formControlName="elec">
+            Electrician
+        </mat-checkbox>
+        <mat-form-field class="small" *ngIf="merchantSignUpForm.get('elec')?.value === true">
+            <input type="text" formControlName="elecLicenseNo" placeholder="License Number" matInput>
+        </mat-form-field>
+        <br>
+        <mat-checkbox formControlName="plum">
+            Plumber
+        </mat-checkbox>
+        <mat-form-field class="small" *ngIf="merchantSignUpForm.get('plum')?.value === true">
+            <input type="text" formControlName="plumLicenseNo" placeholder="License Number" matInput>
+        </mat-form-field>
+        <br>
+        <mat-checkbox formControlName="aircon">
+            Aircon Repairman
+        </mat-checkbox>
+        <mat-form-field class="small" *ngIf="merchantSignUpForm.get('aircon')?.value === true">
+            <input type="text" formControlName="airconLicenseNo" placeholder="License Number" matInput>
+        </mat-form-field>
+        <br>
+        <button type="submit" id="submit" color="primary" mat-raised-button>Sign Up</button>
+        <button type="button" id="reset" mat-raised-button (click)="resetForm()">Reset</button>
+    </form>
+    <p id="another_login">Already have an account? <a [routerLink]="['/merchant-login']">Log in</a>.</p>
+    <a [routerLink]="['/user-signup']">Sign Up as User</a>
+</div>
+
+
+
+        

@@ -1,8 +1,8 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { BackendService } from '../backend.service';
 import { MerchantSignUpDetails } from '../models';
 import { Router } from '@angular/router';
+import { MerchantStore } from '../merchant.store';
 
 @Component({
   selector: 'app-merchant-signup',
@@ -17,13 +17,11 @@ export class MerchantSignupComponent implements OnInit {
   match: boolean = false
 
   private fb = inject(FormBuilder)
-  private backendSvc = inject(BackendService)
   private router = inject(Router)
+  private merchantStore = inject(MerchantStore)
 
   ngOnInit(): void {
     this.merchantSignupForm = this.createMerchantSignupForm()
-    this.backendSvc.getMerchantLoginDetails()
-      .then(result => result.forEach(r => this.username.push(r.username)))
   }
 
   resetForm(): void {
@@ -31,33 +29,29 @@ export class MerchantSignupComponent implements OnInit {
   }
 
   submitForm(): void {
-    if (this.merchantSignupForm?.get('elec')?.value === false && 
-        this.merchantSignupForm?.get('plum')?.value === false && 
-        this.merchantSignupForm?.get('aircon')?.value === false) {
-      alert("Please select at least 1 specialty")
-    } else if ((this.merchantSignupForm?.get('elec')?.value === true && 
-        this.merchantSignupForm?.get('elecLicenseNo')?.value === '') || 
-        (this.merchantSignupForm?.get('plum')?.value === true && 
-        this.merchantSignupForm?.get('plumLicenseNo')?.value === '') || 
-        (this.merchantSignupForm?.get('aircon')?.value === true && 
-        this.merchantSignupForm?.get('airconLicenseNo')?.value === '')) {
-      alert("Please enter License Number")
-    } else {
-      this.merchant = this.merchantSignupForm.value
-      for (let i = 0; i < this.username.length; i++) {
-        if (this.merchant.username === this.username[i]) {
-          this.match = true
-          break
-        } 
-      }
-      if (!this.match) {
-        this.backendSvc.merchantSignup(this.merchant).subscribe()
-        this.merchantSignupForm = this.createMerchantSignupForm()
-        this.router.navigate(['/merchant-signup-success'])
-      } else {
-        alert('Username already exists')
-      }
+    const merchant: MerchantSignUpDetails = {
+      firstName: this.merchantSignupForm.value.firstName,
+      lastName: this.merchantSignupForm.value.lastName,
+      email: this.merchantSignupForm.value.email,
+      phoneNumber: this.merchantSignupForm.value.phoneNumber,
+      companyName: this.merchantSignupForm.value.companyName,
+      postalCode: this.merchantSignupForm.value.postalCode,
+      username: this.merchantSignupForm.value.username,
+      password: this.merchantSignupForm.value.password,
+      elec: false,
+      elecLicenseNo: '',
+      plum: false,
+      plumLicenseNo: '',
+      aircon: false,
+      airconLicenseNo: '',
+      active: false 
     }
+    this.merchantStore.addMerchantSignUpDetails(merchant)
+    this.router.navigate(['/merchant-signup-2'])
+  }
+
+  back(): void {
+    this.router.navigate(['/'])
   }
 
   private createMerchantSignupForm(): FormGroup {
@@ -70,12 +64,6 @@ export class MerchantSignupComponent implements OnInit {
       postalCode: this.fb.control<string>("", [ Validators.required, Validators.pattern(/\d{6}/), Validators.maxLength(6) ]),
       username: this.fb.control<string>("", [ Validators.required, Validators.minLength(3) ]),
       password: this.fb.control<string>("", [ Validators.required, Validators.minLength(8) ]),
-      elec: this.fb.control<boolean>(false),
-      elecLicenseNo: this.fb.control<string>(""),
-      plum: this.fb.control<boolean>(false),
-      plumLicenseNo: this.fb.control<string>(""),
-      aircon: this.fb.control<boolean>(false),
-      airconLicenseNo: this.fb.control<string>("")
     })
   }
 }

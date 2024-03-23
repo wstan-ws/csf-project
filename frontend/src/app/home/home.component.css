@@ -1,0 +1,42 @@
+.header{
+    display: flex;
+}
+
+img {
+    width: 175px;
+    height: 50px;
+    padding-left: 30px;
+    padding-top: 20px;
+}
+
+#about {
+    margin-top: 30px;
+    margin-left: 30px;
+}
+
+.container {
+    text-align: center;
+    border: 3px solid #4b2aad;
+    border-radius: 20px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 450px;
+    height: 400px;
+    box-shadow: 0 5px 15px #4b2aad;
+}
+
+.title {
+    font-size: 48px;
+    margin-top: 90px;
+    margin-bottom: 65px;
+    font-family: "Rockwell";
+    font-weight: bold;
+    color: #4b2aad;
+}
+
+button {
+    margin: 10px;
+    transform: scale(1.2);
+}

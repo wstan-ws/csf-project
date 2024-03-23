@@ -33,11 +33,21 @@ import { MessageService } from './message.service';
 import { MerchantChatComponent } from './merchant-chat/merchant-chat.component';
 import { MerchantConversationsComponent } from './merchant-conversations/merchant-conversations.component';
 import { UserConversationsComponent } from './user-conversations/user-conversations.component';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
+import { AboutUsComponent } from './about-us/about-us.component';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MerchantSignup2Component } from './merchant-signup-2/merchant-signup-2.component';
+import { MerchantStore } from './merchant.store';
 
 const appRoutes: Routes = [
   {path: '', component: HomeComponent},
   {path: 'user-signup', component: UserSignupComponent},
   {path: 'merchant-signup', component: MerchantSignupComponent},
+  {path: 'merchant-signup-2', component: MerchantSignup2Component},
   {path: 'user-login', component: UserLoginComponent},
   {path: 'merchant-login', component: MerchantLoginComponent},
   {path: 'user-homepage/:username', component: UserhomepageComponent},
@@ -60,6 +70,7 @@ const appRoutes: Routes = [
   {path: 'merchantchat/:usernames', component: MerchantChatComponent},
   {path: 'user-conversations/:username', component: UserConversationsComponent},
   {path: 'merchant-conversations/:username', component: MerchantConversationsComponent},
+  {path: 'about-us', component: AboutUsComponent},
   {path: '**', redirectTo: '/', pathMatch: 'full'}
 ]
 
@@ -91,14 +102,21 @@ const appRoutes: Routes = [
     MerchantChatComponent,
     MerchantConversationsComponent,
     UserConversationsComponent,
+    AboutUsComponent,
+    MerchantSignup2Component,
   ],
   imports: [
     BrowserModule,
     ReactiveFormsModule,
     HttpClientModule,
-    RouterModule.forRoot(appRoutes, {useHash: true})
+    RouterModule.forRoot(appRoutes, {useHash: true}),
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatIconModule,
+    MatCheckboxModule
   ],
-  providers: [BackendService, UsernameService, MessageService],
+  providers: [BackendService, UsernameService, MessageService, provideAnimationsAsync(), MerchantStore],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

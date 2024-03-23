@@ -1,109 +1,54 @@
 <div>
-    <h1>User Sign Up</h1>
-</div>
-<div>
-    <form [formGroup]="userSignupForm" (submit)="submitForm()">
-        <table>
-            <tr>
-                <td>First Name: </td>
-                <td>
-                    <input type="text" formControlName="firstName">
-                    <span *ngIf="userSignupForm?.get('firstName')?.hasError('required') && userSignupForm.get('firstName')?.touched"  >
-                        *First Name is Mandatory
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td>Last Name:</td>
-                <td>
-                    <input type="text" formControlName="lastName">
-                    <span *ngIf="userSignupForm?.get('lastName')?.hasError('required') && userSignupForm.get('lastName')?.touched"  >
-                        *Last Name is Mandatory
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td>Email: </td>
-                <td>
-                    <input type="email" formControlName="email">
-                    <span *ngIf="userSignupForm?.get('email')?.hasError('required') && userSignupForm.get('email')?.touched"  >
-                        *Email is Mandatory
-                    </span>
-                    <span *ngIf="userSignupForm?.get('email')?.hasError('email') && userSignupForm.get('email')?.touched"  >
-                        *Email format required
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td>Phone Number: </td>
-                <td>
-                    <input type="text" formControlName="phoneNumber">
-                    <span *ngIf="userSignupForm?.get('phoneNumber')?.hasError('required') && userSignupForm.get('phoneNumber')?.touched"  >
-                        *Phone Number is Mandatory
-                    </span>
-                    <span *ngIf="(userSignupForm?.get('phoneNumber')?.hasError('pattern') || userSignupForm?.get('phoneNumber')?.hasError('maxlength')) && userSignupForm.get('phoneNumber')?.touched"  >
-                        *Phone Number format required
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td>Address: </td>
-                <td>
-                    <textarea cols="30" rows="5" formControlName="address"></textarea>
-                    <span *ngIf="userSignupForm?.get('address')?.hasError('required') && userSignupForm.get('address')?.touched"  >
-                        *Address is Mandatory
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td>Postal Code: </td>
-                <td>
-                    <input type="text" formControlName="postalCode">
-                    <span *ngIf="userSignupForm?.get('postalCode')?.hasError('required') && userSignupForm.get('postalCode')?.touched"  >
-                        *Postal Code is Mandatory
-                    </span>
-                    <span *ngIf="(userSignupForm?.get('postalCode')?.hasError('pattern') || userSignupForm?.get('postalCode')?.hasError('maxlength')) && userSignupForm.get('postalCode')?.touched"  >
-                        *Postal Code format required
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td>Username: </td>
-                <td>
-                    <input type="text" formControlName="username">
-                    <span *ngIf="userSignupForm?.get('username')?.hasError('required') && userSignupForm.get('username')?.touched"  >
-                        *Username is Mandatory
-                    </span>
-                    <span *ngIf="userSignupForm?.get('username')?.hasError('minlength') && userSignupForm.get('username')?.touched"  >
-                        *Min 3 Characters
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td>Password: </td>
-                <td>
-                    <input type="password" formControlName="password">
-                    <span *ngIf="userSignupForm?.get('password')?.hasError('required') && userSignupForm.get('password')?.touched"  >
-                        *Password is Mandatory
-                    </span>
-                    <span *ngIf="userSignupForm?.get('password')?.hasError('minlength') && userSignupForm.get('password')?.touched"  >
-                        *Min 8 Characters
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <button type="submit" [disabled]="userSignupForm.invalid">Sign Up</button>
-                </td>
-                <td>
-                    <button type="button" (click)="resetForm()">Reset</button>
-                </td>
-            </tr>
-        </table>
-    </form>
+    <button id="back" type="button" (click)="back()" mat-icon-button><mat-icon>keyboard_arrow_left</mat-icon></button>
 </div>
 
-<div>
-    <p>Already have an account? <a [routerLink]="['/user-login']">Log in</a>.</p>
+<div class="container">
+    <p class="title">Sign Up</p>
+    <form [formGroup]="userSignupForm" (submit)="submitForm()">
+        <mat-form-field class="left">
+            <input type="text" formControlName="firstName" placeholder="First Name" matInput>
+            <mat-error *ngIf="userSignupForm?.get('firstName')?.hasError('required')">First Name is Mandatory</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <input type="text" formControlName="lastName" placeholder="Last Name" matInput>
+            <mat-error *ngIf="userSignupForm?.get('lastName')?.hasError('required')">Last Name is Mandatory</mat-error>
+        </mat-form-field>
+        <br>
+        <mat-form-field class="left">
+            <input type="email" formControlName="email" placeholder="Email" matInput>
+            <mat-error *ngIf="userSignupForm?.get('email')?.hasError('required')">Email is Mandatory</mat-error>
+            <mat-error *ngIf="userSignupForm?.get('email')?.hasError('email')">Email format required</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <input type="text" formControlName="phoneNumber" placeholder="Phone Number" matInput>
+            <mat-error *ngIf="userSignupForm?.get('phoneNumber')?.hasError('required')">Phone Number is Mandatory</mat-error>
+            <mat-error *ngIf="userSignupForm?.get('phoneNumber')?.hasError('pattern') || userSignupForm?.get('phoneNumber')?.hasError('maxlength')">Phone Number format required</mat-error>
+        </mat-form-field>
+        <br>
+        <mat-form-field class="left">
+            <input type="text" formControlName="address" placeholder="Address" matInput>
+            <mat-error *ngIf="userSignupForm?.get('address')?.hasError('required')"> Address is Mandatory</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <input type="text" formControlName="postalCode" placeholder="Postal Code" matInput>
+            <mat-error *ngIf="userSignupForm?.get('postalCode')?.hasError('required')">Postal Code is Mandatory</mat-error>
+            <mat-error *ngIf="userSignupForm?.get('postalCode')?.hasError('pattern') || userSignupForm?.get('postalCode')?.hasError('maxlength')">Postal Code format required</mat-error>
+        </mat-form-field>
+        <br>
+        <mat-form-field class="left">
+            <input type="text" formControlName="username" placeholder="Username" matInput>
+            <mat-error *ngIf="userSignupForm?.get('username')?.hasError('required')">Username is Mandatory</mat-error>
+            <mat-error *ngIf="userSignupForm?.get('username')?.hasError('minlength')">Minimum 3 Characters</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <input type="password" formControlName="password" placeholder="Password" matInput>
+            <mat-error *ngIf="userSignupForm?.get('password')?.hasError('required')">Password is Mandatory</mat-error>
+            <mat-error *ngIf="userSignupForm?.get('password')?.hasError('minlength')">Minimum 8 Characters</mat-error>
+        </mat-form-field>
+        <br>
+        <button type="submit" color="primary" id="submit" mat-raised-button [disabled]="userSignupForm.invalid">Sign Up</button>
+        <button type="button" id="reset" mat-raised-button (click)="resetForm()">Reset</button>
+    </form>
+    <p id="another_login">Already have an account? <a [routerLink]="['/user-login']">Log in</a>.</p>
     <a [routerLink]="['/merchant-signup']">Sign Up as Merchant</a>
 </div>

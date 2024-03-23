@@ -46,6 +46,10 @@ export class UserLoginComponent implements OnInit {
     }
   }
 
+  back(): void {
+    this.router.navigate(['/'])
+  }
+
   private createUserLoginForm(): FormGroup {
     return this.fb.group({
       username: this.fb.control<string>("", [ Validators.required, Validators.minLength(3) ]),

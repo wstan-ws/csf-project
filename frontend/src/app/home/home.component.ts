@@ -17,4 +17,8 @@ export class HomeComponent {
   signup(): void {
     this.router.navigate(['/user-signup'])
   }
+
+  about(): void {
+    this.router.navigate(['about-us'])
+  }
 }

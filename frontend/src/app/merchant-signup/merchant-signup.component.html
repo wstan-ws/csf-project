@@ -1,139 +1,55 @@
 <div>
-    <h1>Merchant Sign Up</h1>
+    <button id="back" type="button" (click)="back()" mat-icon-button><mat-icon>keyboard_arrow_left</mat-icon></button>
 </div>
 
-<div>
+<div class="container">
+    <p class="title">Merchant Sign Up</p>
     <form [formGroup]="merchantSignupForm" (submit)="submitForm()">
-        <table>
-            <tr>
-                <td>First Name: </td>
-                <td>
-                    <input type="text" formControlName="firstName">
-                    <span *ngIf="merchantSignupForm?.get('firstName')?.hasError('required') && merchantSignupForm.get('firstName')?.touched"  >
-                        *First Name is Mandatory
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td>Last Name: </td>
-                <td>
-                    <input type="text" formControlName="lastName">
-                    <span *ngIf="merchantSignupForm?.get('lastName')?.hasError('required') && merchantSignupForm.get('lastName')?.touched"  >
-                        *Last Name is Mandatory
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td>Email: </td>
-                <td>
-                    <input type="email" formControlName="email">
-                    <span *ngIf="merchantSignupForm?.get('email')?.hasError('required') && merchantSignupForm.get('email')?.touched"  >
-                        *Email is Mandatory
-                    </span>
-                    <span *ngIf="merchantSignupForm?.get('email')?.hasError('email') && merchantSignupForm.get('email')?.touched"  >
-                        *Email format required
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td>Phone Number: </td>
-                <td>
-                    <input type="text" formControlName="phoneNumber">
-                    <span *ngIf="merchantSignupForm?.get('phoneNumber')?.hasError('required') && merchantSignupForm.get('phoneNumber')?.touched"  >
-                        *Phone Number is Mandatory
-                    </span>
-                    <span *ngIf="(merchantSignupForm?.get('phoneNumber')?.hasError('pattern') || merchantSignupForm?.get('phoneNumber')?.hasError('maxlength'))&& merchantSignupForm.get('phoneNumber')?.touched"  >
-                        *Phone Number format required
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td>Company Name: </td>
-                <td>
-                    <input type="text" placeholder="NIL if you are not under a company" formControlName="companyName">
-                    <span *ngIf="merchantSignupForm?.get('companyName')?.hasError('required') && merchantSignupForm.get('companyName')?.touched"  >
-                        *Company Name is Mandatory
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td>Postal Code: </td>
-                <td>
-                    <input type="text" formControlName="postalCode">
-                    <span *ngIf="merchantSignupForm?.get('postalCode')?.hasError('required') && merchantSignupForm.get('postalCode')?.touched"  >
-                        *Postal Code is Mandatory
-                    </span>
-                    <span *ngIf="(merchantSignupForm?.get('postalCode')?.hasError('pattern') || merchantSignupForm?.get('postalCode')?.hasError('maxlength')) && merchantSignupForm.get('postalCode')?.touched"  >
-                        *Postal Code format required
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td>Username: </td>
-                <td>
-                    <input type="text" formControlName="username">
-                    <span *ngIf="merchantSignupForm?.get('username')?.hasError('required') && merchantSignupForm.get('username')?.touched"  >
-                        *Username is Mandatory
-                    </span>
-                    <span *ngIf="merchantSignupForm?.get('username')?.hasError('minlength') && merchantSignupForm.get('username')?.touched"  >
-                        *Min 3 Characters
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td>Password: </td>
-                <td>
-                    <input type="password" formControlName="password">
-                    <span *ngIf="merchantSignupForm?.get('password')?.hasError('required') && merchantSignupForm.get('password')?.touched"  >
-                        *Password is Mandatory
-                    </span>
-                    <span *ngIf="merchantSignupForm?.get('password')?.hasError('minlength') && merchantSignupForm.get('password')?.touched"  >
-                        *Min 8 Characters
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <h3>Pick Your Specialty</h3>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <input type="checkbox" id="elec" formControlName="elec"><label for="elec">Electrician</label>
-                </td>
-                <td *ngIf="merchantSignupForm.get('elec')?.value === true">
-                    License No: <input type="text" formControlName="elecLicenseNo">
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <input type="checkbox" id="plum" formControlName="plum"><label for="plum">Plumber</label>
-                </td>
-                <td *ngIf="merchantSignupForm.get('plum')?.value === true">
-                    License No: <input type="text" formControlName="plumLicenseNo">
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <input type="checkbox" id="aircon" formControlName="aircon"><label for="aircon">Aircon Repairman</label>
-                </td>
-                <td *ngIf="merchantSignupForm.get('aircon')?.value === true">
-                    License No: <input type="text"  formControlName="airconLicenseNo">
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <button type="submit" [disabled]="merchantSignupForm.invalid">Sign Up</button>
-                </td>
-                <td>
-                    <button type="button" (click)="resetForm()">Reset</button>
-                </td>
-            </tr>
-        </table>
+        <mat-form-field class="left">
+            <input type="text" formControlName="firstName" placeholder="First Name" matInput>
+            <mat-error *ngIf="merchantSignupForm?.get('firstName')?.hasError('required')">First Name is Mandatory</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <input type="text" formControlName="lastName" placeholder="Last Name" matInput>
+            <mat-error *ngIf="merchantSignupForm?.get('lastName')?.hasError('required')">Last Name is Mandatory</mat-error>
+        </mat-form-field>
+        <br>
+        <mat-form-field class="left">
+            <input type="email" formControlName="email" placeholder="Email" matInput>
+            <mat-error *ngIf="merchantSignupForm?.get('email')?.hasError('required')">Email is Mandatory</mat-error>
+            <mat-error *ngIf="merchantSignupForm?.get('email')?.hasError('email')">Email format required</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <input type="text" formControlName="phoneNumber" placeholder="Phone Number" matInput>
+            <mat-error *ngIf="merchantSignupForm?.get('phoneNumber')?.hasError('required')">Phone Number is Mandatory</mat-error>
+            <mat-error *ngIf="merchantSignupForm?.get('phoneNumber')?.hasError('pattern') || merchantSignupForm?.get('phoneNumber')?.hasError('maxlength')">Phone Number format required</mat-error>
+        </mat-form-field>
+        <br>
+        <mat-form-field class="left">
+            <input type="text" formControlName="companyName" placeholder="Company Name" matInput>
+            <mat-error *ngIf="merchantSignupForm?.get('companyName')?.hasError('required')"> Company Name is Mandatory</mat-error>
+        </mat-form-field>
+        <!-- <small>NIL if you are not under a company</small> -->
+        <mat-form-field>
+            <input type="text" formControlName="postalCode" placeholder="Postal Code" matInput>
+            <mat-error *ngIf="merchantSignupForm?.get('postalCode')?.hasError('required')">Postal Code is Mandatory</mat-error>
+            <mat-error *ngIf="merchantSignupForm?.get('postalCode')?.hasError('pattern') || merchantSignupForm?.get('postalCode')?.hasError('maxlength')">Postal Code format required</mat-error>
+        </mat-form-field>
+        <br>
+        <mat-form-field class="left">
+            <input type="text" formControlName="username" placeholder="Username" matInput>
+            <mat-error *ngIf="merchantSignupForm?.get('username')?.hasError('required')">Username is Mandatory</mat-error>
+            <mat-error *ngIf="merchantSignupForm?.get('username')?.hasError('minlength')">Minimum 3 Characters</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <input type="password" formControlName="password" placeholder="Password" matInput>
+            <mat-error *ngIf="merchantSignupForm?.get('password')?.hasError('required')">Password is Mandatory</mat-error>
+            <mat-error *ngIf="merchantSignupForm?.get('password')?.hasError('minlength')">Minimum 8 Characters</mat-error>
+        </mat-form-field>
+        <br>
+        <button type="submit" id="submit" color="primary" mat-raised-button [disabled]="merchantSignupForm.invalid">Next</button>
+        <button type="button" id="reset" mat-raised-button (click)="resetForm()">Reset</button>
     </form>
-</div>
-
-<div>
-    <p>Already have an account? <a [routerLink]="['/merchant-login']">Log in</a>.</p>
+    <p id="another_login">Already have an account? <a [routerLink]="['/merchant-login']">Log in</a>.</p>
     <a [routerLink]="['/user-signup']">Sign Up as User</a>
 </div>
