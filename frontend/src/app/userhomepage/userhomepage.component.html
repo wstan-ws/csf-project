@@ -1,16 +1,21 @@
-<div>
-    <h1>HANDY</h1>
-    <button type="button" (click)="profile()">Profile</button>
-    <button type="button" (click)="logout()">Logout</button>
+<div class="header">
+    <img src="/assets/overhaul.png" alt="">
 </div>
 
-<div>
-    <h3>What Service Are You Looking For Today?</h3>
-    <button type="button" [routerLink]="['/electrician']">Electrician</button>
-    <button type="button" [routerLink]="['/plumber']">Plumber</button>
-    <button type="button" [routerLink]="['/aircon']">Aircon Repairman</button>
+<div class="top-content" *ngIf="user$ | async as user">
+    <p class="title">Hi, {{ user.firstName }}!</p>
+    <div class="buttons">
+        <button type="button" color="primary" mat-raised-button (click)="convo()">Conversations</button>
+        <button type="button" color="primary" mat-raised-button (click)="profile()">Profile</button>
+        <button type="button" id="logout" mat-raised-button (click)="logout()">Logout</button>
+    </div>
 </div>
 
-<div>
-    <a [routerLink]="['/user-conversations', username]">Conversations</a>
+<div class="main-content">
+    <p class="subtitle">What service are you looking for today?</p>
+    <button type="button" mat-stroked-button [routerLink]="['/electrician']">Electrician</button>
+    <br>
+    <button type="button" mat-stroked-button [routerLink]="['/plumber']">Plumber</button>
+    <br>
+    <button type="button" mat-stroked-button [routerLink]="['/aircon']">Aircon Repairman</button>
 </div>

@@ -210,12 +210,4 @@ public class MerchantController {
 
         return ResponseEntity.ok().body("{}");
     }
-
-    @PatchMapping(path = "/setinactive/{filter}")
-    public ResponseEntity<String> setInactive(@PathVariable String filter, @RequestBody Boolean active) {
-
-        mainSvc.setInactive(filter, active);
-
-        return ResponseEntity.ok().body("{}");
-    }
 }

@@ -1,16 +1,22 @@
-<div>
-    <h1>HANDY</h1>
-    <button type="button" (click)="profile()">Profile</button>
-    <button type="button" (click)="logout()">Logout</button>
+<div class="header">
+    <img src="/assets/overhaul.png" alt="">
+    <p class="type">MERCHANT PAGE</p>
 </div>
 
-<div>
-    <p>Status: {{ status }}</p>
-    <button type="button" (click)="active()">Set Active</button>
-    <button type="button" (click)="inactive()">Set Inactive</button>
+<div class="top-content" *ngIf="merchant$ | async as merchant">
+    <p class="title">Hi, {{ merchant.firstName }}!</p>
+    <div class="buttons">
+        <button type="button" color="primary" mat-raised-button (click)="convo()">Conversations</button>
+        <button type="button" color="primary" mat-raised-button (click)="profile()">Profile</button>
+        <button type="button" id="logout" mat-raised-button (click)="logout()">Logout</button>
+    </div>
 </div>
 
-
-<div>
-    <a [routerLink]="['/merchant-conversations', username]">Conversations</a>
+<div class="activity">
+    <div class="toggle">
+        <p class="label">Status: {{ status }}</p>
+        <form [formGroup]="activityForm">
+            <mat-slide-toggle color="primary" (change)="onChange($event)"  formControlName="activity"></mat-slide-toggle>
+        </form>
+    </div>    
 </div>

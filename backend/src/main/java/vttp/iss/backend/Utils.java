@@ -107,12 +107,6 @@ public class Utils {
                 WHERE username = ?                
         """;
 
-        public static final String SQL_SET_INACTIVE = """
-                UPDATE merchants
-                SET active = ?
-                WHERE username = ?                
-        """;
-
         // Messages
         public static final String SQL_POST_CHAT_RECORD = """
                 INSERT INTO chats

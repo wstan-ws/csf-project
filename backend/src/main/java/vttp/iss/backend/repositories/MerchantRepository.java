@@ -219,12 +219,4 @@ public class MerchantRepository {
             active, 
             filter);
     }
-
-    public void setInactive(String filter, Boolean active) {
-
-        template.update(
-            Utils.SQL_SET_INACTIVE, 
-            active, 
-            filter);
-    }
 }

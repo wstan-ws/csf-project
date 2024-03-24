@@ -78,11 +78,6 @@ export class BackendService {
         return lastValueFrom(this.http.patch(url, body)) 
     }
 
-    setInactive(filter: string, body: boolean): Promise<any> {
-        const url: string = `http://localhost:8080/api/setinactive/${filter}`
-        return lastValueFrom(this.http.patch(url, body)) 
-    }
-
     getChat(filter: string): Promise<Message[]> {
         const url: string = `http://localhost:8080/api/chat/${filter}`
         return lastValueFrom(this.http.get<Message[]>(url)) 

@@ -1,9 +1,11 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnChanges, OnInit, SimpleChanges, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BackendService } from '../backend.service';
 import { Observable } from 'rxjs';
 import { MerchantSignUpDetails } from '../models';
 import { UsernameService } from '../username.service';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 
 @Component({
   selector: 'app-merchanthomepage',
@@ -12,54 +14,65 @@ import { UsernameService } from '../username.service';
 })
 export class MerchanthomepageComponent implements OnInit {
 
+  activityForm!: FormGroup
   username!: string
-  flag!: Boolean
+  isChecked!: boolean
   status!: string
-
-  test$!: Observable<MerchantSignUpDetails>
+  merchant$!: Observable<MerchantSignUpDetails>
 
   private router = inject(Router)
   private activatedRoute = inject(ActivatedRoute)
   private backendSvc = inject(BackendService)
   private userSvc = inject(UsernameService)
+  private fb = inject(FormBuilder)
 
   ngOnInit(): void {
     this.username = this.activatedRoute.snapshot.params['username']
-    this.flag = this.userSvc.getActivity();
-    if (this.flag) {
+    this.merchant$ = this.backendSvc.getMerchantDetails(this.username)
+    this.isChecked = this.userSvc.getActivity();
+    if (this.isChecked) {
       this.status = 'Active'
-    } else if (!this.flag) {
+    } else if (!this.isChecked) {
       this.status = 'Inactive'
     } else {
-      this.status = ''
+      this.isChecked = false
+      this.status = 'Inactive'
     }
+    this.activityForm = this.createActivityForm()
   }
 
   profile(): void {
     this.router.navigate(['/merchant-profile', this.username])
   }
 
-  active(): void {
-    const active: boolean = true
-    this.backendSvc.setActive(this.username, active).then()
-    this.userSvc.setActivity(true)
-    this.status = 'Active'
+  convo(): void {
+    this.router.navigate(['/merchant-conversations', this.username])
   }
 
-  inactive(): void {
-    const active: boolean = false
-    this.backendSvc.setInactive(this.username, active).then()
-    this.userSvc.setActivity(false)
-    this.status = 'Inactive'
+  onChange(event: MatSlideToggleChange): void {
+    this.isChecked = !this.isChecked
+    this.userSvc.setActivity(this.isChecked)
+    const active: boolean = this.isChecked
+    this.backendSvc.setActive(this.username, active).then()
+    if (this.isChecked === true) {
+      this.status = 'Active'
+    } else {
+      this.status = 'Inactive'
+    }
   }
 
   logout(): void {
-    this.flag = false
+    this.isChecked = false
     const active: boolean = false
-    this.backendSvc.setInactive(this.username, active).then()
+    this.backendSvc.setActive(this.username, active).then()
     this.userSvc.setActivity(false)
     this.username = ''
     this.router.navigate(['/'])
   }
 
+  private createActivityForm(): FormGroup {
+    return this.fb.group({
+      activity: this.fb.control<Boolean>(this.isChecked)
+    })
+  }
 }

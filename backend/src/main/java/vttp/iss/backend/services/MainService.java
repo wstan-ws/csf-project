@@ -85,10 +85,6 @@ public class MainService {
         merchantRepo.setActive(filter, active);
     }
 
-    public void setInactive(String filter, Boolean active) {
-        merchantRepo.setInactive(filter, active);
-    }
-
     // Messages
     public List<Message> getChat(String usernames, String user, String merchant) throws InterruptedException, ExecutionException {
         return messageRepo.getChat(usernames, user, merchant);
