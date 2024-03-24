@@ -12,9 +12,6 @@ import { MerchantStore } from '../merchant.store';
 export class MerchantSignupComponent implements OnInit {
 
   merchantSignupForm!: FormGroup
-  merchant!: MerchantSignUpDetails
-  username: string[] = []
-  match: boolean = false
 
   private fb = inject(FormBuilder)
   private router = inject(Router)
@@ -56,14 +53,14 @@ export class MerchantSignupComponent implements OnInit {
 
   private createMerchantSignupForm(): FormGroup {
     return this.fb.group({
-      firstName: this.fb.control<string>("", [ Validators.required ]),
-      lastName: this.fb.control<string>("", [ Validators.required ]),
-      email: this.fb.control<string>("", [ Validators.required, Validators.email ]),
-      phoneNumber: this.fb.control<string>("", [ Validators.required, Validators.pattern(/[8-9](\d{7})/), Validators.maxLength(8) ]),
-      companyName: this.fb.control<string>("", [ Validators.required ]),
-      postalCode: this.fb.control<string>("", [ Validators.required, Validators.pattern(/\d{6}/), Validators.maxLength(6) ]),
-      username: this.fb.control<string>("", [ Validators.required, Validators.minLength(3) ]),
-      password: this.fb.control<string>("", [ Validators.required, Validators.minLength(8) ]),
+      firstName: this.fb.control<string>('', [ Validators.required ]),
+      lastName: this.fb.control<string>('', [ Validators.required ]),
+      email: this.fb.control<string>('', [ Validators.required, Validators.email ]),
+      phoneNumber: this.fb.control<string>('', [ Validators.required, Validators.pattern(/[8-9](\d{7})/), Validators.maxLength(8) ]),
+      companyName: this.fb.control<string>('', [ Validators.required ]),
+      postalCode: this.fb.control<string>('', [ Validators.required, Validators.pattern(/\d{6}/), Validators.maxLength(6) ]),
+      username: this.fb.control<string>('', [ Validators.required, Validators.minLength(3) ]),
+      password: this.fb.control<string>('', [ Validators.required, Validators.minLength(8) ]),
     })
   }
 }
