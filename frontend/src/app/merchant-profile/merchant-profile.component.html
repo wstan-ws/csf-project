@@ -1,53 +1,22 @@
 <div>
-    <h1>Merchant Profile</h1>
-    <button type="button" (click)="back()">Back</button>
+    <button id="back" type="button" (click)="back()" mat-icon-button><mat-icon>keyboard_arrow_left</mat-icon></button>
 </div>
 
-<div>
-    <table *ngIf="merchant$ | async as merchant">
-        <tr>
-            <td>First Name: </td>
-            <td>{{ merchant.firstName }}</td>
-        </tr>
-        <tr>
-            <td>Last Name: </td>
-            <td>{{ merchant.lastName }}</td>
-        </tr>
-        <tr>
-            <td>Email: </td>
-            <td>{{ merchant.email }}</td>
-        </tr>
-        <tr>
-            <td>Phone Number: </td>
-            <td>{{ merchant.phoneNumber }}</td>
-        </tr>
-        <tr>
-            <td>Company Name: </td>
-            <td>{{ merchant.companyName }}</td>
-        </tr>
-        <tr>
-            <td>Postal Code: </td>
-            <td>{{ merchant.postalCode }}</td>
-        </tr>
-        <tr *ngIf="merchant.elec">
-            <td>Electrician License No: </td>
-            <td>{{ merchant.elecLicenseNo }}</td>
-        </tr>
-        <tr *ngIf="merchant.plum">
-            <td>Plumber License No: </td>
-            <td>{{ merchant.plumLicenseNo }}</td>
-        </tr>
-        <tr *ngIf="merchant.aircon">
-            <td>Aircon Repairman License No: </td>
-            <td>{{ merchant.airconLicenseNo }}</td>
-        </tr>
-        <tr>
-            <td>
-                <button type="button" (click)="edit()">Edit Profile</button>
-            </td>
-            <td>
-                <button type="button" (click)="changepw()">Change Password</button>
-            </td>
-        </tr>
-    </table>
+<div class="container">
+    <p class="title">Profile</p>
+    <div *ngIf="merchant$ | async as merchant">
+        <p>First Name: {{ merchant.firstName }}</p>
+        <p>Last Name: {{ merchant.lastName }}</p>
+        <p>Email: {{ merchant.email }}</p>
+        <p>Phone Number: {{ merchant.phoneNumber }}</p>
+        <p>Company Name: {{ merchant.companyName }}</p>
+        <p>Postal Code: {{ merchant.postalCode }}</p>
+        <p *ngIf="merchant.elec === true">Electrician License No: {{ merchant.elecLicenseNo }}</p>
+        <p *ngIf="merchant.plum === true">Plumber License No: {{ merchant.plumLicenseNo }}</p>
+        <p *ngIf="merchant.aircon === true">Aircon Repairman License No: {{ merchant.airconLicenseNo }}</p>
+    </div>
+    <div class="buttons">
+        <button type="button" id="edit" color="primary" mat-raised-button (click)="edit()">Edit Profile</button>
+        <button type="button" id="password" mat-raised-button (click)="changepw()">Reset Password</button>
+    </div>
 </div>

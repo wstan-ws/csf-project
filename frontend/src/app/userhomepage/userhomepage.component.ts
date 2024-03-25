@@ -33,7 +33,9 @@ export class UserhomepageComponent implements OnInit {
   }
 
   logout(): void {
-    this.username = ''
-    this.router.navigate(['/'])
+    if (confirm('Are you sure you want to logout?')) {
+      this.username = ''
+      this.router.navigate(['/'])
+    }
   }
 }

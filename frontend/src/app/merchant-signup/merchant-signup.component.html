@@ -6,43 +6,50 @@
     <p class="title">Merchant Sign Up</p>
     <form [formGroup]="merchantSignupForm" (submit)="submitForm()">
         <mat-form-field class="left">
-            <input type="text" formControlName="firstName" placeholder="First Name" matInput>
+            <mat-label>First Name</mat-label>
+            <input type="text" formControlName="firstName" matInput>
             <mat-error *ngIf="merchantSignupForm?.get('firstName')?.hasError('required')">First Name is Mandatory</mat-error>
         </mat-form-field>
         <mat-form-field>
-            <input type="text" formControlName="lastName" placeholder="Last Name" matInput>
+            <mat-label>Last Name</mat-label>
+            <input type="text" formControlName="lastName" matInput>
             <mat-error *ngIf="merchantSignupForm?.get('lastName')?.hasError('required')">Last Name is Mandatory</mat-error>
         </mat-form-field>
         <br>
         <mat-form-field class="left">
-            <input type="email" formControlName="email" placeholder="Email" matInput>
+            <mat-label>Email</mat-label>
+            <input type="email" formControlName="email" matInput>
             <mat-error *ngIf="merchantSignupForm?.get('email')?.hasError('required')">Email is Mandatory</mat-error>
             <mat-error *ngIf="merchantSignupForm?.get('email')?.hasError('email')">Email format required</mat-error>
         </mat-form-field>
         <mat-form-field>
-            <input type="text" formControlName="phoneNumber" placeholder="Phone Number" matInput>
+            <mat-label>Phone Number</mat-label>
+            <input type="text" formControlName="phoneNumber" matInput>
             <mat-error *ngIf="merchantSignupForm?.get('phoneNumber')?.hasError('required')">Phone Number is Mandatory</mat-error>
             <mat-error *ngIf="merchantSignupForm?.get('phoneNumber')?.hasError('pattern') || merchantSignupForm?.get('phoneNumber')?.hasError('maxlength')">Phone Number format required</mat-error>
         </mat-form-field>
         <br>
         <mat-form-field class="left">
-            <input type="text" formControlName="companyName" placeholder="Company Name" matInput>
+            <mat-label>Company Name</mat-label>
+            <input type="text" formControlName="companyName" placeholder="NIL if you are not under a company" matInput>
             <mat-error *ngIf="merchantSignupForm?.get('companyName')?.hasError('required')"> Company Name is Mandatory</mat-error>
         </mat-form-field>
-        <!-- <small>NIL if you are not under a company</small> -->
         <mat-form-field>
-            <input type="text" formControlName="postalCode" placeholder="Postal Code" matInput>
+            <mat-label>Postal Code</mat-label>
+            <input type="text" formControlName="postalCode" matInput>
             <mat-error *ngIf="merchantSignupForm?.get('postalCode')?.hasError('required')">Postal Code is Mandatory</mat-error>
             <mat-error *ngIf="merchantSignupForm?.get('postalCode')?.hasError('pattern') || merchantSignupForm?.get('postalCode')?.hasError('maxlength')">Postal Code format required</mat-error>
         </mat-form-field>
         <br>
         <mat-form-field class="left">
-            <input type="text" formControlName="username" placeholder="Username" matInput>
+            <mat-label>Username</mat-label>
+            <input type="text" formControlName="username" matInput>
             <mat-error *ngIf="merchantSignupForm?.get('username')?.hasError('required')">Username is Mandatory</mat-error>
             <mat-error *ngIf="merchantSignupForm?.get('username')?.hasError('minlength')">Minimum 3 Characters</mat-error>
         </mat-form-field>
         <mat-form-field>
-            <input type="password" formControlName="password" placeholder="Password" matInput>
+            <mat-label>Password</mat-label>
+            <input type="password" formControlName="password" matInput>
             <mat-error *ngIf="merchantSignupForm?.get('password')?.hasError('required')">Password is Mandatory</mat-error>
             <mat-error *ngIf="merchantSignupForm?.get('password')?.hasError('minlength')">Minimum 8 Characters</mat-error>
         </mat-form-field>

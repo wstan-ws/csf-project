@@ -1,110 +1,67 @@
 <div>
-    <h1>Edit Profile</h1>
+    <button id="back" type="button" (click)="cancel()" mat-icon-button><mat-icon>keyboard_arrow_left</mat-icon></button>
 </div>
 
-<div>
+<div class="container">
+    <p class="title">Edit Profile</p>
     <form [formGroup]="merchantEditForm" (submit)="editForm()">
-        <table>
-            <tr>
-                <td>First Name: </td>
-                <td>
-                    <input type="text" formControlName="firstName">
-                    <span *ngIf="merchantEditForm?.get('firstName')?.hasError('required') && merchantEditForm.get('firstName')?.touched"  >
-                        *First Name is Mandatory
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td>Last Name: </td>
-                <td>
-                    <input type="text" formControlName="lastName">
-                    <span *ngIf="merchantEditForm?.get('lastName')?.hasError('required') && merchantEditForm.get('lastName')?.touched"  >
-                        *Last Name is Mandatory
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td>Email: </td>
-                <td>
-                    <input type="email" formControlName="email">
-                    <span *ngIf="merchantEditForm?.get('email')?.hasError('required') && merchantEditForm.get('email')?.touched"  >
-                        *Email is Mandatory
-                    </span>
-                    <span *ngIf="merchantEditForm?.get('email')?.hasError('email') && merchantEditForm.get('email')?.touched"  >
-                        *Email format required
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td>Phone Number: </td>
-                <td>
-                    <input type="text" formControlName="phoneNumber">
-                    <span *ngIf="merchantEditForm?.get('phoneNumber')?.hasError('required') && merchantEditForm.get('phoneNumber')?.touched"  >
-                        *Phone Number is Mandatory
-                    </span>
-                    <span *ngIf="(merchantEditForm?.get('phoneNumber')?.hasError('pattern') || merchantEditForm?.get('phoneNumber')?.hasError('maxlength')) && merchantEditForm.get('phoneNumber')?.touched"  >
-                        *Phone Number format required
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td>Company Name: </td>
-                <td>
-                    <textarea cols="30" rows="5" formControlName="companyName"></textarea>
-                    <span *ngIf="merchantEditForm?.get('companyName')?.hasError('required') && merchantEditForm.get('companyName')?.touched"  >
-                        *Company Name is Mandatory
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td>Postal Code: </td>
-                <td>
-                    <input type="text" formControlName="postalCode">
-                    <span *ngIf="merchantEditForm?.get('postalCode')?.hasError('required') && merchantEditForm.get('postalCode')?.touched"  >
-                        *Postal Code is Mandatory
-                    </span>
-                    <span *ngIf="(merchantEditForm?.get('postalCode')?.hasError('pattern') || merchantEditForm?.get('postalCode')?.hasError('maxlength')) && merchantEditForm.get('postalCode')?.touched"  >
-                        *Postal Code format required
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <h3>Pick Your Specialty</h3>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <input type="checkbox" id="elec" formControlName="elec"><label for="elec">Electrician</label>
-                </td>
-                <td *ngIf="merchantEditForm.get('elec')?.value === true">
-                    License No: <input type="text" formControlName="elecLicenseNo">
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <input type="checkbox" id="plum" formControlName="plum"><label for="plum">Plumber</label>
-                </td>
-                <td *ngIf="merchantEditForm.get('plum')?.value === true">
-                    License No: <input type="text" formControlName="plumLicenseNo">
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <input type="checkbox" id="aircon" formControlName="aircon"><label for="aircon">Aircon Repairman</label>
-                </td>
-                <td *ngIf="merchantEditForm.get('aircon')?.value === true">
-                    License No: <input type="text"  formControlName="airconLicenseNo">
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <button type="submit" [disabled]="merchantEditForm.invalid">Save</button>
-                </td>
-                <td>
-                    <button type="button" (click)="cancel()">Cancel</button>
-                </td>
-            </tr>
-        </table>
+        <mat-form-field>
+            <mat-label>First Name</mat-label>
+            <input type="text" formControlName="firstName" matInput>
+            <mat-error *ngIf="merchantEditForm?.get('firstName')?.hasError('required')">First Name is Mandatory</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Last Name</mat-label>
+            <input type="text" formControlName="lastName" matInput>
+            <mat-error *ngIf="merchantEditForm?.get('lastName')?.hasError('required')">Last Name is Mandatory</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Email</mat-label>
+            <input type="email" formControlName="email" matInput>
+            <mat-error *ngIf="merchantEditForm?.get('email')?.hasError('required')">Email is Mandatory</mat-error>
+            <mat-error *ngIf="merchantEditForm?.get('email')?.hasError('email')">Email format required</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Phone Number</mat-label>
+            <input type="text" formControlName="phoneNumber" matInput>
+            <mat-error *ngIf="merchantEditForm?.get('phoneNumber')?.hasError('required')">Phone Number is Mandatory</mat-error>
+            <mat-error *ngIf="merchantEditForm?.get('phoneNumber')?.hasError('pattern') || merchantEditForm?.get('phoneNumber')?.hasError('maxlength')">Phone Number format required</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Company Name</mat-label>
+            <input type="text" formControlName="companyName" matInput>
+            <mat-error *ngIf="merchantEditForm?.get('companyName')?.hasError('required')">Company Name is Mandatory</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Postal Code</mat-label>
+            <input type="text" formControlName="postalCode" matInput>
+            <mat-error *ngIf="merchantEditForm?.get('postalCode')?.hasError('required')">Postal Code is Mandatory</mat-error>
+            <mat-error *ngIf="merchantEditForm?.get('postalCode')?.hasError('pattern') || merchantEditForm?.get('postalCode')?.hasError('maxlength')">Postal Code format required</mat-error>
+        </mat-form-field>
+        <div class="checkbox">
+            <mat-checkbox formControlName="elec">Electrician</mat-checkbox>
+            <mat-form-field *ngIf="merchantEditForm.get('elec')?.value === true" subscriptSizing="dynamic">
+                <mat-label>License No</mat-label>
+                <input type="text" formControlName="elecLicenseNo" matInput>
+            </mat-form-field>
+        </div>
+        <div class="checkbox">
+            <mat-checkbox formControlName="plum">Plumber</mat-checkbox>
+            <mat-form-field *ngIf="merchantEditForm.get('plum')?.value === true" subscriptSizing="dynamic">
+                <mat-label>License No</mat-label>
+                <input type="text" formControlName="plumLicenseNo" matInput>
+            </mat-form-field>
+        </div>
+        <div class="checkbox">
+            <mat-checkbox formControlName="aircon">Aircon Repairman</mat-checkbox>
+            <mat-form-field *ngIf="merchantEditForm.get('aircon')?.value === true" subscriptSizing="dynamic">
+                <mat-label>License No</mat-label>
+                <input type="text" formControlName="airconLicenseNo" matInput>
+            </mat-form-field>
+        </div>
+        <div class="buttons">
+            <button type="submit" id="save" color="primary" mat-raised-button [disabled]="merchantEditForm.invalid">Save</button>
+            <button type="button" id="cancel" mat-raised-button (click)="cancel()">Cancel</button>
+        </div>
     </form>
 </div>

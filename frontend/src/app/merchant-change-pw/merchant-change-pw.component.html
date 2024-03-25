@@ -1,42 +1,26 @@
 <div>
-    <h1>Change Password</h1>
+    <button id="back" type="button" (click)="cancel()" mat-icon-button><mat-icon>keyboard_arrow_left</mat-icon></button>
 </div>
 
-<div>
+<div class="container">
+    <p class="title">Reset Password</p>
     <form [formGroup]="merchantChangePwForm" (submit)="changePw()">
-        <table>
-            <tr>
-                <td>New Password: </td>
-                <td>
-                    <input type="password" formControlName="newpw">
-                    <span *ngIf="merchantChangePwForm?.get('newpw')?.hasError('required') && merchantChangePwForm.get('newpw')?.touched"  >
-                        *This Field is Mandatory
-                    </span>
-                    <span *ngIf="merchantChangePwForm?.get('newpw')?.hasError('minlength') && merchantChangePwForm.get('newpw')?.touched"  >
-                        *Min 8 Characters
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td>Confirm Password: </td>
-                <td>
-                    <input type="password" formControlName="confirmpw">
-                    <span *ngIf="merchantChangePwForm?.get('confirmpw')?.hasError('required') && merchantChangePwForm.get('confirmpw')?.touched"  >
-                        *This Field is Mandatory
-                    </span>
-                    <span *ngIf="merchantChangePwForm?.get('confirmpw')?.hasError('minlength') && merchantChangePwForm.get('confirmpw')?.touched"  >
-                        *Min 8 Characters
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <button type="submit" [disabled]="merchantChangePwForm.invalid">Submit</button>
-                </td>
-                <td>
-                    <button type="button" (click)="cancel()">Cancel</button>
-                </td>
-            </tr>
-        </table>
+        <mat-form-field>
+            <mat-label>New Password</mat-label>
+            <input type="password" formControlName="newpw" matInput>
+            <mat-error *ngIf="merchantChangePwForm?.get('newpw')?.hasError('required')">This field is Mandatory</mat-error>
+            <mat-error *ngIf="merchantChangePwForm?.get('newpw')?.hasError('minlength')">Minimum 8 Characters</mat-error>
+        </mat-form-field>
+        <br>
+        <mat-form-field>
+            <mat-label>Confirm Password</mat-label>
+            <input type="password" formControlName="confirmpw" matInput>
+            <mat-error *ngIf="merchantChangePwForm?.get('confirmpw')?.hasError('required')">This field is Mandatory</mat-error>
+            <mat-error *ngIf="merchantChangePwForm?.get('confirmpw')?.hasError('minlength')">Minimum 8 Characters</mat-error>
+        </mat-form-field>
+        <div class="buttons">
+            <button type="submit" id="submit" color="primary" mat-raised-button [disabled]="merchantChangePwForm.invalid">Submit</button>
+            <button type="button" id="cancel" mat-raised-button (click)="cancel()">Cancel</button>
+        </div>
     </form>
 </div>

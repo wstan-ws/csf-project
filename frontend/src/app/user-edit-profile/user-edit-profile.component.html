@@ -1,81 +1,46 @@
 <div>
-    <h1>Edit Profile</h1>
+    <button id="back" type="button" (click)="cancel()" mat-icon-button><mat-icon>keyboard_arrow_left</mat-icon></button>
 </div>
 
-<div>
+<div class="container">
+    <p class="title">Edit Profile</p>
     <form [formGroup]="userEditForm" (submit)="editForm()">
-        <table>
-            <tr>
-                <td>First Name: </td>
-                <td>
-                    <input type="text" formControlName="firstName">
-                    <span *ngIf="userEditForm?.get('firstName')?.hasError('required') && userEditForm.get('firstName')?.touched"  >
-                        *First Name is Mandatory
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td>Last Name: </td>
-                <td>
-                    <input type="text" formControlName="lastName">
-                    <span *ngIf="userEditForm?.get('lastName')?.hasError('required') && userEditForm.get('lastName')?.touched"  >
-                        *Last Name is Mandatory
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td>Email: </td>
-                <td>
-                    <input type="email" formControlName="email">
-                    <span *ngIf="userEditForm?.get('email')?.hasError('required') && userEditForm.get('email')?.touched"  >
-                        *Email is Mandatory
-                    </span>
-                    <span *ngIf="userEditForm?.get('email')?.hasError('email') && userEditForm.get('email')?.touched"  >
-                        *Email format required
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td>Phone Number: </td>
-                <td>
-                    <input type="text" formControlName="phoneNumber">
-                    <span *ngIf="userEditForm?.get('phoneNumber')?.hasError('required') && userEditForm.get('phoneNumber')?.touched"  >
-                        *Phone Number is Mandatory
-                    </span>
-                    <span *ngIf="(userEditForm?.get('phoneNumber')?.hasError('pattern') || userEditForm?.get('phoneNumber')?.hasError('maxlength')) && userEditForm.get('phoneNumber')?.touched"  >
-                        *Phone Number format required
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td>Address: </td>
-                <td>
-                    <textarea cols="30" rows="5" formControlName="address"></textarea>
-                    <span *ngIf="userEditForm?.get('address')?.hasError('required') && userEditForm.get('address')?.touched"  >
-                        *Address is Mandatory
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td>Postal Code: </td>
-                <td>
-                    <input type="text" formControlName="postalCode">
-                    <span *ngIf="userEditForm?.get('postalCode')?.hasError('required') && userEditForm.get('postalCode')?.touched"  >
-                        *Postal Code is Mandatory
-                    </span>
-                    <span *ngIf="(userEditForm?.get('postalCode')?.hasError('pattern') || userEditForm?.get('postalCode')?.hasError('maxlength')) && userEditForm.get('postalCode')?.touched"  >
-                        *Postal Code format required
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <button type="submit" [disabled]="userEditForm.invalid">Save</button>
-                </td>
-                <td>
-                    <button type="button" (click)="cancel()">Cancel</button>
-                </td>
-            </tr>
-        </table>
+        <mat-form-field>
+            <mat-label>First Name</mat-label>
+            <input type="text" formControlName="firstName" matInput>
+            <mat-error *ngIf="userEditForm?.get('firstName')?.hasError('required')">First Name is Mandatory</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Last Name</mat-label>
+            <input type="text" formControlName="lastName" matInput>
+            <mat-error *ngIf="userEditForm?.get('lastName')?.hasError('required')">Last Name is Mandatory</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Email</mat-label>
+            <input type="email" formControlName="email" matInput>
+            <mat-error *ngIf="userEditForm?.get('email')?.hasError('required')">Email is Mandatory</mat-error>
+            <mat-error *ngIf="userEditForm?.get('email')?.hasError('email')">Email format required</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Phone Number</mat-label>
+            <input type="text" formControlName="phoneNumber" matInput>
+            <mat-error *ngIf="userEditForm?.get('phoneNumber')?.hasError('required')">Phone Number is Mandatory</mat-error>
+            <mat-error *ngIf="userEditForm?.get('phoneNumber')?.hasError('pattern') || userEditForm?.get('phoneNumber')?.hasError('maxlength')">Phone Number format required</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Address</mat-label>
+            <input type="text" formControlName="address" matInput>
+            <mat-error *ngIf="userEditForm?.get('address')?.hasError('required')">Address is Mandatory</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Postal Code</mat-label>
+            <input type="text" formControlName="postalCode" matInput>
+            <mat-error *ngIf="userEditForm?.get('postalCode')?.hasError('required')">Postal Code is Mandatory</mat-error>
+            <mat-error *ngIf="userEditForm?.get('postalCode')?.hasError('pattern') || userEditForm?.get('postalCode')?.hasError('maxlength')">Postal Code format required</mat-error>
+        </mat-form-field>
+        <div class="buttons">
+            <button type="submit" id="save" color="primary" mat-raised-button [disabled]="userEditForm.invalid">Save</button>
+            <button type="button" id="cancel" mat-raised-button (click)="cancel()">Cancel</button>
+        </div>
     </form>
 </div>

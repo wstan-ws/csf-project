@@ -9,21 +9,24 @@
             Electrician
         </mat-checkbox>
         <mat-form-field class="small" *ngIf="merchantSignUpForm.get('elec')?.value === true">
-            <input type="text" formControlName="elecLicenseNo" placeholder="License Number" matInput>
+            <mat-label>License No</mat-label>
+            <input type="text" formControlName="elecLicenseNo" matInput>
         </mat-form-field>
         <br>
         <mat-checkbox formControlName="plum">
             Plumber
         </mat-checkbox>
         <mat-form-field class="small" *ngIf="merchantSignUpForm.get('plum')?.value === true">
-            <input type="text" formControlName="plumLicenseNo" placeholder="License Number" matInput>
+            <mat-label>License No</mat-label>
+            <input type="text" formControlName="plumLicenseNo" matInput>
         </mat-form-field>
         <br>
         <mat-checkbox formControlName="aircon">
             Aircon Repairman
         </mat-checkbox>
         <mat-form-field class="small" *ngIf="merchantSignUpForm.get('aircon')?.value === true">
-            <input type="text" formControlName="airconLicenseNo" placeholder="License Number" matInput>
+            <mat-label>License No</mat-label>
+            <input type="text" formControlName="airconLicenseNo" matInput>
         </mat-form-field>
         <br>
         <button type="submit" id="submit" color="primary" mat-raised-button>Sign Up</button>

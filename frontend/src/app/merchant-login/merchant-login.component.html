@@ -6,11 +6,13 @@
     <p class="title">Merchant Login</p>
     <form [formGroup]="merchantLoginForm" (submit)="login()">
         <mat-form-field>
-            <input type="text" formControlName="username" placeholder="Username" matInput>
+            <mat-label>Username</mat-label>
+            <input type="text" formControlName="username" matInput>
         </mat-form-field>
         <br>
         <mat-form-field>
-            <input type="password" formControlName="password" placeholder="Password" matInput>
+            <mat-label>Password</mat-label>
+            <input type="password" formControlName="password" matInput>
         </mat-form-field>
         <br>
         <button type="submit" color="primary" mat-raised-button>Login</button>

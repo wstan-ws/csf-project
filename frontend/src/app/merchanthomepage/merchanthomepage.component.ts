@@ -62,12 +62,14 @@ export class MerchanthomepageComponent implements OnInit {
   }
 
   logout(): void {
-    this.isChecked = false
-    const active: boolean = false
-    this.backendSvc.setActive(this.username, active).then()
-    this.userSvc.setActivity(false)
-    this.username = ''
-    this.router.navigate(['/'])
+    if (confirm('Are you sure you want to logout?')) {
+      this.isChecked = false
+      const active: boolean = false
+      this.backendSvc.setActive(this.username, active).then()
+      this.userSvc.setActivity(false)
+      this.username = ''
+      this.router.navigate(['/'])
+    }
   }
 
   private createActivityForm(): FormGroup {
