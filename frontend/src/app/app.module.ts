@@ -43,6 +43,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MerchantSignup2Component } from './merchant-signup-2/merchant-signup-2.component';
 import { MerchantStore } from './merchant.store';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatCardModule } from '@angular/material/card';
+import { MatListModule } from '@angular/material/list';
 
 const appRoutes: Routes = [
   {path: '', component: HomeComponent},
@@ -116,7 +118,9 @@ const appRoutes: Routes = [
     MatInputModule,
     MatIconModule,
     MatCheckboxModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    MatCardModule,
+    MatListModule
   ],
   providers: [BackendService, UsernameService, MessageService, provideAnimationsAsync(), MerchantStore],
   bootstrap: [AppComponent]

@@ -38,7 +38,7 @@ export class MerchantChatComponent implements OnInit, OnDestroy {
     this.messageForm.reset()
   }
 
-  conversations(): void {
+  back(): void {
     this.router.navigate(['/merchant-conversations', this.usernames.split('-')[1]])
   }
 

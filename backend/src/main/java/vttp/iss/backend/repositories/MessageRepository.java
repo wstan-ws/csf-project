@@ -3,6 +3,7 @@ package vttp.iss.backend.repositories;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -47,7 +48,6 @@ public class MessageRepository {
             return list;
         } else 
             return null;
-
     }
 
     public void postMessage(String collectionId, Message message) {
@@ -76,7 +76,9 @@ public class MessageRepository {
             int chatId = rs.getInt("chat_id");
             String user = rs.getString("user");
             String merchant = rs.getString("merchant");
-            ChatRecord chatRecord = new ChatRecord(chatId, user, merchant);
+            String lastMessage = rs.getString("last_message");
+            Date timestamp = rs.getTimestamp("timestamp");
+            ChatRecord chatRecord = new ChatRecord(chatId, user, merchant, lastMessage, timestamp);
             chatList.add(chatRecord);
         }
 
@@ -93,10 +95,17 @@ public class MessageRepository {
             int chatId = rs.getInt("chat_id");
             String user = rs.getString("user");
             String merchant = rs.getString("merchant");
-            ChatRecord chatRecord = new ChatRecord(chatId, user, merchant);
+            String lastMessage = rs.getString("last_message");
+            Date timestamp = rs.getTimestamp("timestamp");
+            ChatRecord chatRecord = new ChatRecord(chatId, user, merchant, lastMessage, timestamp);
             chatList.add(chatRecord);
         }
 
         return chatList;
+    }
+
+    public void editLastMsg(String user, String merchant, String lastMessage, Date timestamp) {
+
+        template.update(Utils.SQL_EDIT_LAST_MESSAGE, lastMessage, timestamp, user, merchant);
     }
 }

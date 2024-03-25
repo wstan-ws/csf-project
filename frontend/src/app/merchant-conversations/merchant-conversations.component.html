@@ -1,19 +1,25 @@
 <div>
-    <h2>{{username}}'s Conversations</h2>
+    <button id="back" type="button" (click)="back()" mat-icon-button><mat-icon>keyboard_arrow_left</mat-icon></button>
 </div>
 
-<div>
-    <div *ngIf="chats$ | async as chats">
-        <ul *ngIf="chats.length > 0; else noChat">
-            <li *ngFor="let chat of chats"><a [routerLink]="['/merchantchat', chat.user + '-' + username]">{{ chat.user }}</a></li>
-        </ul>
+<div class="header" *ngIf="merchant$ | async as merchant">
+    <p class="title">{{ merchant.firstName }}'s Conversations</p>
+</div>
+
+<div class="chats" *ngIf="chats$ | async as chats">
+    <div *ngIf="chats.length > 0; else noChat">
+        <div *ngFor="let chat of chats">
+            <a [routerLink]="['/merchantchat', chat.user + '-' + username]">
+                <mat-card>
+                    <mat-card-title>{{ chat.user }}</mat-card-title>
+                    <mat-card-content>{{ chat.lastMessage }}</mat-card-content>
+                    <mat-card-subtitle>{{ chat.timestamp | date: 'medium'}}</mat-card-subtitle>
+                </mat-card>
+            </a>
+        </div>
     </div>
 </div>
 
-<div>
-    <button type="button" [routerLink]="['/merchant-homepage', username]">Home</button>
-</div>
-
 <ng-template #noChat>
-    <h3>No Chats Yet</h3>
+    <p class="noChat">No Chats Yet</p>
 </ng-template>

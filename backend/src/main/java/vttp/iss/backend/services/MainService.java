@@ -1,5 +1,6 @@
 package vttp.iss.backend.services;
 
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -99,10 +100,16 @@ public class MainService {
     }
 
     public List<ChatRecord> getConversationsMerchant(String merchant) {
+
         return messageRepo.getConversationsMerchant(merchant);
     }
 
     public List<ChatRecord> getConversationsUser(String user) {
         return messageRepo.getConversationsUser(user);
+    }
+
+    public void editLastMsg(String user, String merchant, String lastMessage, Date timestamp) {
+
+        messageRepo.editLastMsg(user, merchant, lastMessage, timestamp);
     }
 }

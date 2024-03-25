@@ -1,0 +1,26 @@
+#back {
+    color: #4b2aad;
+    margin-left: 30px;
+    margin-top: 30px;
+}
+
+.name {
+    text-align: center;
+    font-size: 25px;
+    font-weight: 500;
+    margin-bottom: 30px;
+}
+
+.chatbox {
+    text-align: center;
+    height: 400px;
+}
+
+.messagebox {
+    text-align: center;
+}
+
+mat-form-field {
+    width: 400px;
+    margin-right: 10px;
+}

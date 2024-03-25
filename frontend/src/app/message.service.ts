@@ -21,7 +21,9 @@ export class MessageService {
                     const chatRecord: ChatRecord = {
                         chatId: 0,
                         user: usernames.split('-')[0],
-                        merchant: usernames.split('-')[1]
+                        merchant: usernames.split('-')[1],
+                        lastMessage: '',
+                        timestamp: 0
                     }
                     this.backendSvc.postChatRecord(chatRecord).then()
                 }
@@ -54,6 +56,14 @@ export class MessageService {
           }
         this.stompClient.send('/app/send', {}, JSON.stringify(body))
         this.backendSvc.postMessage(usernames, body)
+        const chatRecord: ChatRecord = {
+            chatId: 0,
+            user: usernames.split('-')[0],
+            merchant: usernames.split('-')[1],
+            lastMessage: message,
+            timestamp: Date.now()
+        }
+        this.backendSvc.editLastMessage(chatRecord).subscribe()
     }
 
     sendMessageMerchant(message: string, usernames: string): void {
@@ -65,6 +75,14 @@ export class MessageService {
           }
         this.stompClient.send('/app/send', {}, JSON.stringify(body))
         this.backendSvc.postMessage(usernames, body)
+        const chatRecord: ChatRecord = {
+            chatId: 0,
+            user: usernames.split('-')[0],
+            merchant: usernames.split('-')[1],
+            lastMessage: message,
+            timestamp: Date.now()
+        }
+        this.backendSvc.editLastMessage(chatRecord).subscribe()
     }
      
 }

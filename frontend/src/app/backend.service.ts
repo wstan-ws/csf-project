@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable, inject } from "@angular/core";
 import { ChatRecord, LoginDetails, MerchantSignUpDetails, Message, UserSignUpDetails } from "./models";
-import { Observable, lastValueFrom } from "rxjs";
+import { Observable, last, lastValueFrom } from "rxjs";
 
 @Injectable()
 export class BackendService {
@@ -101,5 +101,10 @@ export class BackendService {
     getConversationsUser(filter: string): Observable<ChatRecord[]> {
         const url: string = `http://localhost:8080/api/getconversationsuser/${filter}`
         return this.http.get<ChatRecord[]>(url)
+    }
+
+    editLastMessage(body: ChatRecord): Observable<any> {
+        const url: string = 'http://localhost:8080/api/editlastmessage'
+        return this.http.patch(url, body)
     }
 }

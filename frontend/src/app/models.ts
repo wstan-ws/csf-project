@@ -46,4 +46,6 @@ export interface ChatRecord {
     chatId: number
     user: string
     merchant: string
+    lastMessage: string
+    timestamp: number
 }

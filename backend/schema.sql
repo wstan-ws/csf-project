@@ -44,6 +44,8 @@ create table chats (
 	chat_id int auto_increment,
     user varchar(128) not null,
     merchant varchar(128) not null,
+    last_message text,
+    timestamp timestamp default current_timestamp,
 
     primary key (chat_id)
 );

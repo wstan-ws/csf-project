@@ -125,4 +125,10 @@ public class Utils {
                 FROM chats
                 WHERE user = ?               
         """;
+
+        public static final String SQL_EDIT_LAST_MESSAGE = """
+                UPDATE chats
+                SET last_message = ?, timestamp = ?
+                WHERE user = ? AND merchant = ?               
+        """;
 }

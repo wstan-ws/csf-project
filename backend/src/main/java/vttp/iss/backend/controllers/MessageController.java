@@ -12,6 +12,7 @@ import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -130,7 +131,9 @@ public class MessageController {
             objBuilder = objBuilder
                 .add("chatId", chat.getChatId())
                 .add("user", chat.getUser())
-                .add("merchant", chat.getMerchant());
+                .add("merchant", chat.getMerchant())
+                .add("lastMessage", chat.getLastMessage())
+                .add("timestamp", chat.getTimestamp().toString());
             arrBuilder.add(objBuilder);
         }
 
@@ -152,12 +155,31 @@ public class MessageController {
             objBuilder = objBuilder
                 .add("chatId", chat.getChatId())
                 .add("user", chat.getUser())
-                .add("merchant", chat.getMerchant());
+                .add("merchant", chat.getMerchant())
+                .add("lastMessage", chat.getLastMessage())
+                .add("timestamp", chat.getTimestamp().toString());
             arrBuilder.add(objBuilder);
         }
 
         JsonArray arr = arrBuilder.build();
 
         return ResponseEntity.ok().body(arr.toString());
+    }
+
+    @PatchMapping(path = "/editlastmessage")
+    @ResponseBody
+    public ResponseEntity<String> editLastMsg(@RequestBody String payload) {
+
+        JsonReader reader = Json.createReader(new StringReader(payload));
+        JsonObject obj = reader.readObject();
+
+        String user = obj.getString("user");
+        String merchant = obj.getString("merchant");
+        String lastMessage = obj.getString("lastMessage");
+        Date timestamp = new Date();
+
+        mainSvc.editLastMsg(user, merchant, lastMessage, timestamp);
+
+        return ResponseEntity.ok().body("{}");
     }
 }
