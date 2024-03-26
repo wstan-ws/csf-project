@@ -1,3 +1,62 @@
-h2 {
-    text-transform: capitalize;
+#back {
+    color: #4b2aad;
+    margin-left: 30px;
+    margin-top: 30px;
+}
+
+.name {
+    text-align: center;
+    font-size: 25px;
+    font-weight: 500;
+    margin-bottom: 30px;
+}
+
+.chatbox {
+    background-color: #f2f2f0;
+    height: calc(100vh - 240px);
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+}
+
+.all-chat:first-child {
+    margin-top: auto;
+}
+
+.chatbox:first-child {
+    margin-top: auto;
+}
+
+.chat-bubble {
+    padding-top: 8px;
+    padding-bottom: 18px;
+    padding-left: 8px;
+    padding-right: 50px;
+    margin-bottom: 11px;
+    margin-top: 5px;
+    border-radius: 8px;
+    width: fit-content;
+}
+
+#merchant {
+    background-color: white;
+    color: black;
+    margin-left: 10px;
+}
+
+#user {
+    background-color: #4b2aad;
+    color: white;
+    margin-left: auto;
+    margin-right: 10px;
+}
+
+.messagebox {
+    text-align: center;
+}
+
+mat-form-field {
+    width: 400px;
+    margin-top: 10px;
 }

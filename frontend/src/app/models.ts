@@ -40,6 +40,7 @@ export interface Message {
     username: string
     message: string
     timestamp: number
+    role: string
 }
 
 export interface ChatRecord {

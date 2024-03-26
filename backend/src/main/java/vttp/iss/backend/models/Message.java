@@ -11,13 +11,16 @@ public class Message implements Serializable {
 
     private Date timestamp;
 
+    private String role;
+
     public Message() {
     }
 
-    public Message(String username, String message, Date timestamp) {
+    public Message(String username, String message, Date timestamp, String role) {
         this.username = username;
         this.message = message;
         this.timestamp = timestamp;
+        this.role = role;
     }
 
     public String getUsername() {
@@ -44,8 +47,17 @@ public class Message implements Serializable {
         this.timestamp = timestamp;
     }
 
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
     @Override
     public String toString() {
-        return "Message [username=" + username + ", message=" + message + ", timestamp=" + timestamp + "]";
+        return "Message [username=" + username + ", message=" + message + ", timestamp=" + timestamp + ", role=" + role
+                + "]";
     }
 }

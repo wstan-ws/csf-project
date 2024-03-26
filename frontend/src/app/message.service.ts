@@ -36,7 +36,6 @@ export class MessageService {
             that.stompClient.subscribe('/message', function (message: any) {
                 if (message) {
                     that.msg.push(JSON.parse(message.body))
-                    console.log('>>> in push')
                 }
             })
         })
@@ -52,7 +51,8 @@ export class MessageService {
         const body: Message = {
             username: user,
             message: message,
-            timestamp: Date.now()
+            timestamp: Date.now(),
+            role: 'user'
           }
         this.stompClient.send('/app/send', {}, JSON.stringify(body))
         this.backendSvc.postMessage(usernames, body)
@@ -71,7 +71,8 @@ export class MessageService {
         const body: Message = {
             username: merchant,
             message: message,
-            timestamp: Date.now()
+            timestamp: Date.now(),
+            role: 'merchant'
           }
         this.stompClient.send('/app/send', {}, JSON.stringify(body))
         this.backendSvc.postMessage(usernames, body)

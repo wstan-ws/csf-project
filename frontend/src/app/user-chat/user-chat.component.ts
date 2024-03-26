@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, inject } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Message } from '../models';
@@ -11,6 +11,9 @@ import { MessageService } from '../message.service';
   styleUrl: './user-chat.component.css'
 })
 export class UserChatComponent implements OnInit, OnDestroy {
+
+  @ViewChild('endOfChat') 
+  endOfChat: ElementRef | undefined
 
   messageForm!: FormGroup
   merchantUsername!: string
@@ -26,6 +29,7 @@ export class UserChatComponent implements OnInit, OnDestroy {
     this.usernames = this.activatedRoute.snapshot.params['usernames']
     this.merchantUsername = this.usernames.split('-')[1]
     this.msgSvc.connect(this.usernames)
+    this.scrollToBottom()
     this.messageForm = this.createMessageForm()
   }
 
@@ -35,11 +39,20 @@ export class UserChatComponent implements OnInit, OnDestroy {
 
   send(): void {
     this.msgSvc.sendMessageUser(this.messageForm.value.message, this.usernames)
+    this.scrollToBottom()
     this.messageForm.reset()
   }
 
-  conversations(): void {
+  back(): void {
     this.router.navigate(['/user-conversations', this.usernames.split('-')[0]])
+  }
+
+  scrollToBottom(): void {
+    setTimeout(() => {
+      if (this.endOfChat) {
+        this.endOfChat.nativeElement.scrollIntoView({ behavior: 'smooth' })
+      }
+    }, 100)
   }
 
   private createMessageForm(): FormGroup {

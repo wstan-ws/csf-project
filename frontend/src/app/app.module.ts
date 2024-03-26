@@ -45,6 +45,7 @@ import { MerchantStore } from './merchant.store';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatCardModule } from '@angular/material/card';
 import { MatListModule } from '@angular/material/list';
+import { MatDividerModule } from '@angular/material/divider';
 
 const appRoutes: Routes = [
   {path: '', component: HomeComponent},
@@ -120,7 +121,8 @@ const appRoutes: Routes = [
     MatCheckboxModule,
     MatSlideToggleModule,
     MatCardModule,
-    MatListModule
+    MatListModule,
+    MatDividerModule
   ],
   providers: [BackendService, UsernameService, MessageService, provideAnimationsAsync(), MerchantStore],
   bootstrap: [AppComponent]

@@ -1,23 +1,29 @@
 <div>
-    <button type="button" (click)="conversations()">Conversations</button>
+    <button id="back" type="button" (click)="back()" mat-icon-button><mat-icon>keyboard_arrow_left</mat-icon></button>
 </div>
 
-<div>
-    <div>
-        <div class="header">
-            <h2>{{ merchantUsername }}</h2>
-        </div>
+<div class="chat">
+    <div class="chat-header">
+        <p class="name">{{ merchantUsername }}</p>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="chatbox-container">
         <div class="chatbox">
-            <ul *ngFor="let msg of msgSvc.msg">
-                <li>{{msg.username}}: {{ msg.message }}</li>
-            </ul>
+            <div *ngFor="let msg of msgSvc.msg" class="all-chat">
+                <p class="chat-bubble" [id]="[msg.role]">{{ msg.message }}</p>
+            </div>
+            <div #endOfChat></div>
         </div>
-        <div class="messagebox">
-            <form [formGroup]="messageForm" (submit)="send()">
-                <input type="text" formControlName="message">
-                <button type="submit">Send</button>
-            </form>
-        </div>
+    </div>
+    <div class="messagebox">
+        <form [formGroup]="messageForm" (submit)="send()">
+            <mat-form-field appearance="outline">
+                <input type="text" formControlName="message" placeholder="Enter your message" matInput>
+                <button type="submit" color="primary" mat-icon-button matSuffix>
+                    <mat-icon>send</mat-icon>
+                </button>
+            </mat-form-field>
+        </form>
     </div>
 </div>
 

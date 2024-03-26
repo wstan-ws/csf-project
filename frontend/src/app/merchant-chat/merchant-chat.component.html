@@ -3,18 +3,26 @@
 </div>
 
 <div class="chat">
-    <p class="name">{{ userUsername }}</p>
-    <div class="chatbox">
-        <div *ngFor="let msg of msgSvc.msg">
-            <p id="message">{{msg.username}}: {{ msg.message }}</p>
+    <div class="chat-header">
+        <p class="name">{{ userUsername }}</p>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="chatbox-container">
+        <div class="chatbox">
+            <div *ngFor="let msg of msgSvc.msg" class="all-chat">
+                <p class="chat-bubble" [id]="[msg.role]">{{ msg.message }}</p>
+            </div>
+            <div #endOfChat></div>
         </div>
     </div>
     <div class="messagebox">
         <form [formGroup]="messageForm" (submit)="send()">
-            <mat-form-field>
+            <mat-form-field appearance="outline">
                 <input type="text" formControlName="message" placeholder="Enter your message" matInput>
+                <button type="submit" color="primary" mat-icon-button matSuffix>
+                    <mat-icon>send</mat-icon>
+                </button>
             </mat-form-field>
-            <button type="submit" color="primary" mat-raised-button>Send</button>
         </form>
     </div>
 </div>

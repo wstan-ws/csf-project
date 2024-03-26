@@ -56,7 +56,8 @@ public class MessageController {
                 objBuilder
                     .add("username", message.getUsername())
                     .add("message", message.getMessage())
-                    .add("timestamp", message.getTimestamp().toString());
+                    .add("timestamp", message.getTimestamp().toString())
+                    .add("role", message.getRole());
                 arrBuilder.add(objBuilder);
             }
     
@@ -78,8 +79,9 @@ public class MessageController {
         String username = obj.getString("username");
         String message = obj.getString("message");
         Date timestamp = new Date();
+        String role = obj.getString("role");
         
-        Message newMessage = new Message(username, message, timestamp);
+        Message newMessage = new Message(username, message, timestamp, role);
 
         mainSvc.postMessage(filter, newMessage);
 
@@ -95,8 +97,9 @@ public class MessageController {
         String username = obj.getString("username");
         String message = obj.getString("message");
         Date timestamp = new Date();
+        String role = obj.getString("role");
         
-        Message newMessage = new Message(username, message, timestamp);
+        Message newMessage = new Message(username, message, timestamp, role);
 
         template.convertAndSend("/message", newMessage);
     }
