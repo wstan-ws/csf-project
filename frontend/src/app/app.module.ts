@@ -46,6 +46,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatCardModule } from '@angular/material/card';
 import { MatListModule } from '@angular/material/list';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatTableModule } from '@angular/material/table';
 
 const appRoutes: Routes = [
   {path: '', component: HomeComponent},
@@ -122,7 +123,8 @@ const appRoutes: Routes = [
     MatSlideToggleModule,
     MatCardModule,
     MatListModule,
-    MatDividerModule
+    MatDividerModule,
+    MatTableModule
   ],
   providers: [BackendService, UsernameService, MessageService, provideAnimationsAsync(), MerchantStore],
   bootstrap: [AppComponent]

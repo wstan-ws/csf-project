@@ -5,15 +5,15 @@
 <div class="container">
     <p class="title">Profile</p>
     <div *ngIf="merchant$ | async as merchant">
-        <p>First Name: {{ merchant.firstName }}</p>
-        <p>Last Name: {{ merchant.lastName }}</p>
-        <p>Email: {{ merchant.email }}</p>
-        <p>Phone Number: {{ merchant.phoneNumber }}</p>
-        <p>Company Name: {{ merchant.companyName }}</p>
-        <p>Postal Code: {{ merchant.postalCode }}</p>
-        <p *ngIf="merchant.elec === true">Electrician License No: {{ merchant.elecLicenseNo }}</p>
-        <p *ngIf="merchant.plum === true">Plumber License No: {{ merchant.plumLicenseNo }}</p>
-        <p *ngIf="merchant.aircon === true">Aircon Repairman License No: {{ merchant.airconLicenseNo }}</p>
+        <p><strong>First Name:</strong> {{ merchant.firstName }}</p>
+        <p><strong>Last Name:</strong> {{ merchant.lastName }}</p>
+        <p><strong>Email:</strong> {{ merchant.email }}</p>
+        <p><strong>Phone Number:</strong> {{ merchant.phoneNumber }}</p>
+        <p><strong>Company Name:</strong> {{ merchant.companyName }}</p>
+        <p><strong>Postal Code:</strong> {{ merchant.postalCode }}</p>
+        <p *ngIf="merchant.elec === true"><strong>Electrician License No:</strong> {{ merchant.elecLicenseNo }}</p>
+        <p *ngIf="merchant.plum === true"><strong>Plumber License No:</strong> {{ merchant.plumLicenseNo }}</p>
+        <p *ngIf="merchant.aircon === true"><strong>Aircon Repairman License No:</strong> {{ merchant.airconLicenseNo }}</p>
     </div>
     <div class="buttons">
         <button type="button" id="edit" color="primary" mat-raised-button (click)="edit()">Edit Profile</button>

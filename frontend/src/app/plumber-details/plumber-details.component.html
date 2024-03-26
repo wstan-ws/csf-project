@@ -1,28 +1,23 @@
-<div *ngIf="plumber | async as plumber">
-    <h3>{{ plumber.firstName }} {{ plumber.lastName }}</h3>
-    <hr>
-
-    <ul>
-        <li>Company: {{ plumber.companyName }}</li>
-        <li>License No: {{ plumber.plumLicenseNo }}</li>
-        <li>Rating: INSERT RATING HERE</li>
-    </ul>
-
-    <div>
-        <table border="1">
-            <thead>
-                <th>Reviews</th>
-            </thead>
-            <tbody>
-                <tr>
-                    INSERT REVIEWS HERE
-                </tr>
-            </tbody>
-        </table>
-    </div>
+<div>
+    <button id="back" type="button" (click)="back()" mat-icon-button><mat-icon>keyboard_arrow_left</mat-icon></button>
 </div>
 
-<div>
-    <button type="button" (click)="back()">Back</button>
-    <button type="button" (click)="chat()">Chat</button>
+<div class="header" *ngIf="plumber | async as plumber">
+    <p class="title">{{ plumber.firstName }} {{ plumber.lastName }}</p>
+</div>
+
+<mat-divider></mat-divider>
+
+<div class="content" *ngIf="plumber | async as plumber">
+    <p><strong>Company:</strong> {{ plumber.companyName }}</p>
+    <p><strong>License No:</strong> {{ plumber.elecLicenseNo }}</p>
+    <p><strong>Rating:</strong> INSERT RATING HERE</p>
+    <button type="button" color="primary" mat-raised-button (click)="chat()">Chat</button>
+</div>
+
+<div class="reviews">
+    <table>
+        <th>Reviews</th>
+        <tr>INSERT REVIEWS HERE</tr>
+    </table>
 </div>

@@ -5,12 +5,12 @@
 <div class="container">
     <p class="title">Profile</p>
     <div *ngIf="userDetails$ | async as userDetails">
-        <p>First Name: {{ userDetails.firstName }}</p>
-        <p>Last Name: {{ userDetails.lastName }}</p>
-        <p>Email: {{ userDetails.email }}</p>
-        <p>Phone Number: {{ userDetails.phoneNumber }}</p>
-        <p>Address: {{ userDetails.address }}</p>
-        <p>Postal Code: {{ userDetails.postalCode }}</p>
+        <p><strong>First Name:</strong> {{ userDetails.firstName }}</p>
+        <p><strong>Last Name:</strong> {{ userDetails.lastName }}</p>
+        <p><strong>Email:</strong> {{ userDetails.email }}</p>
+        <p><strong>Phone Number:</strong> {{ userDetails.phoneNumber }}</p>
+        <p><strong>Address:</strong> {{ userDetails.address }}</p>
+        <p><strong>Postal Code:</strong> {{ userDetails.postalCode }}</p>
     </div>
     <div class="buttons">
         <button type="button" id="edit" color="primary" mat-raised-button (click)="edit()">Edit Profile</button>

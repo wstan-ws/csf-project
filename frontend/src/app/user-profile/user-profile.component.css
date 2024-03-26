@@ -28,6 +28,7 @@
 
 .buttons {
     transform: scale(0.9);
+    margin-top: 20px;
 }
 
 #edit {

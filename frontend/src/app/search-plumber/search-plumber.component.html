@@ -1,20 +1,25 @@
 <div>
-    <h1>Plumbers</h1>
+    <button id="back" type="button" (click)="back()" mat-icon-button><mat-icon>keyboard_arrow_left</mat-icon></button>
 </div>
 
-<div *ngIf="plumbers | async as plumbers">
-    <ol *ngIf="plumbers.length > 0; else noPlum">
-        <li *ngFor="let plum of plumbers">
-            <a [routerLink]="['/plumber-details', plum.username]">{{ plum.firstName }} {{ plum.lastName }}</a>
-            <span> ({{ plum.companyName }}) INSERT RATING HERE</span>
-        </li>
-    </ol>
+<div class="header">
+    <p class="title">Plumbers</p>
 </div>
 
-<div>
-    <button type="button" (click)="back()">Back</button>
+<div class="plumbers" *ngIf="plumbers | async as plumbers">
+    <div *ngIf="plumbers.length > 0; else noPlum">
+        <div *ngFor="let plum of plumbers">
+            <a [routerLink]="['/plumber-details', plum.username]">
+                <mat-card>
+                    <mat-card-title>{{ plum.firstName }} {{ plum.lastName }}</mat-card-title>
+                    <mat-card-content>{{ plum.companyName }}</mat-card-content>
+                    <mat-card-subtitle>INSERT RATING HERE</mat-card-subtitle>
+                </mat-card>
+            </a>
+        </div>
+    </div>
 </div>
 
 <ng-template #noPlum>
-    <h4>No Plumbers Available</h4>
+    <p class="template">No Plumbers Available</p>
 </ng-template>
