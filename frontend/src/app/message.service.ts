@@ -1,4 +1,4 @@
-import { Injectable, inject } from "@angular/core";
+import { EventEmitter, Injectable, inject } from "@angular/core";
 import { BackendService } from "./backend.service";
 import { ChatRecord, Message } from "./models";
 declare var SockJS: any;
@@ -9,6 +9,7 @@ export class MessageService {
 
     stompClient: any
     msg: Message[] = []
+    newMessageReceived: EventEmitter<void> = new EventEmitter<void>()
 
     private backendSvc = inject(BackendService)
 
@@ -33,9 +34,10 @@ export class MessageService {
         this.stompClient = Stomp.over(ws)
         const that = this
         this.stompClient.connect({}, function(frame: any) {
-            that.stompClient.subscribe('/message', function (message: any) {
+            that.stompClient.subscribe('/message',  (message: any) => {
                 if (message) {
                     that.msg.push(JSON.parse(message.body))
+                    that.newMessageReceived.emit()
                 }
             })
         })
@@ -85,5 +87,4 @@ export class MessageService {
         }
         this.backendSvc.editLastMessage(chatRecord).subscribe()
     }
-     
 }

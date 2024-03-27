@@ -29,6 +29,9 @@ export class UserChatComponent implements OnInit, OnDestroy {
     this.usernames = this.activatedRoute.snapshot.params['usernames']
     this.merchantUsername = this.usernames.split('-')[1]
     this.msgSvc.connect(this.usernames)
+    this.msgSvc.newMessageReceived.subscribe(() => {
+      this.scrollToBottom()
+    })
     this.scrollToBottom()
     this.messageForm = this.createMessageForm()
   }
@@ -47,7 +50,7 @@ export class UserChatComponent implements OnInit, OnDestroy {
     this.router.navigate(['/user-conversations', this.usernames.split('-')[0]])
   }
 
-  scrollToBottom(): void {
+  private scrollToBottom(): void {
     setTimeout(() => {
       if (this.endOfChat) {
         this.endOfChat.nativeElement.scrollIntoView({ behavior: 'smooth' })

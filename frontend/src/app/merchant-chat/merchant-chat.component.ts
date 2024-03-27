@@ -29,6 +29,9 @@ export class MerchantChatComponent implements OnInit, OnDestroy {
     this.usernames = this.activatedRoute.snapshot.params['usernames']
     this.userUsername = this.usernames.split('-')[0]
     this.msgSvc.connect(this.usernames)
+    this.msgSvc.newMessageReceived.subscribe(() => {
+      this.scrollToBottom()
+    })
     this.scrollToBottom()
     this.messageForm = this.createMessageForm()
   }
