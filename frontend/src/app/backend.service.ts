@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable, inject } from "@angular/core";
-import { ChatRecord, LoginDetails, MerchantSignUpDetails, Message, UserSignUpDetails } from "./models";
+import { ChatRecord, JobRequest, LoginDetails, MerchantSignUpDetails, Message, UserSignUpDetails } from "./models";
 import { Observable, last, lastValueFrom } from "rxjs";
 
 @Injectable()
@@ -106,5 +106,15 @@ export class BackendService {
     editLastMessage(body: ChatRecord): Observable<any> {
         const url: string = 'http://localhost:8080/api/editlastmessage'
         return this.http.patch(url, body)
+    }
+
+    postNewJobRequest(body: JobRequest): Promise<any> {
+        const url: string = 'http://localhost:8080/api/postnewjobrequest'
+        return lastValueFrom(this.http.post<JobRequest>(url, body))
+    }
+
+    getAllJobRequests(filter: string): Promise<JobRequest[]> {
+        const url: string = `http://localhost:8080/api/getalljobrequests/${filter}`
+        return lastValueFrom(this.http.get<JobRequest[]>(url)) 
     }
 }

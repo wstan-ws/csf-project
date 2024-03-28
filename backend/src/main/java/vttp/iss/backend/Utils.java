@@ -131,4 +131,27 @@ public class Utils {
                 SET last_message = ?, timestamp = ?
                 WHERE user = ? AND merchant = ?               
         """;
+
+        // Jobs
+        public static final String SQL_POST_NEW_JOB_REQUEST = """
+                INSERT INTO jobs
+                (user_username, merchant_username, user_postal_code, merchant_postal_code, status)
+                VALUES
+                (?, ?, ?, ?, ?)                
+        """;
+
+        public static final String SQL_CHECK_JOB_REQUEST = """
+                SELECT *
+                FROM jobs
+                WHERE user_username = ? 
+                AND merchant_username = ?
+                AND status = ?                 
+        """;
+
+        public static final String SQL_GET_JOB_REQUEST = """
+                SELECT *
+                FROM jobs
+                WHERE merchant_username = ?
+                AND status = ?                
+        """;
 }

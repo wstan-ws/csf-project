@@ -8,10 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import vttp.iss.backend.models.ChatRecord;
+import vttp.iss.backend.models.JobRequest;
 import vttp.iss.backend.models.LoginDetails;
 import vttp.iss.backend.models.Merchant;
 import vttp.iss.backend.models.Message;
 import vttp.iss.backend.models.User;
+import vttp.iss.backend.repositories.JobRepository;
 import vttp.iss.backend.repositories.MerchantRepository;
 import vttp.iss.backend.repositories.MessageRepository;
 import vttp.iss.backend.repositories.UserRepository;
@@ -27,6 +29,9 @@ public class MainService {
 
     @Autowired
     private MessageRepository messageRepo;
+
+    @Autowired
+    private JobRepository jobRepo;
 
     // User
     public void userSignup(User user) {
@@ -111,5 +116,14 @@ public class MainService {
     public void editLastMsg(String user, String merchant, String lastMessage, Date timestamp) {
 
         messageRepo.editLastMsg(user, merchant, lastMessage, timestamp);
+    }
+
+    // Jobs
+    public void postNewJobRequest(JobRequest jobRequest) {
+        jobRepo.postNewJobRequest(jobRequest);
+    }
+
+    public List<JobRequest> getAllRequests(String merchant) {
+        return jobRepo.getAllRequest(merchant);
     }
 }

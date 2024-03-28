@@ -49,3 +49,19 @@ create table chats (
 
     primary key (chat_id)
 );
+
+create table jobs (
+    job_id int auto_increment,
+    timestamp timestamp default current_timestamp,
+    user_username varchar(64) not null,
+    merchant_username varchar(64) not null,
+    user_postal_code char(6) not null,
+    merchant_postal_code char(6) not null,
+    status int default 0 not null,
+
+    primary key (job_id),
+    constraint fk_user_username foreign key (user_username)
+    references users(username),
+    constraint fk_merchant_username foreign key (merchant_username)
+    references merchants(username)
+)

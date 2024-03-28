@@ -90,10 +90,8 @@ public class MessageController {
         return ResponseEntity.ok().body("{}");
     }
 
-    @MessageMapping("/send/user/{usernames}")
+    @MessageMapping("/send/{usernames}")
     public void sendMessageUser(@DestinationVariable String usernames, String payload) {
-
-        System.out.println(">>>>> Sent Message");
 
         JsonReader reader = Json.createReader(new StringReader(payload));
         JsonObject obj = reader.readObject();
@@ -108,38 +106,17 @@ public class MessageController {
         template.convertAndSend("/message/" + usernames, newMessage);
     }
 
-    @MessageMapping("/app/send/merchant/{usernames}")
-    public void sendMessageMerchant(@DestinationVariable String usernames, String payload) {
-
-        JsonReader reader = Json.createReader(new StringReader(payload));
-        JsonObject obj = reader.readObject();
-
-        String username = obj.getString("username");        
-        String message = obj.getString("message");
-        Date timestamp = new Date();
-        String role = obj.getString("role");
-        
-        Message newMessage = new Message(username, message, timestamp, role);
-
-        template.convertAndSend("/message/" + usernames, newMessage);
-    }
-
-    @MessageMapping("/app/request/{merchant}")
+    @MessageMapping("/request/{merchant}")
     public void sendRequest(@DestinationVariable String merchant, String payload) {
-
-        System.out.println("Received request");
 
         JsonReader reader = Json.createReader(new StringReader(payload));
         JsonObject obj = reader.readObject();
 
         String user = obj.getString("user");
-        System.out.printf(">>> USER: ", user);
 
         JobRequest jobRequest = new JobRequest(user);
 
         template.convertAndSend("/message/" + merchant, jobRequest);
-
-        System.out.println("Request sent to subscribers");
     }
 
     @PostMapping(path = "/postchat")

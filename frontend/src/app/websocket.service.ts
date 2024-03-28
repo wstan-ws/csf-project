@@ -14,7 +14,13 @@ export class WebSocketService {
 
     private backendSvc = inject(BackendService)
 
-    connect(): void {
+    connectAndLoadRequests(merchant: string): void {
+        this.backendSvc.getAllJobRequests(merchant)
+            .then(result => {
+                if (result !== null) {
+                    result.forEach(r => this.jobRequests.push(r))
+                }
+            })
         const serverUrl = 'http://localhost:8080/socket'
         const ws = new SockJS(serverUrl)
         this.stompClient = Stomp.over(ws)
@@ -43,6 +49,7 @@ export class WebSocketService {
 
     disconnect(): void {
         this.msg = []
+        this.jobRequests = []
         this.stompClient.disconnect()
     }
 
@@ -78,7 +85,7 @@ export class WebSocketService {
             timestamp: Date.now(),
             role: 'user'
           }
-        this.stompClient.send(`/app/send/user/${usernames}`, {}, JSON.stringify(body))
+        this.stompClient.send(`/app/send/${usernames}`, {}, JSON.stringify(body))
         this.backendSvc.postMessage(usernames, body)
         const chatRecord: ChatRecord = {
             chatId: 0,
@@ -98,7 +105,7 @@ export class WebSocketService {
             timestamp: Date.now(),
             role: 'merchant'
           }
-        this.stompClient.send(`/app/send/merchant/${usernames}`, {}, JSON.stringify(body))
+        this.stompClient.send(`/app/send/${usernames}`, {}, JSON.stringify(body))
         this.backendSvc.postMessage(usernames, body)
         const chatRecord: ChatRecord = {
             chatId: 0,
@@ -115,25 +122,32 @@ export class WebSocketService {
         const merchant = usernames.split('-')[1]
         const body: Message = {
             username: user,
-            message: user+' has requested for ' +merchant+ '\'s service',
+            message: 'NOTICE: '+user+' has requested for ' +merchant+ '\'s service',
             timestamp: Date.now(),
             role: 'user'
             }
-        this.stompClient.send(`/app/send/user/${usernames}`, {}, JSON.stringify(body))
+        this.stompClient.send(`/app/send/${usernames}`, {}, JSON.stringify(body))
         this.backendSvc.postMessage(usernames, body)
         const chatRecord: ChatRecord = {
             chatId: 0,
             user: usernames.split('-')[0],
             merchant: usernames.split('-')[1],
-            lastMessage: user+' has requested for ' +merchant+ '\'s service',
+            lastMessage: 'NOTICE: '+user+' has requested for ' +merchant+ '\'s service',
             timestamp: Date.now()
         }
         this.backendSvc.editLastMessage(chatRecord).subscribe()
 
         const requestUser: JobRequest = {
-            user: user
+            jobId: 0,
+            timestamp: Date.now(),
+            user: user,
+            merchant: merchant,
+            userPostalCode: '',
+            merchantPostalCode: '',
+            status: 0
         }
         this.stompClient.send(`/app/request/${merchant}`, {}, JSON.stringify(requestUser))
-        console.log('>>> sent merchant request')
+        // post new job as pending
+        this.backendSvc.postNewJobRequest(requestUser).then()
     }
 }

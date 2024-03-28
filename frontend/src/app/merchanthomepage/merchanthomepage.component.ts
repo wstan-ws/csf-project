@@ -32,7 +32,7 @@ export class MerchanthomepageComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.username = this.activatedRoute.snapshot.params['username']
     this.merchant$ = this.backendSvc.getMerchantDetails(this.username)
-    this.websocketSvc.connect()
+    this.websocketSvc.connectAndLoadRequests(this.username)
     this.isChecked = this.userSvc.getActivity();
     if (this.isChecked) {
       this.status = 'Active'
