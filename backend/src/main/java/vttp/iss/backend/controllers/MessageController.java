@@ -7,6 +7,7 @@ import java.util.concurrent.ExecutionException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
@@ -26,6 +27,7 @@ import jakarta.json.JsonObject;
 import jakarta.json.JsonObjectBuilder;
 import jakarta.json.JsonReader;
 import vttp.iss.backend.models.ChatRecord;
+import vttp.iss.backend.models.JobRequest;
 import vttp.iss.backend.models.Message;
 import vttp.iss.backend.services.MainService;
 
@@ -56,7 +58,7 @@ public class MessageController {
                 objBuilder
                     .add("username", message.getUsername())
                     .add("message", message.getMessage())
-                    .add("timestamp", message.getTimestamp().toString())
+                    .add("timestamp", message.getTimestamp().toString().substring(4, 16))
                     .add("role", message.getRole());
                 arrBuilder.add(objBuilder);
             }
@@ -88,8 +90,10 @@ public class MessageController {
         return ResponseEntity.ok().body("{}");
     }
 
-    @MessageMapping("/send")
-    public void sendMessage(String payload) {
+    @MessageMapping("/send/user/{usernames}")
+    public void sendMessageUser(@DestinationVariable String usernames, String payload) {
+
+        System.out.println(">>>>> Sent Message");
 
         JsonReader reader = Json.createReader(new StringReader(payload));
         JsonObject obj = reader.readObject();
@@ -101,7 +105,41 @@ public class MessageController {
         
         Message newMessage = new Message(username, message, timestamp, role);
 
-        template.convertAndSend("/message", newMessage);
+        template.convertAndSend("/message/" + usernames, newMessage);
+    }
+
+    @MessageMapping("/app/send/merchant/{usernames}")
+    public void sendMessageMerchant(@DestinationVariable String usernames, String payload) {
+
+        JsonReader reader = Json.createReader(new StringReader(payload));
+        JsonObject obj = reader.readObject();
+
+        String username = obj.getString("username");        
+        String message = obj.getString("message");
+        Date timestamp = new Date();
+        String role = obj.getString("role");
+        
+        Message newMessage = new Message(username, message, timestamp, role);
+
+        template.convertAndSend("/message/" + usernames, newMessage);
+    }
+
+    @MessageMapping("/app/request/{merchant}")
+    public void sendRequest(@DestinationVariable String merchant, String payload) {
+
+        System.out.println("Received request");
+
+        JsonReader reader = Json.createReader(new StringReader(payload));
+        JsonObject obj = reader.readObject();
+
+        String user = obj.getString("user");
+        System.out.printf(">>> USER: ", user);
+
+        JobRequest jobRequest = new JobRequest(user);
+
+        template.convertAndSend("/message/" + merchant, jobRequest);
+
+        System.out.println("Request sent to subscribers");
     }
 
     @PostMapping(path = "/postchat")

@@ -20,3 +20,10 @@
         </form>
     </div>    
 </div>
+
+<div>
+    <p>Job Requests</p>
+    <div *ngFor="let req of websocketSvc.jobRequests">
+        <p>{{ req.user }}</p>
+    </div>
+</div>

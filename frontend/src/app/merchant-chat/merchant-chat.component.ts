@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { Message } from '../models';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MessageService } from '../message.service';
+import { WebSocketService } from '../websocket.service';
 
 @Component({
   selector: 'app-merchant-chat',
@@ -23,17 +23,18 @@ export class MerchantChatComponent implements OnInit, OnDestroy {
   private activatedRoute = inject(ActivatedRoute)
   private fb = inject(FormBuilder)
   private router = inject(Router)
-  msgSvc = inject(MessageService)
+  msgSvc = inject(WebSocketService)
 
   ngOnInit(): void {
     this.usernames = this.activatedRoute.snapshot.params['usernames']
     this.userUsername = this.usernames.split('-')[0]
-    this.msgSvc.connect(this.usernames)
+    this.msgSvc.connectAndLoadMessage(this.usernames)
     this.msgSvc.newMessageReceived.subscribe(() => {
       this.scrollToBottom()
     })
     this.scrollToBottom()
     this.messageForm = this.createMessageForm()
+    this.msgSvc.subscribeMessage(this.usernames)
   }
 
   ngOnDestroy(): void {
@@ -50,7 +51,11 @@ export class MerchantChatComponent implements OnInit, OnDestroy {
     this.router.navigate(['/merchant-conversations', this.usernames.split('-')[1]])
   }
 
-  scrollToBottom(): void {
+  request(): void {
+    this.router.navigate(['/merchant-homepage', this.usernames.split('-')[1]])
+  }
+
+  private scrollToBottom(): void {
     setTimeout(() => {
       if (this.endOfChat) {
         this.endOfChat.nativeElement.scrollIntoView({ behavior: 'smooth' })

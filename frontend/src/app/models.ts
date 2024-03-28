@@ -50,3 +50,7 @@ export interface ChatRecord {
     lastMessage: string
     timestamp: number
 }
+
+export interface JobRequest {
+    user: string
+}

@@ -29,7 +29,7 @@ import { SearchAirconComponent } from './search-aircon/search-aircon.component';
 import { AirconDetailsComponent } from './aircon-details/aircon-details.component';
 import { UsernameService } from './username.service';
 import { UserChatComponent } from './user-chat/user-chat.component';
-import { MessageService } from './message.service';
+import { WebSocketService } from './websocket.service';
 import { MerchantChatComponent } from './merchant-chat/merchant-chat.component';
 import { MerchantConversationsComponent } from './merchant-conversations/merchant-conversations.component';
 import { UserConversationsComponent } from './user-conversations/user-conversations.component';
@@ -126,7 +126,7 @@ const appRoutes: Routes = [
     MatDividerModule,
     MatTableModule
   ],
-  providers: [BackendService, UsernameService, MessageService, provideAnimationsAsync(), MerchantStore],
+  providers: [BackendService, UsernameService, WebSocketService, provideAnimationsAsync(), MerchantStore],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

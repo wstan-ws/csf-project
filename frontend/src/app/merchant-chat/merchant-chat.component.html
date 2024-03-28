@@ -4,7 +4,9 @@
 
 <div class="chat">
     <div class="chat-header">
+            <button type="button" id="hidden" color="primary" mat-raised-button>View Requests</button>
         <p class="name">{{ userUsername }}</p>
+            <button type="button" id="requests" color="primary" mat-raised-button (click)="request()">View Requests</button>
     </div>
     <mat-divider></mat-divider>
     <div class="chatbox-container">

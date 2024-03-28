@@ -1,4 +1,4 @@
-import { Component, OnChanges, OnInit, SimpleChanges, inject } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BackendService } from '../backend.service';
 import { Observable } from 'rxjs';
@@ -6,13 +6,14 @@ import { MerchantSignUpDetails } from '../models';
 import { UsernameService } from '../username.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
+import { WebSocketService } from '../websocket.service';
 
 @Component({
   selector: 'app-merchanthomepage',
   templateUrl: './merchanthomepage.component.html',
   styleUrl: './merchanthomepage.component.css'
 })
-export class MerchanthomepageComponent implements OnInit {
+export class MerchanthomepageComponent implements OnInit, OnDestroy {
 
   activityForm!: FormGroup
   username!: string
@@ -26,9 +27,12 @@ export class MerchanthomepageComponent implements OnInit {
   private userSvc = inject(UsernameService)
   private fb = inject(FormBuilder)
 
+  websocketSvc = inject(WebSocketService)
+
   ngOnInit(): void {
     this.username = this.activatedRoute.snapshot.params['username']
     this.merchant$ = this.backendSvc.getMerchantDetails(this.username)
+    this.websocketSvc.connect()
     this.isChecked = this.userSvc.getActivity();
     if (this.isChecked) {
       this.status = 'Active'
@@ -39,6 +43,11 @@ export class MerchanthomepageComponent implements OnInit {
       this.status = 'Inactive'
     }
     this.activityForm = this.createActivityForm()
+    this.websocketSvc.subscribeRequests(this.username)
+  }
+
+  ngOnDestroy(): void {
+    this.websocketSvc.disconnect()
   }
 
   profile(): void {
