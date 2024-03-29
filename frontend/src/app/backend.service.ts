@@ -127,4 +127,9 @@ export class BackendService {
         const url: string = `http://localhost:8080/api/getallacceptedjobs/${filter}`
         return lastValueFrom(this.http.get<JobRequest[]>(url))
     }
+
+    getAllUserServices(filter: string): Promise<JobRequest[]> {
+        const url: string = `http://localhost:8080/api/getalluserservices/${filter}`
+        return lastValueFrom(this.http.get<JobRequest[]>(url))
+    }
 }

@@ -1,5 +1,7 @@
 package vttp.iss.backend.models;
 
+import org.springframework.boot.autoconfigure.batch.BatchProperties.Job;
+
 public class JobRequest {
     
     private int jobId;
@@ -21,6 +23,12 @@ public class JobRequest {
     public JobRequest(String user, String timestamp) {
         this.user = user;
         this.timestamp = timestamp;
+    }
+
+    public JobRequest(String merchant, String timestamp, int status) {
+        this.merchant = merchant;
+        this.timestamp = timestamp;
+        this.status = status;
     }
 
     public JobRequest(String user, String merchant, String userPostalCode, String merchantPostalCode,

@@ -13,9 +13,31 @@
 
 <div class="main-content">
     <p class="subtitle">What service are you looking for today?</p>
-    <button type="button" mat-stroked-button [routerLink]="['/electrician']">Electrician</button>
-    <br>
-    <button type="button" mat-stroked-button [routerLink]="['/plumber']">Plumber</button>
-    <br>
-    <button type="button" mat-stroked-button [routerLink]="['/aircon']">Aircon Repairman</button>
+    <div class="flexbox">
+        <button type="button" id="left-button" mat-stroked-button [routerLink]="['/electrician']">Electrician</button>
+        <br>
+        <button type="button" id="middle-button" mat-stroked-button [routerLink]="['/plumber']">Plumber</button>
+        <br>
+        <button type="button" id="right-button" mat-stroked-button [routerLink]="['/aircon']">Aircon Repairman</button>
+    </div>
 </div>
+
+<div class="history">
+    <button type="button" id="history" color="primary" mat-raised-button>Job Request History</button>
+</div>
+
+<div>
+    <p class="job-request">Ongoing Job Requests</p>
+    <div class="flexbox-card" *ngIf="websocketSvc.ongoingService.length > 0; else noService">
+        <a *ngFor="let svc of websocketSvc.ongoingService" (click)="jobDetails(svc.merchant)">
+            <mat-card>
+                <mat-card-title>{{ svc.merchant }}</mat-card-title>
+                <mat-card-subtitle>{{ svc.timestamp }}</mat-card-subtitle>
+            </mat-card>
+        </a>
+    </div>
+</div>
+
+<ng-template #noService>
+    <p class="no">No Ongoing Job Requests</p>
+</ng-template>

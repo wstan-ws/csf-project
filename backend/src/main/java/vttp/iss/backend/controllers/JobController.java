@@ -141,4 +141,40 @@ public class JobController {
 
         return ResponseEntity.ok().body(arr.toString());
     }
+
+    @GetMapping(path = "/getalluserservices/{filter}")
+    public ResponseEntity<String> getAllUserServices(@PathVariable String filter) {
+
+        List<JobRequest> jobList = mainSvc.getUserServices(filter);
+
+        JsonArrayBuilder arrBuilder = Json.createArrayBuilder();
+        for (JobRequest job : jobList) {
+            JsonObjectBuilder objBuilder = Json.createObjectBuilder();
+            if (job.getCompletedTimestamp() != null) {
+                objBuilder.add("jobId", job.getJobId())
+                .add("timestamp", job.getTimestamp())
+                .add("user", job.getUser())
+                .add("merchant", job.getMerchant())
+                .add("userPostalCode", job.getUserPostalCode())
+                .add("merchantPostalCode", job.getMerchantPostalCode())
+                .add("status", job.getStatus())
+                .add("completedTimestamp", job.getCompletedTimestamp());
+            } else {
+                objBuilder.add("jobId", job.getJobId())
+                .add("timestamp", job.getTimestamp())
+                .add("user", job.getUser())
+                .add("merchant", job.getMerchant())
+                .add("userPostalCode", job.getUserPostalCode())
+                .add("merchantPostalCode", job.getMerchantPostalCode())
+                .add("status", job.getStatus())
+                .add("completedTimestamp", "");
+            }
+
+            arrBuilder.add(objBuilder);
+        }
+
+        JsonArray arr = arrBuilder.build();
+
+        return ResponseEntity.ok().body(arr.toString());
+    }
 }

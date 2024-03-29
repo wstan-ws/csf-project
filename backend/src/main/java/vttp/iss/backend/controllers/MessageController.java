@@ -120,6 +120,21 @@ public class MessageController {
         template.convertAndSend("/message/" + merchant, jobRequest);
     }
 
+    @MessageMapping("/request/accepted/{user}")
+    public void sendAcceptedRequest(@DestinationVariable String user, String payload) {
+
+        JsonReader reader = Json.createReader(new StringReader(payload));
+        JsonObject obj = reader.readObject();
+
+        String merchant = obj.getString("merchant");
+        String timestamp = obj.getString("timestamp");
+        int status = obj.getInt("status");
+
+        JobRequest jobRequest = new JobRequest(merchant, timestamp, status);
+
+        template.convertAndSend("/message/accepted/" + user, jobRequest);
+    }
+
     @PostMapping(path = "/postchat")
     @ResponseBody
     public ResponseEntity<String> postChatRecord(@RequestBody String payload) {

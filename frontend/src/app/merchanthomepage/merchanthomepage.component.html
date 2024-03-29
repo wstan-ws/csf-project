@@ -21,10 +21,14 @@
     </div>    
 </div>
 
+<div class="history">
+    <button type="button" id="history" color="primary" mat-raised-button>Job History</button>
+</div>
+
 <div class="jobs">
     <div class="jobs-child" id="job-requests">
         <p class="subtitle">Job Requests</p>
-        <div class="flexbox">
+        <div class="flexbox" *ngIf="websocketSvc.jobRequests.length > 0; else noRequests">
             <mat-card *ngFor="let req of websocketSvc.jobRequests">
                 <mat-card-title>{{ req.user }}</mat-card-title>
                 <mat-card-subtitle>{{ req.timestamp }}</mat-card-subtitle>
@@ -37,11 +41,21 @@
     </div>
     <div class="jobs-child" id="current-jobs">
         <p class="subtitle">Current Jobs</p>
-        <div class="flexbox">
-            <mat-card *ngFor="let job of websocketSvc.acceptedJobs">
-                <mat-card-title>{{ job.user }}</mat-card-title>
-                <mat-card-subtitle>{{ job.timestamp }}</mat-card-subtitle>
-            </mat-card>
+        <div class="flexbox" *ngIf="websocketSvc.acceptedJobs.length > 0; else noJobs">
+            <a *ngFor="let job of websocketSvc.acceptedJobs" (click)="jobDetails(job.user)">
+                <mat-card>
+                    <mat-card-title>{{ job.user }}</mat-card-title>
+                    <mat-card-subtitle>{{ job.timestamp }}</mat-card-subtitle>
+                </mat-card>
+            </a>
         </div>
     </div>
 </div>
+
+<ng-template #noRequests>
+    <p>No Current Requests</p>
+</ng-template>
+
+<ng-template #noJobs>
+    <p>No Current Jobs</p>
+</ng-template>

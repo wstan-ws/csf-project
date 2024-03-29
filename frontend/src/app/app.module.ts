@@ -47,6 +47,8 @@ import { MatCardModule } from '@angular/material/card';
 import { MatListModule } from '@angular/material/list';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatTableModule } from '@angular/material/table';
+import { UserJobDetailsComponent } from './user-job-details/user-job-details.component';
+import { MerchantJobDetailsComponent } from './merchant-job-details/merchant-job-details.component';
 
 const appRoutes: Routes = [
   {path: '', component: HomeComponent},
@@ -76,6 +78,8 @@ const appRoutes: Routes = [
   {path: 'user-conversations/:username', component: UserConversationsComponent},
   {path: 'merchant-conversations/:username', component: MerchantConversationsComponent},
   {path: 'about-us', component: AboutUsComponent},
+  {path: 'user-job-details/:usernames', component: UserJobDetailsComponent},
+  {path: 'merchant-job-details/:usernames', component: MerchantJobDetailsComponent},
   {path: '**', redirectTo: '/', pathMatch: 'full'}
 ]
 
@@ -109,6 +113,8 @@ const appRoutes: Routes = [
     UserConversationsComponent,
     AboutUsComponent,
     MerchantSignup2Component,
+    UserJobDetailsComponent,
+    MerchantJobDetailsComponent,
   ],
   imports: [
     BrowserModule,

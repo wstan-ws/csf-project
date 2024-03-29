@@ -89,7 +89,7 @@ img {
 
 mat-card {
     margin-top: 10px;
-    width: 80%;
+    width: 400px;
 }
 
 .card-buttons {
@@ -102,4 +102,14 @@ mat-card {
 
 #reject {
     margin-left: 10px;
+}
+
+.history {
+    display: flex;
+}
+
+#history {
+    margin-left: auto;
+    margin-right: 5%;
+    margin-top: 20px;
 }

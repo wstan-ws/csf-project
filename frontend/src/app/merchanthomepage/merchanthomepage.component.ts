@@ -78,6 +78,11 @@ export class MerchanthomepageComponent implements OnInit, OnDestroy {
     this.websocketSvc.rejectRequest(user, this.username)
   }
 
+  jobDetails(user: string): void {
+    const usernames = user + '-' + this.username
+    this.router.navigate(['/merchant-job-details', usernames])
+  }
+
   logout(): void {
     if (confirm('Are you sure you want to logout?')) {
       this.isChecked = false

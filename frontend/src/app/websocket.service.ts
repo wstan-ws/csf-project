@@ -11,9 +11,22 @@ export class WebSocketService {
     msg: Message[] = []
     jobRequests: JobRequest[] = []
     acceptedJobs: JobRequest[] = []
+    ongoingService: JobRequest[] = []
     newMessageReceived: EventEmitter<void> = new EventEmitter<void>()
 
     private backendSvc = inject(BackendService)
+
+    connectAndLoadServices(user: string): void {
+        this.backendSvc.getAllUserServices(user)
+            .then(result => {
+                if (result !== null) {
+                    result.forEach(r => this.ongoingService.push(r))
+                }
+            })
+        const serverUrl = 'http://localhost:8080/socket'
+        const ws = new SockJS(serverUrl)
+        this.stompClient = Stomp.over(ws)
+    }
 
     connectAndLoadRequests(merchant: string): void {
         this.backendSvc.getAllJobRequests(merchant)
@@ -58,6 +71,7 @@ export class WebSocketService {
         this.msg = []
         this.jobRequests = []
         this.acceptedJobs = []
+        this.ongoingService = []
         this.stompClient.disconnect()
     }
 
@@ -79,6 +93,17 @@ export class WebSocketService {
             that.stompClient.subscribe(`/message/${username}`, (message: any) => {
                 if (message) {
                     that.jobRequests.push(JSON.parse(message.body))
+                }
+            })
+        })
+    }
+
+    subscribeServices(username: string): void {
+        const that = this
+        this.stompClient.connect({}, function(frame: any) {
+            that.stompClient.subscribe(`/message/accepted/${username}`, (message: any) => {
+                if (message) {
+                    that.ongoingService.push(JSON.parse(message.body))
                 }
             })
         })
@@ -143,7 +168,6 @@ export class WebSocketService {
             timestamp: Date.now()
         }
         this.backendSvc.editLastMessage(chatRecord).subscribe()
-
         const requestUser: JobRequest = {
             jobId: 0,
             timestamp: new Date().toISOString().split('T')[0],
@@ -190,6 +214,8 @@ export class WebSocketService {
             timestamp: Date.now()
         }
         this.backendSvc.editLastMessage(chatRecord).subscribe()
+        // websocket sent to user
+        this.stompClient.send(`/app/request/accepted/${user}`, {}, JSON.stringify(acceptedRequest))
     }
 
     rejectRequest(user: string, merchant: string): void {

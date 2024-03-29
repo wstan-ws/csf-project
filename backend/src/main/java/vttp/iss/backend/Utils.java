@@ -162,4 +162,11 @@ public class Utils {
                 AND merchant_username = ?
                 AND status = ?                
         """;
+
+        public static final String SQL_GET_SERVICES = """
+                SELECT *
+                FROM jobs
+                WHERE user_username = ?
+                AND status = ?                
+        """;
 }

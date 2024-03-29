@@ -134,4 +134,8 @@ public class MainService {
     public List<JobRequest> getAcceptedJobs(String merchant) {
         return jobRepo.getAllAcceptedJobs(merchant);
     }
+
+    public List<JobRequest> getUserServices(String user) {
+        return jobRepo.getUserServices(user);
+    }
 }
