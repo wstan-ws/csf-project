@@ -117,4 +117,14 @@ export class BackendService {
         const url: string = `http://localhost:8080/api/getalljobrequests/${filter}`
         return lastValueFrom(this.http.get<JobRequest[]>(url)) 
     }
+
+    editJobRequestStatus(filter: string, body: JobRequest): Observable<any> {
+        const url: string = `http://localhost:8080/api/editjobrequeststatus/${filter}`
+        return this.http.patch(url, body)
+    }
+
+    getAllAcceptedJobs(filter: string): Promise<JobRequest[]> {
+        const url: string = `http://localhost:8080/api/getallacceptedjobs/${filter}`
+        return lastValueFrom(this.http.get<JobRequest[]>(url))
+    }
 }

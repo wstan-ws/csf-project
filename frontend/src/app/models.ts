@@ -53,10 +53,11 @@ export interface ChatRecord {
 
 export interface JobRequest {
     jobId: number
-    timestamp: number
+    timestamp: string
     user: string
     merchant: string
     userPostalCode: string
     merchantPostalCode: string
     status: number
+    completedTimestamp: string
 }

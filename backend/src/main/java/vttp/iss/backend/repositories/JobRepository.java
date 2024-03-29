@@ -1,7 +1,6 @@
 package vttp.iss.backend.repositories;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,19 +38,53 @@ public class JobRepository {
 
     public List<JobRequest> getAllRequest(String filter) {
 
-        SqlRowSet rs = template.queryForRowSet(Utils.SQL_GET_JOB_REQUEST,
+        SqlRowSet rs = template.queryForRowSet(Utils.SQL_GET_JOBS,
             filter, 0);
 
         List<JobRequest> jobList = new ArrayList<>();
-        if (rs.next()) {
+        while (rs.next()) {
             int jobId = rs.getInt("job_id");
-            Date timestamp = rs.getDate("timestamp");
+            String timestamp = rs.getDate("timestamp").toString();
             String user = rs.getString("user_username");
             String merchant = rs.getString("merchant_username");
             String userPostalCode = rs.getString("user_postal_code");
             String merchantPostalCode = rs.getString("merchant_postal_code");
             int status = rs.getInt("status");
-            JobRequest jobRequest = new JobRequest(jobId, timestamp, user, merchant, userPostalCode, merchantPostalCode, status);
+            String completedTimestamp = rs.getString("completed_timestamp");
+            JobRequest jobRequest = new JobRequest(jobId, timestamp, user, merchant, userPostalCode, merchantPostalCode, status, completedTimestamp);
+            jobList.add(jobRequest);
+        }
+
+        return jobList;
+    }
+
+    public void editJobRequestStatus(String usernames, String timestamp, int status) {
+
+        template.update(Utils.SQL_EDIT_JOB_REQUEST_STATUS, 
+            timestamp,
+            status,
+            usernames.split("-")[0],
+            usernames.split("-")[1],
+            0
+        );
+    }
+
+    public List<JobRequest> getAllAcceptedJobs(String filter) {
+
+        SqlRowSet rs = template.queryForRowSet(Utils.SQL_GET_JOBS, 
+            filter, 1);
+
+        List<JobRequest> jobList = new ArrayList<>();
+        while (rs.next()) {
+            int jobId = rs.getInt("job_id");
+            String timestamp = rs.getDate("timestamp").toString();
+            String user = rs.getString("user_username");
+            String merchant = rs.getString("merchant_username");
+            String userPostalCode = rs.getString("user_postal_code");
+            String merchantPostalCode = rs.getString("merchant_postal_code");
+            int status = rs.getInt("status");
+            String completedTimestamp = rs.getString("completed_timestamp");
+            JobRequest jobRequest = new JobRequest(jobId, timestamp, user, merchant, userPostalCode, merchantPostalCode, status, completedTimestamp);
             jobList.add(jobRequest);
         }
 

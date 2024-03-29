@@ -126,4 +126,12 @@ public class MainService {
     public List<JobRequest> getAllRequests(String merchant) {
         return jobRepo.getAllRequest(merchant);
     }
+
+    public void editJobRequestStatus(String usernames, String timestamp, int status) {
+        jobRepo.editJobRequestStatus(usernames, timestamp, status);
+    }
+
+    public List<JobRequest> getAcceptedJobs(String merchant) {
+        return jobRepo.getAllAcceptedJobs(merchant);
+    }
 }

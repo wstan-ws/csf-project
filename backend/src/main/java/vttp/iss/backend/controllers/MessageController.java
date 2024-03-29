@@ -113,8 +113,9 @@ public class MessageController {
         JsonObject obj = reader.readObject();
 
         String user = obj.getString("user");
+        String timestamp = obj.getString("timestamp");
 
-        JobRequest jobRequest = new JobRequest(user);
+        JobRequest jobRequest = new JobRequest(user, timestamp);
 
         template.convertAndSend("/message/" + merchant, jobRequest);
     }

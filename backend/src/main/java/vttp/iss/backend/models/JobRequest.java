@@ -1,12 +1,10 @@
 package vttp.iss.backend.models;
 
-import java.util.Date;
-
 public class JobRequest {
     
     private int jobId;
 
-    private Date timestamp;
+    private String timestamp;
 
     private String user;
 
@@ -18,8 +16,11 @@ public class JobRequest {
 
     private int status;
 
-    public JobRequest(String user) {
+    private String completedTimestamp;
+
+    public JobRequest(String user, String timestamp) {
         this.user = user;
+        this.timestamp = timestamp;
     }
 
     public JobRequest(String user, String merchant, String userPostalCode, String merchantPostalCode,
@@ -31,8 +32,8 @@ public class JobRequest {
         this.status = status;
     }
 
-    public JobRequest(int jobId, Date timestamp, String user, String merchant, String userPostalCode,
-            String merchantPostalCode, int status) {
+    public JobRequest(int jobId, String timestamp, String user, String merchant, String userPostalCode,
+            String merchantPostalCode, int status, String completedTimestamp) {
         this.jobId = jobId;
         this.timestamp = timestamp;
         this.user = user;
@@ -40,6 +41,7 @@ public class JobRequest {
         this.userPostalCode = userPostalCode;
         this.merchantPostalCode = merchantPostalCode;
         this.status = status;
+        this.completedTimestamp = completedTimestamp;
     }
 
     public String getUser() {
@@ -58,11 +60,11 @@ public class JobRequest {
         this.jobId = jobId;
     }
 
-    public Date getTimestamp() {
+    public String getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(Date timestamp) {
+    public void setTimestamp(String timestamp) {
         this.timestamp = timestamp;
     }
 
@@ -98,10 +100,12 @@ public class JobRequest {
         this.status = status;
     }
 
-    @Override
-    public String toString() {
-        return "JobRequest [jobId=" + jobId + ", timestamp=" + timestamp + ", user=" + user + ", merchant=" + merchant
-                + ", userPostalCode=" + userPostalCode + ", merchantPostalCode=" + merchantPostalCode + ", status="
-                + status + "]";
+    public String getCompletedTimestamp() {
+        return completedTimestamp;
     }
+
+    public void setCompletedTimestamp(String completedTimestamp) {
+        this.completedTimestamp = completedTimestamp;
+    }
+    
 }

@@ -148,10 +148,18 @@ public class Utils {
                 AND status = ?                 
         """;
 
-        public static final String SQL_GET_JOB_REQUEST = """
+        public static final String SQL_GET_JOBS = """
                 SELECT *
                 FROM jobs
                 WHERE merchant_username = ?
+                AND status = ?                
+        """;
+
+        public static final String SQL_EDIT_JOB_REQUEST_STATUS = """
+                UPDATE jobs
+                SET timestamp = ?, status = ?
+                WHERE user_username = ? 
+                AND merchant_username = ?
                 AND status = ?                
         """;
 }

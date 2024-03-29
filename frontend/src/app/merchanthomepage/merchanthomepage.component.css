@@ -57,3 +57,49 @@ img {
     font-size: 15px;
     font-weight: 500;
 }
+
+.jobs {
+    display: flex;
+    margin-top: 20px;
+}
+
+.jobs-child {
+    flex: 1;
+}
+
+#job-requests {
+    text-align: center;
+}
+
+.subtitle {
+    font-size: 24px;
+    font-family: "Rockwell";
+    color: #4b2aad;
+}
+
+#current-jobs {
+    text-align: center;
+}
+
+.flexbox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+mat-card {
+    margin-top: 10px;
+    width: 80%;
+}
+
+.card-buttons {
+    transform: scale(0.8);
+}
+
+#accept {
+    margin-right: 10px;
+}
+
+#reject {
+    margin-left: 10px;
+}

@@ -10,6 +10,7 @@ export class WebSocketService {
     stompClient: any
     msg: Message[] = []
     jobRequests: JobRequest[] = []
+    acceptedJobs: JobRequest[] = []
     newMessageReceived: EventEmitter<void> = new EventEmitter<void>()
 
     private backendSvc = inject(BackendService)
@@ -19,6 +20,12 @@ export class WebSocketService {
             .then(result => {
                 if (result !== null) {
                     result.forEach(r => this.jobRequests.push(r))
+                }
+            })
+        this.backendSvc.getAllAcceptedJobs(merchant)
+            .then(result => {
+                if (result !== null) {
+                    result.forEach(r => this.acceptedJobs.push(r))
                 }
             })
         const serverUrl = 'http://localhost:8080/socket'
@@ -50,6 +57,7 @@ export class WebSocketService {
     disconnect(): void {
         this.msg = []
         this.jobRequests = []
+        this.acceptedJobs = []
         this.stompClient.disconnect()
     }
 
@@ -70,7 +78,6 @@ export class WebSocketService {
         this.stompClient.connect({}, function(frame: any) {
             that.stompClient.subscribe(`/message/${username}`, (message: any) => {
                 if (message) {
-                    console.log('request received from backend')
                     that.jobRequests.push(JSON.parse(message.body))
                 }
             })
@@ -139,15 +146,84 @@ export class WebSocketService {
 
         const requestUser: JobRequest = {
             jobId: 0,
-            timestamp: Date.now(),
+            timestamp: new Date().toISOString().split('T')[0],
             user: user,
             merchant: merchant,
             userPostalCode: '',
             merchantPostalCode: '',
-            status: 0
+            status: 0,
+            completedTimestamp: ''
         }
         this.stompClient.send(`/app/request/${merchant}`, {}, JSON.stringify(requestUser))
-        // post new job as pending
         this.backendSvc.postNewJobRequest(requestUser).then()
+    }
+
+    acceptRequest(user: string, merchant: string): void {
+        this.jobRequests = this.jobRequests.filter(job => job.user !== user)
+        const acceptedRequest: JobRequest = {
+            jobId: 0,
+            timestamp: new Date().toISOString().split('T')[0],
+            user: user,
+            merchant: merchant,
+            userPostalCode: '',
+            merchantPostalCode: '',
+            status: 1,
+            completedTimestamp: ''
+        }
+        this.acceptedJobs.push(acceptedRequest)
+        const usernames = user+'-'+merchant
+        this.backendSvc.editJobRequestStatus(usernames, acceptedRequest)
+            .subscribe()
+        const body: Message = {
+            username: merchant,
+            message: 'NOTICE: '+merchant+' has accepted ' +user+ '\'s request',
+            timestamp: Date.now(),
+            role: 'merchant'
+            }
+        this.stompClient.send(`/app/send/${usernames}`, {}, JSON.stringify(body))
+        this.backendSvc.postMessage(usernames, body)
+        const chatRecord: ChatRecord = {
+            chatId: 0,
+            user: usernames.split('-')[0],
+            merchant: usernames.split('-')[1],
+            lastMessage: 'NOTICE: '+merchant+' has accepted ' +user+ '\'s request',
+            timestamp: Date.now()
+        }
+        this.backendSvc.editLastMessage(chatRecord).subscribe()
+    }
+
+    rejectRequest(user: string, merchant: string): void {
+        this.jobRequests = this.jobRequests.filter(job => job.user !== user)
+        const acceptedRequest: JobRequest = {
+            jobId: 0,
+            timestamp: new Date().toISOString().split('T')[0],
+            user: user,
+            merchant: merchant,
+            userPostalCode: '',
+            merchantPostalCode: '',
+            status: 2,
+            completedTimestamp: ''
+        }
+        this.backendSvc.editJobRequestStatus(user+'-'+merchant, acceptedRequest)
+            .subscribe()
+        const usernames = user+'-'+merchant
+        this.backendSvc.editJobRequestStatus(usernames, acceptedRequest)
+            .subscribe()
+        const body: Message = {
+            username: merchant,
+            message: 'NOTICE: '+merchant+' has rejected ' +user+ '\'s request',
+            timestamp: Date.now(),
+            role: 'merchant'
+            }
+        this.stompClient.send(`/app/send/${usernames}`, {}, JSON.stringify(body))
+        this.backendSvc.postMessage(usernames, body)
+        const chatRecord: ChatRecord = {
+            chatId: 0,
+            user: usernames.split('-')[0],
+            merchant: usernames.split('-')[1],
+            lastMessage: 'NOTICE: '+merchant+' has rejected ' +user+ '\'s request',
+            timestamp: Date.now()
+        }
+        this.backendSvc.editLastMessage(chatRecord).subscribe()
     }
 }

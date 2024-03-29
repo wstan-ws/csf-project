@@ -70,6 +70,14 @@ export class MerchanthomepageComponent implements OnInit, OnDestroy {
     }
   }
 
+  accept(user: string): void {
+    this.websocketSvc.acceptRequest(user, this.username)
+  }
+
+  reject(user: string): void {
+    this.websocketSvc.rejectRequest(user, this.username)
+  }
+
   logout(): void {
     if (confirm('Are you sure you want to logout?')) {
       this.isChecked = false

@@ -58,6 +58,7 @@ create table jobs (
     user_postal_code char(6) not null,
     merchant_postal_code char(6) not null,
     status int default 0 not null,
+    completed_timestamp timestamp,
 
     primary key (job_id),
     constraint fk_user_username foreign key (user_username)
