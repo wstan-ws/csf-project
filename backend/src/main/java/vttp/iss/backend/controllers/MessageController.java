@@ -113,9 +113,10 @@ public class MessageController {
         JsonObject obj = reader.readObject();
 
         String user = obj.getString("user");
-        String timestamp = obj.getString("timestamp");
+        String date = obj.getString("date");
+        String time = obj.getString("time");
 
-        JobRequest jobRequest = new JobRequest(user, timestamp);
+        JobRequest jobRequest = new JobRequest(date, time, user);
 
         template.convertAndSend("/message/" + merchant, jobRequest);
     }
@@ -127,10 +128,11 @@ public class MessageController {
         JsonObject obj = reader.readObject();
 
         String merchant = obj.getString("merchant");
-        String timestamp = obj.getString("timestamp");
+        String date = obj.getString("date");
+        String time = obj.getString("time");
         int status = obj.getInt("status");
 
-        JobRequest jobRequest = new JobRequest(merchant, timestamp, status);
+        JobRequest jobRequest = new JobRequest(date, time, merchant, status);
 
         template.convertAndSend("/message/accepted/" + user, jobRequest);
     }

@@ -2,8 +2,9 @@ import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BackendService } from '../backend.service';
 import { UserSignUpDetails } from '../models';
-import { Observable } from 'rxjs';
+import { Observable, lastValueFrom } from 'rxjs';
 import { WebSocketService } from '../websocket.service';
+import { UsernameService } from '../username.service';
 
 @Component({
   selector: 'app-userhomepage',
@@ -19,6 +20,7 @@ export class UserhomepageComponent implements OnInit, OnDestroy {
   private router = inject(Router)
   private activatedRoute = inject(ActivatedRoute)
   private backendSvc = inject(BackendService)
+  private userSvc = inject(UsernameService)
   websocketSvc = inject(WebSocketService)
 
   ngOnInit(): void {
@@ -26,6 +28,8 @@ export class UserhomepageComponent implements OnInit, OnDestroy {
     this.user$ = this.backendSvc.getUserDetails(this.username)
     this.websocketSvc.connectAndLoadServices(this.username)
     this.websocketSvc.subscribeServices(this.username)
+    console.log(new Date().toISOString().split('T')[0])
+    console.log(new Date().toISOString().split('T')[1].split('.')[0])
   }
 
   ngOnDestroy(): void {
@@ -42,7 +46,16 @@ export class UserhomepageComponent implements OnInit, OnDestroy {
 
   jobDetails(merchant: string): void {
     this.usernames = this.username + '-' + merchant
-    this.router.navigate(['/user-job-details', this.usernames])
+    const registerPortals = async() => {
+      await lastValueFrom(this.backendSvc.getOngoingJob(this.usernames))
+        .then(result => this.userSvc.setMerchantPostal(result.merchantPostalCode))
+      console.log('set merchant postal')
+      await lastValueFrom(this.backendSvc.getOngoingJob(this.usernames))
+        .then(result => this.userSvc.setUserPostal(result.userPostalCode))
+      console.log('set user postal')
+      this.router.navigate(['/user-job-details', this.usernames])
+    }
+    registerPortals()
   }
 
   logout(): void {

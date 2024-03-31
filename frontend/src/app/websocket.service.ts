@@ -170,7 +170,8 @@ export class WebSocketService {
         this.backendSvc.editLastMessage(chatRecord).subscribe()
         const requestUser: JobRequest = {
             jobId: 0,
-            timestamp: new Date().toISOString().split('T')[0],
+            date: new Date().toISOString().split('T')[0],
+            time: new Date().toISOString().split('T')[1].split('.')[0],
             user: user,
             merchant: merchant,
             userPostalCode: '',
@@ -180,13 +181,15 @@ export class WebSocketService {
         }
         this.stompClient.send(`/app/request/${merchant}`, {}, JSON.stringify(requestUser))
         this.backendSvc.postNewJobRequest(requestUser).then()
+
     }
 
     acceptRequest(user: string, merchant: string): void {
         this.jobRequests = this.jobRequests.filter(job => job.user !== user)
         const acceptedRequest: JobRequest = {
             jobId: 0,
-            timestamp: new Date().toISOString().split('T')[0],
+            date: new Date().toISOString().split('T')[0],
+            time: new Date().toISOString().split('T')[1].split('.')[0],
             user: user,
             merchant: merchant,
             userPostalCode: '',
@@ -214,7 +217,6 @@ export class WebSocketService {
             timestamp: Date.now()
         }
         this.backendSvc.editLastMessage(chatRecord).subscribe()
-        // websocket sent to user
         this.stompClient.send(`/app/request/accepted/${user}`, {}, JSON.stringify(acceptedRequest))
     }
 
@@ -222,7 +224,8 @@ export class WebSocketService {
         this.jobRequests = this.jobRequests.filter(job => job.user !== user)
         const acceptedRequest: JobRequest = {
             jobId: 0,
-            timestamp: new Date().toISOString().split('T')[0],
+            date: new Date().toISOString().split('T')[0],
+            time: new Date().toISOString().split('T')[1].split('.')[0],
             user: user,
             merchant: merchant,
             userPostalCode: '',

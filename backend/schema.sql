@@ -52,7 +52,8 @@ create table chats (
 
 create table jobs (
     job_id int auto_increment,
-    timestamp timestamp default current_timestamp,
+    date varchar(64) not null,
+    time varchar(64) not null,
     user_username varchar(64) not null,
     merchant_username varchar(64) not null,
     user_postal_code char(6) not null,

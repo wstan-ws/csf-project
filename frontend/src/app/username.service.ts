@@ -7,6 +7,8 @@ export class UsernameService {
     user!: UserSignUpDetails
     merchant!: MerchantSignUpDetails
     active!: boolean
+    userPostal!: string
+    merchantPostal!: string
 
     setUser(user: UserSignUpDetails): void {
         this.user = user
@@ -30,5 +32,21 @@ export class UsernameService {
 
     getActivity(): boolean {
         return this.active
+    }
+
+    setUserPostal(userPostal: string): void {
+        this.userPostal = userPostal
+    }
+
+    getUserPostal(): string {
+        return this.userPostal
+    }
+
+    setMerchantPostal(merchantPostal: string): void {
+        this.merchantPostal = merchantPostal
+    }
+
+    getMerchantPostal(): string {
+        return this.merchantPostal
     }
 }

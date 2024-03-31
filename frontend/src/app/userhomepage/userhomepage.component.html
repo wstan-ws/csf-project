@@ -32,7 +32,8 @@
         <a *ngFor="let svc of websocketSvc.ongoingService" (click)="jobDetails(svc.merchant)">
             <mat-card>
                 <mat-card-title>{{ svc.merchant }}</mat-card-title>
-                <mat-card-subtitle>{{ svc.timestamp }}</mat-card-subtitle>
+                <mat-card-subtitle>{{ svc.date }}</mat-card-subtitle>
+                <mat-card-subtitle>{{ svc.time }}</mat-card-subtitle>
             </mat-card>
         </a>
     </div>

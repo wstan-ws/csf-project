@@ -1,12 +1,12 @@
 package vttp.iss.backend.models;
 
-import org.springframework.boot.autoconfigure.batch.BatchProperties.Job;
-
 public class JobRequest {
     
     private int jobId;
 
-    private String timestamp;
+    private String date;
+
+    private String time;
 
     private String user;
 
@@ -20,19 +20,23 @@ public class JobRequest {
 
     private String completedTimestamp;
 
-    public JobRequest(String user, String timestamp) {
+    public JobRequest(String date, String time, String user) {
+        this.date = date;
+        this.time = time;
         this.user = user;
-        this.timestamp = timestamp;
     }
 
-    public JobRequest(String merchant, String timestamp, int status) {
+    public JobRequest(String date, String time, String merchant, int status) {
+        this.date = date;
+        this.time = time;
         this.merchant = merchant;
-        this.timestamp = timestamp;
         this.status = status;
     }
 
-    public JobRequest(String user, String merchant, String userPostalCode, String merchantPostalCode,
-            int status) {
+    public JobRequest(String date, String time, String user, String merchant, String userPostalCode,
+            String merchantPostalCode, int status) {
+        this.date = date;
+        this.time = time;
         this.user = user;
         this.merchant = merchant;
         this.userPostalCode = userPostalCode;
@@ -40,24 +44,17 @@ public class JobRequest {
         this.status = status;
     }
 
-    public JobRequest(int jobId, String timestamp, String user, String merchant, String userPostalCode,
+    public JobRequest(int jobId, String date, String time, String user, String merchant, String userPostalCode,
             String merchantPostalCode, int status, String completedTimestamp) {
         this.jobId = jobId;
-        this.timestamp = timestamp;
+        this.date = date;
+        this.time = time;
         this.user = user;
         this.merchant = merchant;
         this.userPostalCode = userPostalCode;
         this.merchantPostalCode = merchantPostalCode;
         this.status = status;
         this.completedTimestamp = completedTimestamp;
-    }
-
-    public String getUser() {
-        return user;
-    }
-
-    public void setUser(String user) {
-        this.user = user;
     }
 
     public int getJobId() {
@@ -68,12 +65,28 @@ public class JobRequest {
         this.jobId = jobId;
     }
 
-    public String getTimestamp() {
-        return timestamp;
+    public String getDate() {
+        return date;
     }
 
-    public void setTimestamp(String timestamp) {
-        this.timestamp = timestamp;
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
     }
 
     public String getMerchant() {

@@ -27,6 +27,8 @@ public class JobRepository {
         if (!rs.next()) {
             template.update(
                 Utils.SQL_POST_NEW_JOB_REQUEST,
+                jobRequest.getDate(),
+                jobRequest.getTime(),
                 jobRequest.getUser(),
                 jobRequest.getMerchant(),
                 jobRequest.getUserPostalCode(),
@@ -44,24 +46,26 @@ public class JobRepository {
         List<JobRequest> jobList = new ArrayList<>();
         while (rs.next()) {
             int jobId = rs.getInt("job_id");
-            String timestamp = rs.getDate("timestamp").toString();
+            String date = rs.getString("date");
+            String time = rs.getString("time");
             String user = rs.getString("user_username");
             String merchant = rs.getString("merchant_username");
             String userPostalCode = rs.getString("user_postal_code");
             String merchantPostalCode = rs.getString("merchant_postal_code");
             int status = rs.getInt("status");
             String completedTimestamp = rs.getString("completed_timestamp");
-            JobRequest jobRequest = new JobRequest(jobId, timestamp, user, merchant, userPostalCode, merchantPostalCode, status, completedTimestamp);
+            JobRequest jobRequest = new JobRequest(jobId, date, time, user, merchant, userPostalCode, merchantPostalCode, status, completedTimestamp);
             jobList.add(jobRequest);
         }
 
         return jobList;
     }
 
-    public void editJobRequestStatus(String usernames, String timestamp, int status) {
+    public void editJobRequestStatus(String usernames, String date, String time, int status) {
 
         template.update(Utils.SQL_EDIT_JOB_REQUEST_STATUS, 
-            timestamp,
+            date,
+            time,
             status,
             usernames.split("-")[0],
             usernames.split("-")[1],
@@ -77,14 +81,15 @@ public class JobRepository {
         List<JobRequest> jobList = new ArrayList<>();
         while (rs.next()) {
             int jobId = rs.getInt("job_id");
-            String timestamp = rs.getDate("timestamp").toString();
+            String date = rs.getString("date");
+            String time = rs.getString("time");
             String user = rs.getString("user_username");
             String merchant = rs.getString("merchant_username");
             String userPostalCode = rs.getString("user_postal_code");
             String merchantPostalCode = rs.getString("merchant_postal_code");
             int status = rs.getInt("status");
             String completedTimestamp = rs.getString("completed_timestamp");
-            JobRequest jobRequest = new JobRequest(jobId, timestamp, user, merchant, userPostalCode, merchantPostalCode, status, completedTimestamp);
+            JobRequest jobRequest = new JobRequest(jobId, date, time, user, merchant, userPostalCode, merchantPostalCode, status, completedTimestamp);
             jobList.add(jobRequest);
         }
 
@@ -99,17 +104,44 @@ public class JobRepository {
         List<JobRequest> jobList = new ArrayList<>();
         while (rs.next()) {
             int jobId = rs.getInt("job_id");
-            String timestamp = rs.getDate("timestamp").toString();
+            String date = rs.getString("date");
+            String time = rs.getString("time");
             String user = rs.getString("user_username");
             String merchant = rs.getString("merchant_username");
             String userPostalCode = rs.getString("user_postal_code");
             String merchantPostalCode = rs.getString("merchant_postal_code");
             int status = rs.getInt("status");
             String completedTimestamp = rs.getString("completed_timestamp");
-            JobRequest jobRequest = new JobRequest(jobId, timestamp, user, merchant, userPostalCode, merchantPostalCode, status, completedTimestamp);
+            JobRequest jobRequest = new JobRequest(jobId, date, time, user, merchant, userPostalCode, merchantPostalCode, status, completedTimestamp);
             jobList.add(jobRequest);
         }
 
         return jobList;
+    }
+
+    public JobRequest getOngoingJob(String filter) {
+
+        String userUsername = filter.split("-")[0];
+        String merchantUsername = filter.split("-")[1];
+
+        SqlRowSet rs = template.queryForRowSet(Utils.SQL_USER_GET_ONGOING_JOBS,
+            userUsername, merchantUsername, 1);
+
+        JobRequest jobRequest = null;
+
+        while (rs.next()) {
+            int jobId = rs.getInt("job_id");
+            String date = rs.getString("date");
+            String time = rs.getString("time");
+            String user = rs.getString("user_username");
+            String merchant = rs.getString("merchant_username");
+            String userPostalCode = rs.getString("user_postal_code");
+            String merchantPostalCode = rs.getString("merchant_postal_code");
+            int status = rs.getInt("status");
+            String completedTimestamp = rs.getString("completed_timestamp");
+            jobRequest = new JobRequest(jobId, date, time, user, merchant, userPostalCode, merchantPostalCode, status, completedTimestamp);
+        }
+
+        return jobRequest;
     }
 }

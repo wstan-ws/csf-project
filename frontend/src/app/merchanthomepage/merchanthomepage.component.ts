@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BackendService } from '../backend.service';
-import { Observable } from 'rxjs';
+import { Observable, lastValueFrom } from 'rxjs';
 import { MerchantSignUpDetails } from '../models';
 import { UsernameService } from '../username.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
@@ -80,7 +80,16 @@ export class MerchanthomepageComponent implements OnInit, OnDestroy {
 
   jobDetails(user: string): void {
     const usernames = user + '-' + this.username
-    this.router.navigate(['/merchant-job-details', usernames])
+    const registerPortals = async() => {
+      await lastValueFrom(this.backendSvc.getOngoingJob(usernames))
+        .then(result => this.userSvc.setMerchantPostal(result.merchantPostalCode))
+      console.log('set merchant postal')
+      await lastValueFrom(this.backendSvc.getOngoingJob(usernames))
+        .then(result => this.userSvc.setUserPostal(result.userPostalCode))
+      console.log('set user postal')
+      this.router.navigate(['/merchant-job-details', usernames])
+    }
+    registerPortals()
   }
 
   logout(): void {

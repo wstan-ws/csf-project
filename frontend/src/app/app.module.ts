@@ -49,6 +49,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatTableModule } from '@angular/material/table';
 import { UserJobDetailsComponent } from './user-job-details/user-job-details.component';
 import { MerchantJobDetailsComponent } from './merchant-job-details/merchant-job-details.component';
+import { GoogleMapsModule } from '@angular/google-maps';
 
 const appRoutes: Routes = [
   {path: '', component: HomeComponent},
@@ -130,7 +131,8 @@ const appRoutes: Routes = [
     MatCardModule,
     MatListModule,
     MatDividerModule,
-    MatTableModule
+    MatTableModule,
+    GoogleMapsModule
   ],
   providers: [BackendService, UsernameService, WebSocketService, provideAnimationsAsync(), MerchantStore],
   bootstrap: [AppComponent]

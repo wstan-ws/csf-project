@@ -127,8 +127,8 @@ public class MainService {
         return jobRepo.getAllRequest(merchant);
     }
 
-    public void editJobRequestStatus(String usernames, String timestamp, int status) {
-        jobRepo.editJobRequestStatus(usernames, timestamp, status);
+    public void editJobRequestStatus(String usernames, String date, String time, int status) {
+        jobRepo.editJobRequestStatus(usernames, date, time, status);
     }
 
     public List<JobRequest> getAcceptedJobs(String merchant) {
@@ -137,5 +137,9 @@ public class MainService {
 
     public List<JobRequest> getUserServices(String user) {
         return jobRepo.getUserServices(user);
+    }
+
+    public JobRequest getOngoingJob(String filter) {
+        return jobRepo.getOngoingJob(filter);
     }
 }

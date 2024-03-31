@@ -132,4 +132,9 @@ export class BackendService {
         const url: string = `http://localhost:8080/api/getalluserservices/${filter}`
         return lastValueFrom(this.http.get<JobRequest[]>(url))
     }
+
+    getOngoingJob(filter: string): Observable<JobRequest> {
+        const url: string = `http://localhost:8080/api/getongoingjob/${filter}`
+        return this.http.get<JobRequest>(url)
+    }
 }

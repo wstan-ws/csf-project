@@ -41,6 +41,8 @@ public class JobController {
 
         String user = obj.getString("user");
         String merchant = obj.getString("merchant");
+        String date = obj.getString("date");
+        String time = obj.getString("time");
 
         User userDetails = mainSvc.getUserDetails(user);
         Merchant merchantDetails = mainSvc.getMerchantDetails(merchant);
@@ -49,7 +51,7 @@ public class JobController {
         String merchantPostalCode = merchantDetails.getPostalCode();
         int status = 0;
 
-        JobRequest jobRequest = new JobRequest(user, merchant, userPostalCode, merchantPostalCode, status);
+        JobRequest jobRequest = new JobRequest(date, time, user, merchant, userPostalCode, merchantPostalCode, status);
 
         mainSvc.postNewJobRequest(jobRequest);
 
@@ -66,7 +68,8 @@ public class JobController {
             JsonObjectBuilder objBuilder = Json.createObjectBuilder();
             if (job.getCompletedTimestamp() != null) {
                 objBuilder.add("jobId", job.getJobId())
-                .add("timestamp", job.getTimestamp())
+                .add("date", job.getDate())
+                .add("time", job.getTime())
                 .add("user", job.getUser())
                 .add("merchant", job.getMerchant())
                 .add("userPostalCode", job.getUserPostalCode())
@@ -75,7 +78,8 @@ public class JobController {
                 .add("completedTimestamp", job.getCompletedTimestamp());
             } else {
                 objBuilder.add("jobId", job.getJobId())
-                .add("timestamp", job.getTimestamp())
+                .add("date", job.getDate())
+                .add("time", job.getTime())
                 .add("user", job.getUser())
                 .add("merchant", job.getMerchant())
                 .add("userPostalCode", job.getUserPostalCode())
@@ -98,10 +102,11 @@ public class JobController {
         JsonReader reader = Json.createReader(new StringReader(payload));
         JsonObject obj = reader.readObject();
 
-        String timestamp = obj.getString("timestamp");
+        String date = obj.getString("date");
+        String time = obj.getString("time");
         int status = obj.getInt("status");
 
-        mainSvc.editJobRequestStatus(filter, timestamp, status);
+        mainSvc.editJobRequestStatus(filter, date, time, status);
 
         return ResponseEntity.ok().body("{}");
     }
@@ -116,7 +121,8 @@ public class JobController {
             JsonObjectBuilder objBuilder = Json.createObjectBuilder();
             if (job.getCompletedTimestamp() != null) {
                 objBuilder.add("jobId", job.getJobId())
-                .add("timestamp", job.getTimestamp())
+                .add("date", job.getDate())
+                .add("time", job.getTime())
                 .add("user", job.getUser())
                 .add("merchant", job.getMerchant())
                 .add("userPostalCode", job.getUserPostalCode())
@@ -125,7 +131,8 @@ public class JobController {
                 .add("completedTimestamp", job.getCompletedTimestamp());
             } else {
                 objBuilder.add("jobId", job.getJobId())
-                .add("timestamp", job.getTimestamp())
+                .add("date", job.getDate())
+                .add("time", job.getTime())
                 .add("user", job.getUser())
                 .add("merchant", job.getMerchant())
                 .add("userPostalCode", job.getUserPostalCode())
@@ -152,7 +159,8 @@ public class JobController {
             JsonObjectBuilder objBuilder = Json.createObjectBuilder();
             if (job.getCompletedTimestamp() != null) {
                 objBuilder.add("jobId", job.getJobId())
-                .add("timestamp", job.getTimestamp())
+                .add("date", job.getDate())
+                .add("time", job.getTime())
                 .add("user", job.getUser())
                 .add("merchant", job.getMerchant())
                 .add("userPostalCode", job.getUserPostalCode())
@@ -161,7 +169,8 @@ public class JobController {
                 .add("completedTimestamp", job.getCompletedTimestamp());
             } else {
                 objBuilder.add("jobId", job.getJobId())
-                .add("timestamp", job.getTimestamp())
+                .add("date", job.getDate())
+                .add("time", job.getTime())
                 .add("user", job.getUser())
                 .add("merchant", job.getMerchant())
                 .add("userPostalCode", job.getUserPostalCode())
@@ -176,5 +185,38 @@ public class JobController {
         JsonArray arr = arrBuilder.build();
 
         return ResponseEntity.ok().body(arr.toString());
+    }
+
+    @GetMapping(path = "/getongoingjob/{filter}")
+    public ResponseEntity<String> getOngoingJob(@PathVariable String filter) {
+
+        JobRequest jobRequest = mainSvc.getOngoingJob(filter);
+
+        JsonObjectBuilder objBuilder = Json.createObjectBuilder();
+        if (jobRequest.getCompletedTimestamp() != null) {
+            objBuilder.add("jobId", jobRequest.getJobId())
+            .add("date", jobRequest.getDate())
+            .add("time", jobRequest.getTime())
+            .add("user", jobRequest.getUser())
+            .add("merchant", jobRequest.getMerchant())
+            .add("userPostalCode", jobRequest.getUserPostalCode())
+            .add("merchantPostalCode", jobRequest.getMerchantPostalCode())
+            .add("status", jobRequest.getStatus())
+            .add("completedTimestamp", jobRequest.getCompletedTimestamp());
+        } else {
+            objBuilder.add("jobId", jobRequest.getJobId())
+            .add("date", jobRequest.getDate())
+            .add("time", jobRequest.getTime())
+            .add("user", jobRequest.getUser())
+            .add("merchant", jobRequest.getMerchant())
+            .add("userPostalCode", jobRequest.getUserPostalCode())
+            .add("merchantPostalCode", jobRequest.getMerchantPostalCode())
+            .add("status", jobRequest.getStatus())
+            .add("completedTimestamp", "");
+        }
+
+        JsonObject obj = objBuilder.build();
+
+        return ResponseEntity.ok().body(obj.toString());
     }
 }
