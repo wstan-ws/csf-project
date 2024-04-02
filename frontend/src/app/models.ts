@@ -25,6 +25,7 @@ export interface MerchantSignUpDetails {
     aircon: boolean
     airconLicenseNo: string
     active: boolean
+    rating: string
 }
 
 export interface MerchantSignUpDetailsSlice {
@@ -61,4 +62,13 @@ export interface JobRequest {
     merchantPostalCode: string
     status: number
     completedTimestamp: string
+}
+
+export interface Review {
+    reviewId: number
+    jobId: number
+    rating: number
+    comments: string
+    date: string
+    time: string
 }

@@ -1,0 +1,42 @@
+<div>
+    <button id="back" type="button" (click)="home()" mat-icon-button><mat-icon>keyboard_arrow_left</mat-icon></button>
+</div>
+
+<div>
+    <form [formGroup]="reviewForm" (submit)="submit()">
+        <div>
+            <p class="title">How was {{ merchant }}'s service?</p>
+        </div>
+        <div class="rating">
+            <label>
+                <input type="radio" formControlName="rating" value=1>
+                <p class="number">1</p>
+            </label>
+            <label>
+                <input type="radio" formControlName="rating" value=2>
+                <p class="number">2</p>
+            </label>
+            <label>
+                <input type="radio" formControlName="rating" value=3>
+                <p class="number">3</p>
+            </label>
+            <label>
+                <input type="radio" formControlName="rating" value=4>
+                <p class="number">4</p>
+            </label>
+            <label>
+                <input type="radio" formControlName="rating" value=5>
+                <p class="number">5</p>
+            </label>
+        </div>
+        <br>
+        <div class="comments">
+            <mat-form-field>
+                <mat-label>Enter your comments</mat-label>
+                <input type="text" id="comment" formControlName="comments" matInput>
+            </mat-form-field>
+            <br>
+            <button type="submit" color="primary" mat-raised-button>Submit</button>
+        </div>
+    </form>
+</div>

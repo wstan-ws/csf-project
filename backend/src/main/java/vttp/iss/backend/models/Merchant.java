@@ -19,13 +19,14 @@ public class Merchant {
     private Boolean aircon;
     private String airconLicenseNo;
     private Boolean active;
+    private String rating;
 
     public Merchant() {
     }
-    
+
     public Merchant(String firstName, String lastName, String email, String phoneNumber, String companyName,
             String postalCode, String username, String password, Boolean elec, String elecLicenseNo, Boolean plum,
-            String plumLicenseNo, Boolean aircon, String airconLicenseNo) {
+            String plumLicenseNo, Boolean aircon, String airconLicenseNo, String rating) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -40,11 +41,12 @@ public class Merchant {
         this.plumLicenseNo = plumLicenseNo;
         this.aircon = aircon;
         this.airconLicenseNo = airconLicenseNo;
+        this.rating = rating;
     }
 
     public Merchant(String firstName, String lastName, String email, String phoneNumber, String companyName,
             String postalCode, String username, String password, Boolean elec, String elecLicenseNo, Boolean plum,
-            String plumLicenseNo, Boolean aircon, String airconLicenseNo, Boolean active) {
+            String plumLicenseNo, Boolean aircon, String airconLicenseNo, Boolean active, String rating) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -60,6 +62,7 @@ public class Merchant {
         this.aircon = aircon;
         this.airconLicenseNo = airconLicenseNo;
         this.active = active;
+        this.rating = rating;
     }
 
     public static Merchant toMerchant(JsonObject obj) {
@@ -78,8 +81,9 @@ public class Merchant {
         String plumLicenseNo = obj.getString("plumLicenseNo");
         Boolean aircon = obj.getBoolean("aircon");
         String airconLicenseNo = obj.getString("airconLicenseNo");
+        String rating = obj.getString("rating");
 
-        return new Merchant(firstName, lastName, email, phoneNumber, companyName, postalCode, username, password, elec, elecLicenseNo, plum, plumLicenseNo, aircon, airconLicenseNo);
+        return new Merchant(firstName, lastName, email, phoneNumber, companyName, postalCode, username, password, elec, elecLicenseNo, plum, plumLicenseNo, aircon, airconLicenseNo, rating);
     }
 
     public String getFirstName() {
@@ -202,12 +206,11 @@ public class Merchant {
         this.postalCode = postalCode;
     }
 
-    @Override
-    public String toString() {
-        return "Merchant [firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + ", phoneNumber="
-                + phoneNumber + ", companyName=" + companyName + ", postalCode=" + postalCode + ", username=" + username
-                + ", password=" + password + ", elec=" + elec + ", elecLicenseNo=" + elecLicenseNo + ", plum=" + plum
-                + ", plumLicenseNo=" + plumLicenseNo + ", aircon=" + aircon + ", airconLicenseNo=" + airconLicenseNo
-                + ", active=" + active + "]";
+    public String getRating() {
+        return rating;
+    }
+
+    public void setRating(String rating) {
+        this.rating = rating;
     }
 }

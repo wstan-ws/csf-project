@@ -35,6 +35,7 @@ create table merchants (
     aircon boolean default false,
     aircon_license_no varchar(64),
     active boolean default false,
+    rating varchar(64),
 
     primary key (username)
 );
@@ -51,6 +52,7 @@ create table chats (
 );
 
 create table jobs (
+
     job_id int auto_increment,
     date varchar(64) not null,
     time varchar(64) not null,
@@ -59,11 +61,25 @@ create table jobs (
     user_postal_code char(6) not null,
     merchant_postal_code char(6) not null,
     status int default 0 not null,
-    completed_timestamp timestamp,
+    completed_timestamp varchar(64),
 
     primary key (job_id),
     constraint fk_user_username foreign key (user_username)
     references users(username),
     constraint fk_merchant_username foreign key (merchant_username)
     references merchants(username)
-)
+);
+
+create table reviews (
+
+    review_id int auto_increment,
+    job_id int not null,
+    rating int not null,
+    comments text,
+    date varchar(64) not null,
+    time varchar(64) not null,
+
+    primary key (review_id),
+    constraint fk_job_id foreign key (job_id)
+    references jobs(job_id)
+);

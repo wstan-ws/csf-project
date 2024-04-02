@@ -12,15 +12,16 @@ import { UsernameService } from '../username.service';
 })
 export class SearchAirconComponent {
 
-    aircons!: Observable<MerchantSignUpDetails[]>
+    aircons$!: Observable<MerchantSignUpDetails[]>
     username!: string
+    rating$!: string
 
     private backendSvc = inject(BackendService)
     private router = inject(Router)
     private userSvc = inject(UsernameService)
 
     ngOnInit(): void {
-      this.aircons = this.backendSvc.getAircons()
+      this.aircons$ = this.backendSvc.getAircons()
       this.username = this.userSvc.getUser().username
     }
 

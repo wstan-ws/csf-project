@@ -41,9 +41,9 @@ public class Utils {
         // Merchant
         public static final String SQL_INSERT_MERCHANT = """
                 INSERT INTO merchants
-                (first_name, last_name, email, phone_number, company_name, postal_code, username, password, electrician, electrician_license_no, plumber, plumber_license_no, aircon, aircon_license_no)
+                (first_name, last_name, email, phone_number, company_name, postal_code, username, password, electrician, electrician_license_no, plumber, plumber_license_no, aircon, aircon_license_no, rating)
                 VALUES
-                (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         """;
 
         public static final String SQL_GET_MERCHANT_USERNAME_PASSWORD = """
@@ -176,5 +176,36 @@ public class Utils {
                 WHERE user_username = ?
                 AND merchant_username = ?
                 AND status = ?                
+        """;
+
+        public static final String SQL_COMPLETE_REQUEST = """
+                UPDATE jobs
+                SET status = ?, completed_timestamp = ?
+                WHERE user_username = ?
+                AND merchant_username = ?
+                AND status = ?                
+        """;
+
+        // Review
+        public static final String SQL_POST_REVIEW = """
+                INSERT INTO reviews
+                (job_id, rating, comments, date, time)
+                VALUES
+                (?, ?, ?, ?, ?)                
+        """;
+
+        public static final String SQL_GET_AVG_RATING = """
+                SELECT * 
+                FROM jobs j
+                LEFT JOIN reviews r
+                ON j.job_id = r.job_id
+                WHERE rating IS NOT NULL
+                AND j.merchant_username = ?             
+        """;
+
+        public static final String SQL_SET_MERCHANT_RATING = """
+                UPDATE merchants
+                SET rating = ?
+                WHERE username = ?                
         """;
 }

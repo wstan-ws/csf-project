@@ -6,14 +6,14 @@
     <p class="title">Aircon Repairman</p>
 </div>
 
-<div class="aircon" *ngIf="aircons | async as aircons">
+<div class="aircon" *ngIf="aircons$ | async as aircons">
     <div *ngIf="aircons.length > 0; else noAircon">
         <div *ngFor="let aircon of aircons">
             <a [routerLink]="['/aircon-details', aircon.username]">
                 <mat-card>
                     <mat-card-title>{{ aircon.firstName }} {{ aircon.lastName }}</mat-card-title>
                     <mat-card-content>{{ aircon.companyName }}</mat-card-content>
-                    <mat-card-subtitle>INSERT RATING HERE</mat-card-subtitle>
+                    <mat-card-subtitle>{{ aircon.rating }} ⭐</mat-card-subtitle>
                 </mat-card>
             </a>
         </div>

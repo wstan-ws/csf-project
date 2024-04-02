@@ -86,6 +86,8 @@ public class MerchantController {
             .add("plumLicenseNo", merchant.getPlumLicenseNo())
             .add("aircon", merchant.getAircon())
             .add("airconLicenseNo", merchant.getAirconLicenseNo())
+            .add("active", merchant.getActive())
+            .add("rating", merchant.getRating())
             .build();
 
         return ResponseEntity.ok().body(o.toString());
@@ -130,7 +132,9 @@ public class MerchantController {
                 .add("plum", merchant.getPlum())
                 .add("plumLicenseNo", merchant.getPlumLicenseNo())
                 .add("aircon", merchant.getAircon())
-                .add("airconLicenseNo", merchant.getAirconLicenseNo());
+                .add("airconLicenseNo", merchant.getAirconLicenseNo())
+                .add("active", merchant.getActive())
+                .add("rating", merchant.getRating());
             arrBuilder.add(o);
         }
 
@@ -162,7 +166,9 @@ public class MerchantController {
                 .add("plum", merchant.getPlum())
                 .add("plumLicenseNo", merchant.getPlumLicenseNo())
                 .add("aircon", merchant.getAircon())
-                .add("airconLicenseNo", merchant.getAirconLicenseNo());
+                .add("airconLicenseNo", merchant.getAirconLicenseNo())
+                .add("active", merchant.getActive())
+                .add("rating", merchant.getRating());
             arrBuilder.add(o);
         }
 
@@ -194,7 +200,9 @@ public class MerchantController {
                 .add("plum", merchant.getPlum())
                 .add("plumLicenseNo", merchant.getPlumLicenseNo())
                 .add("aircon", merchant.getAircon())
-                .add("airconLicenseNo", merchant.getAirconLicenseNo());
+                .add("airconLicenseNo", merchant.getAirconLicenseNo())
+                .add("active", merchant.getActive())
+                .add("rating", merchant.getRating());
             arrBuilder.add(o);
         }
 

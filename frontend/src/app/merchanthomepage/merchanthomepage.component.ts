@@ -83,10 +83,8 @@ export class MerchanthomepageComponent implements OnInit, OnDestroy {
     const registerPortals = async() => {
       await lastValueFrom(this.backendSvc.getOngoingJob(usernames))
         .then(result => this.userSvc.setMerchantPostal(result.merchantPostalCode))
-      console.log('set merchant postal')
       await lastValueFrom(this.backendSvc.getOngoingJob(usernames))
         .then(result => this.userSvc.setUserPostal(result.userPostalCode))
-      console.log('set user postal')
       this.router.navigate(['/merchant-job-details', usernames])
     }
     registerPortals()

@@ -12,10 +12,12 @@ import vttp.iss.backend.models.JobRequest;
 import vttp.iss.backend.models.LoginDetails;
 import vttp.iss.backend.models.Merchant;
 import vttp.iss.backend.models.Message;
+import vttp.iss.backend.models.Review;
 import vttp.iss.backend.models.User;
 import vttp.iss.backend.repositories.JobRepository;
 import vttp.iss.backend.repositories.MerchantRepository;
 import vttp.iss.backend.repositories.MessageRepository;
+import vttp.iss.backend.repositories.ReviewRepository;
 import vttp.iss.backend.repositories.UserRepository;
 
 @Service
@@ -32,6 +34,9 @@ public class MainService {
 
     @Autowired
     private JobRepository jobRepo;
+
+    @Autowired
+    private ReviewRepository reviewRepo;
 
     // User
     public void userSignup(User user) {
@@ -141,5 +146,14 @@ public class MainService {
 
     public JobRequest getOngoingJob(String filter) {
         return jobRepo.getOngoingJob(filter);
+    }
+
+    public void completeRequest(String usernames, int status, String completedTimestamp) {
+        jobRepo.completeRequest(usernames, status, completedTimestamp);
+    }
+
+    // Review
+    public void postReview(Review review, String merchant) {
+        reviewRepo.postReview(review, merchant);
     }
 }

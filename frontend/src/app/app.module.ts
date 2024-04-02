@@ -50,6 +50,7 @@ import { MatTableModule } from '@angular/material/table';
 import { UserJobDetailsComponent } from './user-job-details/user-job-details.component';
 import { MerchantJobDetailsComponent } from './merchant-job-details/merchant-job-details.component';
 import { GoogleMapsModule } from '@angular/google-maps';
+import { ReviewComponent } from './review/review.component';
 
 const appRoutes: Routes = [
   {path: '', component: HomeComponent},
@@ -81,6 +82,7 @@ const appRoutes: Routes = [
   {path: 'about-us', component: AboutUsComponent},
   {path: 'user-job-details/:usernames', component: UserJobDetailsComponent},
   {path: 'merchant-job-details/:usernames', component: MerchantJobDetailsComponent},
+  {path: 'review/:usernames', component: ReviewComponent},
   {path: '**', redirectTo: '/', pathMatch: 'full'}
 ]
 
@@ -116,6 +118,7 @@ const appRoutes: Routes = [
     MerchantSignup2Component,
     UserJobDetailsComponent,
     MerchantJobDetailsComponent,
+    ReviewComponent,
   ],
   imports: [
     BrowserModule,

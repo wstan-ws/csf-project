@@ -38,7 +38,8 @@ public class MerchantRepository {
             merchant.getPlum(),
             merchant.getPlumLicenseNo(),
             merchant.getAircon(),
-            merchant.getAirconLicenseNo()
+            merchant.getAirconLicenseNo(),
+            merchant.getRating()
         );
     }
 
@@ -76,8 +77,9 @@ public class MerchantRepository {
             String plumLicenseNo = rs.getString("plumber_license_no");
             Boolean aircon = rs.getBoolean("aircon");
             String airconLicenseNo = rs.getString("aircon_license_no");
+            String rating = rs.getString("rating");
             Boolean active = rs.getBoolean("active");
-            merchant = new Merchant(firstName, lastName, email, phoneNumber, companyName, postalCode, username, password, elec, elecLicenseNo, plum, plumLicenseNo, aircon, airconLicenseNo, active);
+            merchant = new Merchant(firstName, lastName, email, phoneNumber, companyName, postalCode, username, password, elec, elecLicenseNo, plum, plumLicenseNo, aircon, airconLicenseNo, active, rating);
         }
         
         return merchant;
@@ -149,7 +151,8 @@ public class MerchantRepository {
             Boolean aircon = rs.getBoolean("aircon");
             String airconLicenseNo = rs.getString("aircon_license_no");
             Boolean active = rs.getBoolean("active");
-            Merchant merchant = new Merchant(firstName, lastName, email, phoneNumber, companyName, postalCode, username, password, elec, elecLicenseNo, plum, plumLicenseNo, aircon, airconLicenseNo, active);
+            String rating = rs.getString("rating");
+            Merchant merchant = new Merchant(firstName, lastName, email, phoneNumber, companyName, postalCode, username, password, elec, elecLicenseNo, plum, plumLicenseNo, aircon, airconLicenseNo, active, rating);
             merchantList.add(merchant);
         }
 
@@ -177,7 +180,8 @@ public class MerchantRepository {
             Boolean aircon = rs.getBoolean("aircon");
             String airconLicenseNo = rs.getString("aircon_license_no");
             Boolean active = rs.getBoolean("active");
-            Merchant merchant = new Merchant(firstName, lastName, email, phoneNumber, companyName, postalCode, username, password, elec, elecLicenseNo, plum, plumLicenseNo, aircon, airconLicenseNo, active);
+            String rating = rs.getString("rating");
+            Merchant merchant = new Merchant(firstName, lastName, email, phoneNumber, companyName, postalCode, username, password, elec, elecLicenseNo, plum, plumLicenseNo, aircon, airconLicenseNo, active, rating);
             merchantList.add(merchant);
         }
 
@@ -204,8 +208,9 @@ public class MerchantRepository {
             String plumLicenseNo = rs.getString("plumber_license_no");
             Boolean aircon = rs.getBoolean("aircon");
             String airconLicenseNo = rs.getString("aircon_license_no");
+            String rating = rs.getString("rating");
             Boolean active = rs.getBoolean("active");
-            Merchant merchant = new Merchant(firstName, lastName, email, phoneNumber, companyName, postalCode, username, password, elec, elecLicenseNo, plum, plumLicenseNo, aircon, airconLicenseNo, active);
+            Merchant merchant = new Merchant(firstName, lastName, email, phoneNumber, companyName, postalCode, username, password, elec, elecLicenseNo, plum, plumLicenseNo, aircon, airconLicenseNo, active, rating);
             merchantList.add(merchant);
         }
 

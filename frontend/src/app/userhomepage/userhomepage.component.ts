@@ -28,8 +28,6 @@ export class UserhomepageComponent implements OnInit, OnDestroy {
     this.user$ = this.backendSvc.getUserDetails(this.username)
     this.websocketSvc.connectAndLoadServices(this.username)
     this.websocketSvc.subscribeServices(this.username)
-    console.log(new Date().toISOString().split('T')[0])
-    console.log(new Date().toISOString().split('T')[1].split('.')[0])
   }
 
   ngOnDestroy(): void {

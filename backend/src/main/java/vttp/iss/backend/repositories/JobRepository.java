@@ -144,4 +144,13 @@ public class JobRepository {
 
         return jobRequest;
     }
+
+    public void completeRequest(String usernames, int status, String completedTimestamp) {
+
+        String user = usernames.split("-")[0];
+        String merchant = usernames.split("-")[1];
+
+        template.update(Utils.SQL_COMPLETE_REQUEST,
+            status, completedTimestamp, user, merchant, 1);
+    }
 }

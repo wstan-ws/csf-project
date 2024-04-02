@@ -11,7 +11,7 @@
 <div class="content" *ngIf="electrician | async as electrician">
     <p><strong>Company:</strong> {{ electrician.companyName }}</p>
     <p><strong>License No:</strong> {{ electrician.elecLicenseNo }}</p>
-    <p><strong>Rating:</strong> INSERT RATING HERE</p>
+    <p><strong>Rating:</strong> {{ electrician.rating }} ⭐</p>
     <button type="button" color="primary" mat-raised-button (click)="chat()">Chat</button>
 </div>
 

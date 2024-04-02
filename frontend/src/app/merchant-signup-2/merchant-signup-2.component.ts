@@ -58,7 +58,8 @@ export class MerchantSignup2Component implements OnInit {
         plumLicenseNo: this.merchantSignUpForm.value.plumLicenseNo,
         aircon: this.merchantSignUpForm.value.aircon,
         airconLicenseNo: this.merchantSignUpForm.value.airconLicenseNo,
-        active: false
+        active: false,
+        rating: ''
       }
       for (let i = 0; i < this.username.length; i++) {
         if (merchant.username === this.username[i]) {

@@ -10,8 +10,9 @@
             <p><strong>Job Date: </strong>{{ ongoingJob.date }}</p>
             <p><strong>Job Time: </strong>{{ ongoingJob.time }}</p>
             <p *ngIf="ongoingJob.status === 1"><strong>Job Status: </strong>Ongoing</p>
-            <p>Estimated Time of Arrival</p>
-            <button type="button" id="complete" color="primary" mat-raised-button>Job Completed</button>
+            <p><strong>Estimated Distance: </strong>{{ distance }}</p>
+            <p><strong>Estimated Duration: </strong>{{ duration }}</p>
+            <p><strong>Estimated Time of Arrival: </strong>{{ eta }}</p>
         </div>
     </div>
     <div class="flexbox">

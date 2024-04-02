@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable, inject } from "@angular/core";
-import { ChatRecord, JobRequest, LoginDetails, MerchantSignUpDetails, Message, UserSignUpDetails } from "./models";
+import { ChatRecord, JobRequest, LoginDetails, MerchantSignUpDetails, Message, Review, UserSignUpDetails } from "./models";
 import { Observable, last, lastValueFrom } from "rxjs";
 
 @Injectable()
@@ -136,5 +136,15 @@ export class BackendService {
     getOngoingJob(filter: string): Observable<JobRequest> {
         const url: string = `http://localhost:8080/api/getongoingjob/${filter}`
         return this.http.get<JobRequest>(url)
+    }
+
+    completeJobRequest(filter: string, body: JobRequest): Observable<any> {
+        const url: string = `http://localhost:8080/api/completejobrequest/${filter}`
+        return this.http.patch(url, body)
+    }
+
+    postReview(filter: string, body: Review): Promise<any> {
+        const url: string = `http://localhost:8080/api/postreview/${filter}`
+        return lastValueFrom(this.http.post<Review>(url, body))
     }
 }

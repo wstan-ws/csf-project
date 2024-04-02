@@ -9,6 +9,7 @@ export class UsernameService {
     active!: boolean
     userPostal!: string
     merchantPostal!: string
+    jobId!: number
 
     setUser(user: UserSignUpDetails): void {
         this.user = user
@@ -48,5 +49,13 @@ export class UsernameService {
 
     getMerchantPostal(): string {
         return this.merchantPostal
+    }
+
+    setJobId(jobId: number): void {
+        this.jobId = jobId
+    }
+
+    getJobId(): number {
+        return this.jobId
     }
 }

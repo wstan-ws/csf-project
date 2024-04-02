@@ -41,7 +41,8 @@ export class MerchantSignupComponent implements OnInit {
       plumLicenseNo: '',
       aircon: false,
       airconLicenseNo: '',
-      active: false 
+      active: false,
+      rating: '' 
     }
     this.merchantStore.addMerchantSignUpDetails(merchant)
     this.router.navigate(['/merchant-signup-2'])

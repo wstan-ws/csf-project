@@ -219,4 +219,18 @@ public class JobController {
 
         return ResponseEntity.ok().body(obj.toString());
     }
+
+    @PatchMapping(path = "/completejobrequest/{filter}")
+    public ResponseEntity<String> completeJobRequest(@PathVariable String filter, @RequestBody String payload) {
+
+        JsonReader reader = Json.createReader(new StringReader(payload));
+        JsonObject obj = reader.readObject();
+
+        int status = obj.getInt("status");
+        String completedTimestamp = obj.getString("completedTimestamp");
+
+        mainSvc.completeRequest(filter, status, completedTimestamp);
+
+        return ResponseEntity.ok().body("{}");
+    }
 }

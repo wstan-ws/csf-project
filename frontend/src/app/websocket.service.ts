@@ -170,8 +170,8 @@ export class WebSocketService {
         this.backendSvc.editLastMessage(chatRecord).subscribe()
         const requestUser: JobRequest = {
             jobId: 0,
-            date: new Date().toISOString().split('T')[0],
-            time: new Date().toISOString().split('T')[1].split('.')[0],
+            date: new Date().toLocaleString().split(',')[0],
+            time: new Date().toLocaleString().split(', ')[1],
             user: user,
             merchant: merchant,
             userPostalCode: '',
@@ -188,8 +188,8 @@ export class WebSocketService {
         this.jobRequests = this.jobRequests.filter(job => job.user !== user)
         const acceptedRequest: JobRequest = {
             jobId: 0,
-            date: new Date().toISOString().split('T')[0],
-            time: new Date().toISOString().split('T')[1].split('.')[0],
+            date: new Date().toLocaleString().split(',')[0],
+            time: new Date().toLocaleString().split(', ')[1],
             user: user,
             merchant: merchant,
             userPostalCode: '',
@@ -224,8 +224,8 @@ export class WebSocketService {
         this.jobRequests = this.jobRequests.filter(job => job.user !== user)
         const acceptedRequest: JobRequest = {
             jobId: 0,
-            date: new Date().toISOString().split('T')[0],
-            time: new Date().toISOString().split('T')[1].split('.')[0],
+            date: new Date().toLocaleString().split(',')[0],
+            time: new Date().toLocaleString().split(', ')[1],
             user: user,
             merchant: merchant,
             userPostalCode: '',
@@ -233,8 +233,6 @@ export class WebSocketService {
             status: 2,
             completedTimestamp: ''
         }
-        this.backendSvc.editJobRequestStatus(user+'-'+merchant, acceptedRequest)
-            .subscribe()
         const usernames = user+'-'+merchant
         this.backendSvc.editJobRequestStatus(usernames, acceptedRequest)
             .subscribe()
@@ -254,5 +252,23 @@ export class WebSocketService {
             timestamp: Date.now()
         }
         this.backendSvc.editLastMessage(chatRecord).subscribe()
+    }
+
+    completeRequest(usernames: string): void {
+        const user: string = usernames.split('-')[0]
+        const merchant: string = usernames.split('-')[1]
+        const completedRequest: JobRequest = {
+            jobId: 0,
+            date: '',
+            time: '',
+            user: user,
+            merchant: merchant,
+            userPostalCode: '',
+            merchantPostalCode: '',
+            status: 3,
+            completedTimestamp: new Date().toLocaleString()
+        }
+        this.backendSvc.completeJobRequest(usernames, completedRequest).subscribe()
+        this.acceptedJobs = this.acceptedJobs.filter(job => job.user !== user)
     }
 }
