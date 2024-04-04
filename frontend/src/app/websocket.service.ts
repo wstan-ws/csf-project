@@ -170,8 +170,7 @@ export class WebSocketService {
         this.backendSvc.editLastMessage(chatRecord).subscribe()
         const requestUser: JobRequest = {
             jobId: 0,
-            date: new Date().toLocaleString().split(',')[0],
-            time: new Date().toLocaleString().split(', ')[1],
+            timestamp: new Date().toLocaleString(),
             user: user,
             merchant: merchant,
             userPostalCode: '',
@@ -188,8 +187,7 @@ export class WebSocketService {
         this.jobRequests = this.jobRequests.filter(job => job.user !== user)
         const acceptedRequest: JobRequest = {
             jobId: 0,
-            date: new Date().toLocaleString().split(',')[0],
-            time: new Date().toLocaleString().split(', ')[1],
+            timestamp: new Date().toLocaleString(),
             user: user,
             merchant: merchant,
             userPostalCode: '',
@@ -224,8 +222,7 @@ export class WebSocketService {
         this.jobRequests = this.jobRequests.filter(job => job.user !== user)
         const acceptedRequest: JobRequest = {
             jobId: 0,
-            date: new Date().toLocaleString().split(',')[0],
-            time: new Date().toLocaleString().split(', ')[1],
+            timestamp: new Date().toLocaleString(),
             user: user,
             merchant: merchant,
             userPostalCode: '',
@@ -259,8 +256,7 @@ export class WebSocketService {
         const merchant: string = usernames.split('-')[1]
         const completedRequest: JobRequest = {
             jobId: 0,
-            date: '',
-            time: '',
+            timestamp: '',
             user: user,
             merchant: merchant,
             userPostalCode: '',

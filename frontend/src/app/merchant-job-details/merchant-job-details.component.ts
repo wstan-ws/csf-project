@@ -5,6 +5,7 @@ import { MapDirectionsService } from '@angular/google-maps';
 import { UsernameService } from '../username.service';
 import { Observable, lastValueFrom, map } from 'rxjs';
 import { JobRequest } from '../models';
+import moment from 'moment';
 
 @Component({
   selector: 'app-merchant-job-details',
@@ -69,15 +70,24 @@ export class MerchantJobDetailsComponent implements OnInit {
         .then(response => durationInSec = response.rows[0].elements[0].duration.value)
       var jobTime!: string
       await lastValueFrom(this.ongoingJob$)
-        .then(result => jobTime = result.time)
+        .then(result => jobTime = result.timestamp)
+      const ampm: string = jobTime.split(' ')[1]
       var hour: unknown = jobTime.split(':')[0]
       const other = jobTime.split(':')[1]
       var min: unknown = other.split(':')[0]
-      const totalSec: number = ((hour as number) * 3600) + ((min as number) * 60)
-      const etaSec: number = totalSec + durationInSec
-      hour = Math.floor(etaSec/3600) 
-      min = Math.floor((etaSec - (hour as number * 3600))/60)
-      this.eta = (hour as string) + ':' + (min as string) 
+      if (ampm === 'PM') {
+        const hourN: number = Number(hour)
+        const minN: number = Number(min)
+        const totalSec: number = ((hourN + 12) * 3600) + (minN * 60)
+        const etaSec: number = totalSec + durationInSec
+        this.eta = moment.utc(etaSec * 1000).format('hh:mm A')
+      } else {
+        const hourN: number = Number(hour)
+        const minN: number = Number(min)
+        const totalSec: number = (hourN * 3600) + (minN * 60)
+        const etaSec: number = totalSec + durationInSec
+        this.eta = moment.utc(etaSec * 1000).format('hh:mm A')
+      }
     }
     handleDistance()
   }

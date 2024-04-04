@@ -11,14 +11,20 @@
 <div class="content" *ngIf="electrician | async as electrician">
     <p><strong>Company:</strong> {{ electrician.companyName }}</p>
     <p><strong>License No:</strong> {{ electrician.elecLicenseNo }}</p>
-    <p><strong>Rating:</strong> {{ electrician.rating }} ⭐</p>
+    <p *ngIf="electrician.rating !== ''"><strong>Rating:</strong> {{ electrician.rating }} ⭐</p>
     <button type="button" color="primary" mat-raised-button (click)="chat()">Chat</button>
 </div>
 
 <div class="reviews" *ngIf="reviews$ | async as reviews">
-    <p class="subtitle">Reviews</p>
-    <mat-card *ngFor="let r of reviews">
-        <mat-card-content>{{ r.rating }} ⭐ <strong>{{ r.user }}:</strong> {{ r.comments }}</mat-card-content>
-        <mat-card-subtitle><small>{{ r.date }}</small></mat-card-subtitle>
-    </mat-card>
+    <div *ngIf="reviews.length > 0; else noReview">
+        <p class="subtitle">Reviews</p>
+        <mat-card *ngFor="let r of reviews">
+            <mat-card-content>{{ r.rating }} ⭐ <strong>{{ r.user }}:</strong> {{ r.comments }}</mat-card-content>
+            <mat-card-subtitle><small>{{ r.date }}</small></mat-card-subtitle>
+        </mat-card>
+    </div>
 </div>
+
+<ng-template #noReview>
+    <p class="review">No Review Yet</p>
+</ng-template>

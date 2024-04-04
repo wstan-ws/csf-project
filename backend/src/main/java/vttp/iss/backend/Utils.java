@@ -135,9 +135,9 @@ public class Utils {
         // Jobs
         public static final String SQL_POST_NEW_JOB_REQUEST = """
                 INSERT INTO jobs
-                (date, time, user_username, merchant_username, user_postal_code, merchant_postal_code, status)
+                (timestamp, user_username, merchant_username, user_postal_code, merchant_postal_code, status)
                 VALUES
-                (?, ?, ?, ?, ?, ?, ?)                
+                (?, ?, ?, ?, ?, ?)                
         """;
 
         public static final String SQL_CHECK_JOB_REQUEST = """
@@ -157,7 +157,7 @@ public class Utils {
 
         public static final String SQL_EDIT_JOB_REQUEST_STATUS = """
                 UPDATE jobs
-                SET date = ?, time = ?, status = ?
+                SET timestamp = ?, status = ?
                 WHERE user_username = ? 
                 AND merchant_username = ?
                 AND status = ?                

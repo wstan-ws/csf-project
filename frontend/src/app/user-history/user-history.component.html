@@ -1,0 +1,19 @@
+<div>
+    <button id="back" type="button" (click)="back()" mat-icon-button><mat-icon>keyboard_arrow_left</mat-icon></button>
+</div>
+
+<div class="history" *ngIf="jobHistory$ | async as jobHistory">
+    <p class="title">Job History</p>
+    <div *ngFor="let job of jobHistory">
+        <mat-card>
+            <div class="flexbox">
+                <mat-card-content><p>Merchant: {{ job.merchant }}</p>
+                    <p *ngIf="job.status === 3">Status: Completed</p>
+                </mat-card-content>
+                <mat-card-subtitle>
+                    <small><p>{{ job.timestamp }}</p></small>
+                </mat-card-subtitle>
+            </div>
+        </mat-card>
+    </div>
+</div>

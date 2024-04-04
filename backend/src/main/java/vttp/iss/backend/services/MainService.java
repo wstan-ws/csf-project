@@ -133,8 +133,8 @@ public class MainService {
         return jobRepo.getAllRequest(merchant);
     }
 
-    public void editJobRequestStatus(String usernames, String date, String time, int status) {
-        jobRepo.editJobRequestStatus(usernames, date, time, status);
+    public void editJobRequestStatus(String usernames, String timestamp, int status) {
+        jobRepo.editJobRequestStatus(usernames, timestamp, status);
     }
 
     public List<JobRequest> getAcceptedJobs(String merchant) {
@@ -151,6 +151,10 @@ public class MainService {
 
     public void completeRequest(String usernames, int status, String completedTimestamp) {
         jobRepo.completeRequest(usernames, status, completedTimestamp);
+    }
+
+    public List<JobRequest> getUserJobHistory(String user) {
+        return jobRepo.getUserJobHistory(user);
     }
 
     // Review

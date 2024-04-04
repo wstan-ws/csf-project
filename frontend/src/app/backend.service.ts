@@ -152,4 +152,9 @@ export class BackendService {
         const url: string = `http://localhost:8080/api/getreviews/${filter}`
         return this.http.get<PostReview[]>(url)
     }
+
+    getUserJobHistory(filter: string): Observable<JobRequest[]> {
+        const url: string = `http://localhost:8080/api/getuserjobhistory/${filter}`
+        return this.http.get<JobRequest[]>(url)
+    }
 }

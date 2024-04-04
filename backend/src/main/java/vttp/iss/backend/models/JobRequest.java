@@ -4,9 +4,7 @@ public class JobRequest {
     
     private int jobId;
 
-    private String date;
-
-    private String time;
+    private String timestamp;
 
     private String user;
 
@@ -20,23 +18,20 @@ public class JobRequest {
 
     private String completedTimestamp;
 
-    public JobRequest(String date, String time, String user) {
-        this.date = date;
-        this.time = time;
+    public JobRequest(String timestamp, String user) {
+        this.timestamp = timestamp;
         this.user = user;
     }
 
-    public JobRequest(String date, String time, String merchant, int status) {
-        this.date = date;
-        this.time = time;
+    public JobRequest(String timestamp, String merchant, int status) {
+        this.timestamp = timestamp;
         this.merchant = merchant;
         this.status = status;
     }
 
-    public JobRequest(String date, String time, String user, String merchant, String userPostalCode,
+    public JobRequest(String timestamp, String user, String merchant, String userPostalCode,
             String merchantPostalCode, int status) {
-        this.date = date;
-        this.time = time;
+        this.timestamp = timestamp;
         this.user = user;
         this.merchant = merchant;
         this.userPostalCode = userPostalCode;
@@ -44,11 +39,10 @@ public class JobRequest {
         this.status = status;
     }
 
-    public JobRequest(int jobId, String date, String time, String user, String merchant, String userPostalCode,
+    public JobRequest(int jobId, String timestamp, String user, String merchant, String userPostalCode,
             String merchantPostalCode, int status, String completedTimestamp) {
         this.jobId = jobId;
-        this.date = date;
-        this.time = time;
+        this.timestamp = timestamp;
         this.user = user;
         this.merchant = merchant;
         this.userPostalCode = userPostalCode;
@@ -63,22 +57,6 @@ public class JobRequest {
 
     public void setJobId(int jobId) {
         this.jobId = jobId;
-    }
-
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
-    }
-
-    public String getTime() {
-        return time;
-    }
-
-    public void setTime(String time) {
-        this.time = time;
     }
 
     public String getUser() {
@@ -128,5 +106,12 @@ public class JobRequest {
     public void setCompletedTimestamp(String completedTimestamp) {
         this.completedTimestamp = completedTimestamp;
     }
-    
+
+    public String getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(String timestamp) {
+        this.timestamp = timestamp;
+    }
 }

@@ -56,6 +56,10 @@ export class UserhomepageComponent implements OnInit, OnDestroy {
     registerPortals()
   }
 
+  history(): void {
+    this.router.navigate(['/user-history', this.username])
+  }
+
   logout(): void {
     if (confirm('Are you sure you want to logout?')) {
       this.username = ''

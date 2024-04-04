@@ -31,8 +31,8 @@
         <div class="flexbox" *ngIf="websocketSvc.jobRequests.length > 0; else noRequests">
             <mat-card *ngFor="let req of websocketSvc.jobRequests">
                 <mat-card-title>{{ req.user }}</mat-card-title>
-                <mat-card-subtitle>{{ req.date }}</mat-card-subtitle>
-                <mat-card-subtitle>{{ req.time }}</mat-card-subtitle>
+                <mat-card-subtitle>{{ req.timestamp | date: 'mediumDate' }}</mat-card-subtitle>
+                <mat-card-subtitle>{{ req.timestamp | date: 'hh:mm a' }}</mat-card-subtitle>
                 <div class="card-buttons">
                     <button type="button" id="accept" color="primary" mat-raised-button (click)="accept(req.user)">Accept</button>
                     <button type="button" id="reject" color="warn" mat-raised-button (click)="reject(req.user)">Reject</button>
@@ -46,8 +46,8 @@
             <a *ngFor="let job of websocketSvc.acceptedJobs" (click)="jobDetails(job.user)">
                 <mat-card>
                     <mat-card-title>{{ job.user }}</mat-card-title>
-                    <mat-card-subtitle>{{ job.date }}</mat-card-subtitle>
-                    <mat-card-subtitle>{{ job.time }}</mat-card-subtitle>
+                    <mat-card-subtitle>{{ job.timestamp | date: 'mediumDate' }}</mat-card-subtitle>
+                    <mat-card-subtitle>{{ job.timestamp | date: 'hh:mm a' }}</mat-card-subtitle>
                 </mat-card>
             </a>
         </div>

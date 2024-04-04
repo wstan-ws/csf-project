@@ -41,8 +41,7 @@ public class JobController {
 
         String user = obj.getString("user");
         String merchant = obj.getString("merchant");
-        String date = obj.getString("date");
-        String time = obj.getString("time");
+        String timestamp = obj.getString("timestamp");
 
         User userDetails = mainSvc.getUserDetails(user);
         Merchant merchantDetails = mainSvc.getMerchantDetails(merchant);
@@ -51,7 +50,7 @@ public class JobController {
         String merchantPostalCode = merchantDetails.getPostalCode();
         int status = 0;
 
-        JobRequest jobRequest = new JobRequest(date, time, user, merchant, userPostalCode, merchantPostalCode, status);
+        JobRequest jobRequest = new JobRequest(timestamp, user, merchant, userPostalCode, merchantPostalCode, status);
 
         mainSvc.postNewJobRequest(jobRequest);
 
@@ -68,8 +67,7 @@ public class JobController {
             JsonObjectBuilder objBuilder = Json.createObjectBuilder();
             if (job.getCompletedTimestamp() != null) {
                 objBuilder.add("jobId", job.getJobId())
-                .add("date", job.getDate())
-                .add("time", job.getTime())
+                .add("timestamp", job.getTimestamp())
                 .add("user", job.getUser())
                 .add("merchant", job.getMerchant())
                 .add("userPostalCode", job.getUserPostalCode())
@@ -78,8 +76,7 @@ public class JobController {
                 .add("completedTimestamp", job.getCompletedTimestamp());
             } else {
                 objBuilder.add("jobId", job.getJobId())
-                .add("date", job.getDate())
-                .add("time", job.getTime())
+                .add("timestamp", job.getTimestamp())
                 .add("user", job.getUser())
                 .add("merchant", job.getMerchant())
                 .add("userPostalCode", job.getUserPostalCode())
@@ -102,11 +99,10 @@ public class JobController {
         JsonReader reader = Json.createReader(new StringReader(payload));
         JsonObject obj = reader.readObject();
 
-        String date = obj.getString("date");
-        String time = obj.getString("time");
+        String timestamp = obj.getString("timestamp");
         int status = obj.getInt("status");
 
-        mainSvc.editJobRequestStatus(filter, date, time, status);
+        mainSvc.editJobRequestStatus(filter, timestamp, status);
 
         return ResponseEntity.ok().body("{}");
     }
@@ -121,8 +117,7 @@ public class JobController {
             JsonObjectBuilder objBuilder = Json.createObjectBuilder();
             if (job.getCompletedTimestamp() != null) {
                 objBuilder.add("jobId", job.getJobId())
-                .add("date", job.getDate())
-                .add("time", job.getTime())
+                .add("timestamp", job.getTimestamp())
                 .add("user", job.getUser())
                 .add("merchant", job.getMerchant())
                 .add("userPostalCode", job.getUserPostalCode())
@@ -131,8 +126,7 @@ public class JobController {
                 .add("completedTimestamp", job.getCompletedTimestamp());
             } else {
                 objBuilder.add("jobId", job.getJobId())
-                .add("date", job.getDate())
-                .add("time", job.getTime())
+                .add("timestamp", job.getTimestamp())
                 .add("user", job.getUser())
                 .add("merchant", job.getMerchant())
                 .add("userPostalCode", job.getUserPostalCode())
@@ -159,8 +153,7 @@ public class JobController {
             JsonObjectBuilder objBuilder = Json.createObjectBuilder();
             if (job.getCompletedTimestamp() != null) {
                 objBuilder.add("jobId", job.getJobId())
-                .add("date", job.getDate())
-                .add("time", job.getTime())
+                .add("timestamp", job.getTimestamp())
                 .add("user", job.getUser())
                 .add("merchant", job.getMerchant())
                 .add("userPostalCode", job.getUserPostalCode())
@@ -169,8 +162,7 @@ public class JobController {
                 .add("completedTimestamp", job.getCompletedTimestamp());
             } else {
                 objBuilder.add("jobId", job.getJobId())
-                .add("date", job.getDate())
-                .add("time", job.getTime())
+                .add("timestamp", job.getTimestamp())
                 .add("user", job.getUser())
                 .add("merchant", job.getMerchant())
                 .add("userPostalCode", job.getUserPostalCode())
@@ -195,8 +187,7 @@ public class JobController {
         JsonObjectBuilder objBuilder = Json.createObjectBuilder();
         if (jobRequest.getCompletedTimestamp() != null) {
             objBuilder.add("jobId", jobRequest.getJobId())
-            .add("date", jobRequest.getDate())
-            .add("time", jobRequest.getTime())
+            .add("timestamp", jobRequest.getTimestamp())
             .add("user", jobRequest.getUser())
             .add("merchant", jobRequest.getMerchant())
             .add("userPostalCode", jobRequest.getUserPostalCode())
@@ -205,8 +196,7 @@ public class JobController {
             .add("completedTimestamp", jobRequest.getCompletedTimestamp());
         } else {
             objBuilder.add("jobId", jobRequest.getJobId())
-            .add("date", jobRequest.getDate())
-            .add("time", jobRequest.getTime())
+            .add("timestamp", jobRequest.getTimestamp())
             .add("user", jobRequest.getUser())
             .add("merchant", jobRequest.getMerchant())
             .add("userPostalCode", jobRequest.getUserPostalCode())
@@ -232,5 +222,30 @@ public class JobController {
         mainSvc.completeRequest(filter, status, completedTimestamp);
 
         return ResponseEntity.ok().body("{}");
+    }
+
+    @GetMapping(path = "/getuserjobhistory/{filter}")
+    public ResponseEntity<String> getUserJobHistory(@PathVariable String filter) {
+
+        List<JobRequest> jobList = mainSvc.getUserJobHistory(filter);
+
+        JsonArrayBuilder arrBuilder = Json.createArrayBuilder();
+        for (JobRequest job : jobList) {
+            JsonObjectBuilder objBuilder = Json.createObjectBuilder();
+            objBuilder
+                .add("jobId", job.getJobId())
+                .add("timestamp", job.getTimestamp())
+                .add("user", job.getUser())
+                .add("merchant", job.getMerchant())
+                .add("userPostalCode", job.getUserPostalCode())
+                .add("merchantPostalCode", job.getMerchantPostalCode())
+                .add("status", job.getStatus())
+                .add("completedTimestamp", job.getCompletedTimestamp());
+            arrBuilder.add(objBuilder);
+        }
+
+        JsonArray arr = arrBuilder.build();
+
+        return ResponseEntity.ok().body(arr.toString());
     }
 }

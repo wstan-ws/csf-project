@@ -51,6 +51,7 @@ import { UserJobDetailsComponent } from './user-job-details/user-job-details.com
 import { MerchantJobDetailsComponent } from './merchant-job-details/merchant-job-details.component';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { ReviewComponent } from './review/review.component';
+import { UserHistoryComponent } from './user-history/user-history.component';
 
 const appRoutes: Routes = [
   {path: '', component: HomeComponent},
@@ -83,6 +84,7 @@ const appRoutes: Routes = [
   {path: 'user-job-details/:usernames', component: UserJobDetailsComponent},
   {path: 'merchant-job-details/:usernames', component: MerchantJobDetailsComponent},
   {path: 'review/:usernames', component: ReviewComponent},
+  {path: 'user-history/:username', component: UserHistoryComponent},
   {path: '**', redirectTo: '/', pathMatch: 'full'}
 ]
 
@@ -119,6 +121,7 @@ const appRoutes: Routes = [
     UserJobDetailsComponent,
     MerchantJobDetailsComponent,
     ReviewComponent,
+    UserHistoryComponent,
   ],
   imports: [
     BrowserModule,
