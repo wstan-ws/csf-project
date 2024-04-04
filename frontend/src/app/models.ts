@@ -72,3 +72,10 @@ export interface Review {
     date: string
     time: string
 }
+
+export interface PostReview {
+    user: string
+    comments: string
+    rating: number
+    date: string
+}

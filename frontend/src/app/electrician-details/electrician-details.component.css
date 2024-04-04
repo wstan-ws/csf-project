@@ -32,3 +32,22 @@ button {
     align-items: center;
     margin-top: 50px;
 }
+
+.subtitle {
+    color: #4b2aad;
+    font-weight: 500;
+    font-size: 28px;
+    padding-bottom: 15px;
+}
+
+mat-card {
+    width: 80%;
+    word-wrap: break-word;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+mat-card-subtitle {
+    margin-left: auto;
+    margin-right: 5%;
+}

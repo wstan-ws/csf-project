@@ -12,6 +12,7 @@ import vttp.iss.backend.models.JobRequest;
 import vttp.iss.backend.models.LoginDetails;
 import vttp.iss.backend.models.Merchant;
 import vttp.iss.backend.models.Message;
+import vttp.iss.backend.models.PostReview;
 import vttp.iss.backend.models.Review;
 import vttp.iss.backend.models.User;
 import vttp.iss.backend.repositories.JobRepository;
@@ -155,5 +156,9 @@ public class MainService {
     // Review
     public void postReview(Review review, String merchant) {
         reviewRepo.postReview(review, merchant);
+    }
+
+    public List<PostReview> getReviewsByMerchant(String merchant) {
+        return reviewRepo.getReviewByMerchant(merchant);
     }
 }

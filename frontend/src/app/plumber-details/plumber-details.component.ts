@@ -1,6 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { Observable } from 'rxjs';
-import { MerchantSignUpDetails } from '../models';
+import { MerchantSignUpDetails, PostReview } from '../models';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BackendService } from '../backend.service';
 import { UsernameService } from '../username.service';
@@ -15,6 +15,7 @@ export class PlumberDetailsComponent implements OnInit {
     plumber!: Observable<MerchantSignUpDetails>
     userUsername!: string
     plumUsername!: string
+    reviews$!: Observable<PostReview[]>
 
     private activatedRoute = inject(ActivatedRoute)
     private backendSvc = inject(BackendService)
@@ -22,10 +23,12 @@ export class PlumberDetailsComponent implements OnInit {
     private userSvc = inject(UsernameService)
 
     ngOnInit(): void {
-      this.plumber = this.backendSvc.getMerchantDetails(this.activatedRoute.snapshot.params['username'])
+      const username = this.activatedRoute.snapshot.params['username']
+      this.plumber = this.backendSvc.getMerchantDetails(username)
       this.plumber.subscribe(
         result => this.plumUsername = result.username
       )
+      this.reviews$ = this.backendSvc.getReviewByMerchant(username)
     }
 
     back(): void {

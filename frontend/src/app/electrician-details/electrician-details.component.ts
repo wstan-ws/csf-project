@@ -2,7 +2,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BackendService } from '../backend.service';
 import { Observable } from 'rxjs';
-import { MerchantSignUpDetails } from '../models';
+import { MerchantSignUpDetails, PostReview, Review } from '../models';
 import { UsernameService } from '../username.service';
 
 @Component({
@@ -15,6 +15,7 @@ export class ElectricianDetailsComponent implements OnInit {
     electrician!: Observable<MerchantSignUpDetails>
     userUsername!: string
     electricianUsername!: string
+    reviews$!: Observable<PostReview[]>
 
     private activatedRoute = inject(ActivatedRoute)
     private backendSvc = inject(BackendService)
@@ -22,10 +23,12 @@ export class ElectricianDetailsComponent implements OnInit {
     private userSvc = inject(UsernameService)
 
     ngOnInit(): void {
-      this.electrician = this.backendSvc.getMerchantDetails(this.activatedRoute.snapshot.params['username'])
+      const username = this.activatedRoute.snapshot.params['username']
+      this.electrician = this.backendSvc.getMerchantDetails(username)
       this.electrician.subscribe(
         result => this.electricianUsername = result.username
       )
+      this.reviews$ = this.backendSvc.getReviewByMerchant(username)
     }
 
     back(): void {

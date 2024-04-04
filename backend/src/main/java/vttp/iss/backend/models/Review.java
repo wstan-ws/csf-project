@@ -14,6 +14,9 @@ public class Review {
 
     private String time;
 
+    public Review() {
+    }
+
     public Review(Integer jobId, Integer rating, String comments, String date, String time) {
         this.jobId = jobId;
         this.rating = rating;

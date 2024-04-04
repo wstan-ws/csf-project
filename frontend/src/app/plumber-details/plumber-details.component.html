@@ -15,9 +15,10 @@
     <button type="button" color="primary" mat-raised-button (click)="chat()">Chat</button>
 </div>
 
-<div class="reviews">
-    <table>
-        <th>Reviews</th>
-        <tr>INSERT REVIEWS HERE</tr>
-    </table>
+<div class="reviews" *ngIf="reviews$ | async as reviews">
+    <p class="subtitle">Reviews</p>
+    <mat-card *ngFor="let r of reviews">
+        <mat-card-content>{{ r.rating }} ⭐ <strong>{{ r.user }}:</strong> {{ r.comments }}</mat-card-content>
+        <mat-card-subtitle><small>{{ r.date }}</small></mat-card-subtitle>
+    </mat-card>
 </div>
