@@ -97,6 +97,18 @@ public class MainService {
         merchantRepo.setActive(filter, active);
     }
 
+    public List<Merchant> findMerchantByNameE(String name) {
+        return merchantRepo.findMerchantByNameE(name);
+    }
+
+    public List<Merchant> findMerchantByNameA(String name) {
+        return merchantRepo.findMerchantByNameA(name);
+    }
+
+    public List<Merchant> findMerchantByNameP(String name) {
+        return merchantRepo.findMerchantByNameP(name);
+    }
+
     // Messages
     public List<Message> getChat(String usernames, String user, String merchant) throws InterruptedException, ExecutionException {
         return messageRepo.getChat(usernames, user, merchant);
@@ -155,6 +167,10 @@ public class MainService {
 
     public List<JobRequest> getUserJobHistory(String user) {
         return jobRepo.getUserJobHistory(user);
+    }
+
+    public List<JobRequest> getMerchantJobHistory(String merchant) {
+        return jobRepo.getMerchantJobHistory(merchant);
     }
 
     // Review

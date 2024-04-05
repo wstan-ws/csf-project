@@ -71,6 +71,7 @@ export class MerchantJobDetailsComponent implements OnInit {
       var jobTime!: string
       await lastValueFrom(this.ongoingJob$)
         .then(result => jobTime = result.timestamp)
+      jobTime = jobTime.substring(10).trim()
       const ampm: string = jobTime.split(' ')[1]
       var hour: unknown = jobTime.split(':')[0]
       const other = jobTime.split(':')[1]

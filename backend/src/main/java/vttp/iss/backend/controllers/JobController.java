@@ -248,4 +248,29 @@ public class JobController {
 
         return ResponseEntity.ok().body(arr.toString());
     }
+
+    @GetMapping(path = "/getmerchantjobhistory/{filter}")
+    public ResponseEntity<String> getMerchantJobHistory(@PathVariable String filter) {
+
+        List<JobRequest> jobList = mainSvc.getMerchantJobHistory(filter);
+
+        JsonArrayBuilder arrBuilder = Json.createArrayBuilder();
+        for (JobRequest job : jobList) {
+            JsonObjectBuilder objBuilder = Json.createObjectBuilder();
+            objBuilder
+                .add("jobId", job.getJobId())
+                .add("timestamp", job.getTimestamp())
+                .add("user", job.getUser())
+                .add("merchant", job.getMerchant())
+                .add("userPostalCode", job.getUserPostalCode())
+                .add("merchantPostalCode", job.getMerchantPostalCode())
+                .add("status", job.getStatus())
+                .add("completedTimestamp", job.getCompletedTimestamp());
+            arrBuilder.add(objBuilder);
+        }
+
+        JsonArray arr = arrBuilder.build();
+
+        return ResponseEntity.ok().body(arr.toString());
+    }
 }

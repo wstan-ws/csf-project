@@ -107,6 +107,33 @@ public class Utils {
                 WHERE username = ?                
         """;
 
+        public static final String SQL_FIND_MERCHANT_BY_NAME_ELEC = """
+                SELECT *
+                FROM merchants
+                WHERE (first_name LIKE ?
+                OR last_name LIKE ?)
+                AND electrician = 1
+                AND active = 1
+        """;
+
+        public static final String SQL_FIND_MERCHANT_BY_NAME_AIRCON = """
+                SELECT *
+                FROM merchants
+                WHERE (first_name LIKE ?
+                OR last_name LIKE ?)
+                AND aircon = 1
+                AND active = 1
+        """;
+
+        public static final String SQL_FIND_MERCHANT_BY_NAME_PLUM = """
+                SELECT *
+                FROM merchants
+                WHERE (first_name LIKE ?
+                OR last_name LIKE ?)
+                AND plumber = 1
+                AND active = 1
+        """;
+
         // Messages
         public static final String SQL_POST_CHAT_RECORD = """
                 INSERT INTO chats

@@ -52,6 +52,10 @@ import { MerchantJobDetailsComponent } from './merchant-job-details/merchant-job
 import { GoogleMapsModule } from '@angular/google-maps';
 import { ReviewComponent } from './review/review.component';
 import { UserHistoryComponent } from './user-history/user-history.component';
+import { MerchantHistoryComponent } from './merchant-history/merchant-history.component';
+import { FindElectricianComponent } from './find-electrician/find-electrician.component';
+import { FindAirconComponent } from './find-aircon/find-aircon.component';
+import { FindPlumberComponent } from './find-plumber/find-plumber.component';
 
 const appRoutes: Routes = [
   {path: '', component: HomeComponent},
@@ -85,6 +89,10 @@ const appRoutes: Routes = [
   {path: 'merchant-job-details/:usernames', component: MerchantJobDetailsComponent},
   {path: 'review/:usernames', component: ReviewComponent},
   {path: 'user-history/:username', component: UserHistoryComponent},
+  {path: 'merchant-history/:username', component: MerchantHistoryComponent},
+  {path: 'search-electricians', component: FindElectricianComponent},
+  {path: 'search-aircons', component: FindAirconComponent},
+  {path: 'search-plumbers', component: FindPlumberComponent},
   {path: '**', redirectTo: '/', pathMatch: 'full'}
 ]
 
@@ -122,6 +130,10 @@ const appRoutes: Routes = [
     MerchantJobDetailsComponent,
     ReviewComponent,
     UserHistoryComponent,
+    MerchantHistoryComponent,
+    FindElectricianComponent,
+    FindAirconComponent,
+    FindPlumberComponent,
   ],
   imports: [
     BrowserModule,

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.json.Json;
@@ -217,5 +218,107 @@ public class MerchantController {
         mainSvc.setActive(filter, active);
 
         return ResponseEntity.ok().body("{}");
+    }
+
+    @GetMapping(path = "/findmerchantbynamee")
+    public ResponseEntity<String> findMerchantByNameE(@RequestParam String name) {
+
+        List<Merchant> merchantList = mainSvc.findMerchantByNameE(name);
+
+        JsonArrayBuilder arrBuilder = Json.createArrayBuilder();
+
+        for (Merchant merchant : merchantList) {
+            JsonObjectBuilder objBuilder = Json.createObjectBuilder();
+            JsonObjectBuilder o = objBuilder
+                .add("firstName", merchant.getFirstName())
+                .add("lastName", merchant.getLastName())
+                .add("email", merchant.getEmail())
+                .add("phoneNumber", merchant.getPhoneNumber())
+                .add("companyName", merchant.getCompanyName())
+                .add("postalCode", merchant.getPostalCode())
+                .add("username", merchant.getUsername())
+                .add("password", merchant.getPassword())
+                .add("elec", merchant.getElec())
+                .add("elecLicenseNo", merchant.getElecLicenseNo())
+                .add("plum", merchant.getPlum())
+                .add("plumLicenseNo", merchant.getPlumLicenseNo())
+                .add("aircon", merchant.getAircon())
+                .add("airconLicenseNo", merchant.getAirconLicenseNo())
+                .add("active", merchant.getActive())
+                .add("rating", merchant.getRating());
+            arrBuilder.add(o);
+        }
+
+        JsonArray arr = arrBuilder.build();
+
+        return ResponseEntity.ok().body(arr.toString());
+    }
+
+    @GetMapping(path = "/findmerchantbynamea")
+    public ResponseEntity<String> findMerchantByNameA(@RequestParam String name) {
+
+        List<Merchant> merchantList = mainSvc.findMerchantByNameA(name);
+
+        JsonArrayBuilder arrBuilder = Json.createArrayBuilder();
+
+        for (Merchant merchant : merchantList) {
+            JsonObjectBuilder objBuilder = Json.createObjectBuilder();
+            JsonObjectBuilder o = objBuilder
+                .add("firstName", merchant.getFirstName())
+                .add("lastName", merchant.getLastName())
+                .add("email", merchant.getEmail())
+                .add("phoneNumber", merchant.getPhoneNumber())
+                .add("companyName", merchant.getCompanyName())
+                .add("postalCode", merchant.getPostalCode())
+                .add("username", merchant.getUsername())
+                .add("password", merchant.getPassword())
+                .add("elec", merchant.getElec())
+                .add("elecLicenseNo", merchant.getElecLicenseNo())
+                .add("plum", merchant.getPlum())
+                .add("plumLicenseNo", merchant.getPlumLicenseNo())
+                .add("aircon", merchant.getAircon())
+                .add("airconLicenseNo", merchant.getAirconLicenseNo())
+                .add("active", merchant.getActive())
+                .add("rating", merchant.getRating());
+            arrBuilder.add(o);
+        }
+
+        JsonArray arr = arrBuilder.build();
+
+        return ResponseEntity.ok().body(arr.toString());
+    }
+
+    @GetMapping(path = "/findmerchantbynamep")
+    public ResponseEntity<String> findMerchantByNameP(@RequestParam String name) {
+
+        List<Merchant> merchantList = mainSvc.findMerchantByNameP(name);
+
+        JsonArrayBuilder arrBuilder = Json.createArrayBuilder();
+
+        for (Merchant merchant : merchantList) {
+            JsonObjectBuilder objBuilder = Json.createObjectBuilder();
+            JsonObjectBuilder o = objBuilder
+                .add("firstName", merchant.getFirstName())
+                .add("lastName", merchant.getLastName())
+                .add("email", merchant.getEmail())
+                .add("phoneNumber", merchant.getPhoneNumber())
+                .add("companyName", merchant.getCompanyName())
+                .add("postalCode", merchant.getPostalCode())
+                .add("username", merchant.getUsername())
+                .add("password", merchant.getPassword())
+                .add("elec", merchant.getElec())
+                .add("elecLicenseNo", merchant.getElecLicenseNo())
+                .add("plum", merchant.getPlum())
+                .add("plumLicenseNo", merchant.getPlumLicenseNo())
+                .add("aircon", merchant.getAircon())
+                .add("airconLicenseNo", merchant.getAirconLicenseNo())
+                .add("active", merchant.getActive())
+                .add("rating", merchant.getRating());
+            arrBuilder.add(o);
+        }
+
+        JsonArray arr = arrBuilder.build();
+
+        return ResponseEntity.ok().body(arr.toString());
     }
 }

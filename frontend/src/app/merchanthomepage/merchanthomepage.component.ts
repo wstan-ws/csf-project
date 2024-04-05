@@ -90,6 +90,10 @@ export class MerchanthomepageComponent implements OnInit, OnDestroy {
     registerPortals()
   }
 
+  history(): void {
+    this.router.navigate(['/merchant-history', this.username])
+  }
+
   logout(): void {
     if (confirm('Are you sure you want to logout?')) {
       this.isChecked = false

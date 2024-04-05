@@ -6,16 +6,7 @@
     <p class="title">Plumbers</p>
 </div>
 
-<div class="search">
-    <form [formGroup]="searchForm" (submit)="search()">
-        <mat-form-field>
-            <input type="text" formControlName="search" placeholder="Search for Plumbers" matInput>
-        </mat-form-field>
-        <button id="submit" type="submit" color="primary" mat-raised-button>Search</button>
-    </form>
-</div>
-
-<div class="plumbers" *ngIf="plumbers | async as plumbers">
+<div class="plumbers" *ngIf="plumbers$ | async as plumbers">
     <div *ngIf="plumbers.length > 0; else noPlum">
         <div *ngFor="let plum of plumbers">
             <a [routerLink]="['/plumber-details', plum.username]">

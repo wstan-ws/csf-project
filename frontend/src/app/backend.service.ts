@@ -157,4 +157,24 @@ export class BackendService {
         const url: string = `http://localhost:8080/api/getuserjobhistory/${filter}`
         return this.http.get<JobRequest[]>(url)
     }
+
+    getMerchantJobHistory(filter: string): Observable<JobRequest[]> {
+        const url: string = `http://localhost:8080/api/getmerchantjobhistory/${filter}`
+        return this.http.get<JobRequest[]>(url)
+    }
+
+    findMerchantByNameE(filter: string): Observable<MerchantSignUpDetails[]> {
+        const url: string = `http://localhost:8080/api/findmerchantbynamee?name=${filter}`
+        return this.http.get<MerchantSignUpDetails[]>(url)
+    }
+
+    findMerchantByNameA(filter: string): Observable<MerchantSignUpDetails[]> {
+        const url: string = `http://localhost:8080/api/findmerchantbynamea?name=${filter}`
+        return this.http.get<MerchantSignUpDetails[]>(url)
+    }
+
+    findMerchantByNameP(filter: string): Observable<MerchantSignUpDetails[]> {
+        const url: string = `http://localhost:8080/api/findmerchantbynamep?name=${filter}`
+        return this.http.get<MerchantSignUpDetails[]>(url)
+    }
 }

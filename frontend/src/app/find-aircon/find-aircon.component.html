@@ -6,15 +6,6 @@
     <p class="title">Aircon Repairman</p>
 </div>
 
-<div class="search" (submit)="search()">
-    <form [formGroup]="searchForm">
-        <mat-form-field>
-            <input type="text" formControlName="search" placeholder="Search for Aircon Repairman" matInput>
-        </mat-form-field>
-        <button id="submit" type="submit" color="primary" mat-raised-button>Search</button>
-    </form>
-</div>
-
 <div class="aircon" *ngIf="aircons$ | async as aircons">
     <div *ngIf="aircons.length > 0; else noAircon">
         <div *ngFor="let aircon of aircons">

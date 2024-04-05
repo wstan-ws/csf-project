@@ -168,4 +168,25 @@ public class JobRepository {
 
         return jobList;
     }
+
+    public List<JobRequest> getMerchantJobHistory(String username) {
+
+        SqlRowSet rs = template.queryForRowSet(Utils.SQL_GET_JOBS, username, 3);
+
+        List<JobRequest> jobList = new ArrayList<>();
+        while (rs.next()) {
+            int jobId = rs.getInt("job_id");
+            String timestamp = rs.getString("timestamp");
+            String user = rs.getString("user_username");
+            String merchant = rs.getString("merchant_username");
+            String userPostalCode = rs.getString("user_postal_code");
+            String merchantPostalCode = rs.getString("merchant_postal_code");
+            int status = rs.getInt("status");
+            String completedTimestamp = rs.getString("completed_timestamp");
+            JobRequest jobRequest = new JobRequest(jobId, timestamp, user, merchant, userPostalCode, merchantPostalCode, status, completedTimestamp);
+            jobList.add(jobRequest);
+        }
+
+        return jobList;
+    }
 }

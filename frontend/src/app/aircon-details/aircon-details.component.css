@@ -38,10 +38,11 @@ button {
     font-weight: 500;
     font-size: 28px;
     padding-bottom: 15px;
+    text-align: center;
 }
 
 mat-card {
-    width: 80%;
+    width: 500px;
     word-wrap: break-word;
     margin-top: 5px;
     margin-bottom: 5px;
