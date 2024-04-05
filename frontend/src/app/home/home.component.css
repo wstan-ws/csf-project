@@ -40,3 +40,11 @@ button {
     margin: 10px;
     transform: scale(1.2);
 }
+
+.joke {
+    text-align: center;
+    padding-top: 53%;
+    color: #4b2aad;
+    font-weight: 500;
+    overflow-wrap: break-word;
+}

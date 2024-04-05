@@ -78,3 +78,7 @@ export interface PostReview {
     rating: number
     date: string
 }
+
+export interface Joke {
+    joke: string
+}

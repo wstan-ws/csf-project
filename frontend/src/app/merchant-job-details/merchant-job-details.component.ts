@@ -20,6 +20,8 @@ export class MerchantJobDetailsComponent implements OnInit {
   distance!: string
   duration!: string
   eta!: string
+  currLat!: number
+  currLng!: number
   
   options: google.maps.MapOptions = {
     center: {
@@ -39,58 +41,71 @@ export class MerchantJobDetailsComponent implements OnInit {
     const usernames = this.activatedRoute.snapshot.params['usernames']
     this.merchantUsername = usernames.split('-')[1]
     this.ongoingJob$ = this.backendSvc.getOngoingJob(usernames)
-    var request: google.maps.DirectionsRequest = {
-      origin: {
-        query: this.userSvc.getMerchantPostal()
-      },
-      destination: {
-        query: this.userSvc.getUserPostal()
-      },
-      travelMode: google.maps.TravelMode.DRIVING
-    }
-    this.directionResults$ = this.mapDirectionsService.route(request).pipe(
-      map(response => response.result))
 
-    const distance = new google.maps.DistanceMatrixService()
-    const disReq: google.maps.DistanceMatrixRequest = {
-      origins: [this.userSvc.getMerchantPostal()],
-      destinations: [this.userSvc.getUserPostal()],
-      travelMode: google.maps.TravelMode.DRIVING,
-      unitSystem: google.maps.UnitSystem.METRIC,
-      avoidHighways: false,
-      avoidTolls: false
-    }
-    const handleDistance = async() => {
-      var durationInSec!: number
-      await distance.getDistanceMatrix(disReq)
-        .then(response => this.distance = response.rows[0].elements[0].distance.text)
-      await distance.getDistanceMatrix(disReq)
-        .then(response => this.duration = response.rows[0].elements[0].duration.text)
-      await distance.getDistanceMatrix(disReq)
-        .then(response => durationInSec = response.rows[0].elements[0].duration.value)
-      var jobTime!: string
-      await lastValueFrom(this.ongoingJob$)
-        .then(result => jobTime = result.timestamp)
-      jobTime = jobTime.substring(10).trim()
-      const ampm: string = jobTime.split(' ')[1]
-      var hour: unknown = jobTime.split(':')[0]
-      const other = jobTime.split(':')[1]
-      var min: unknown = other.split(':')[0]
-      if (ampm === 'PM') {
-        const hourN: number = Number(hour)
-        const minN: number = Number(min)
-        const totalSec: number = ((hourN + 12) * 3600) + (minN * 60)
-        const etaSec: number = totalSec + durationInSec
-        this.eta = moment.utc(etaSec * 1000).format('hh:mm A')
-      } else {
-        const hourN: number = Number(hour)
-        const minN: number = Number(min)
-        const totalSec: number = (hourN * 3600) + (minN * 60)
-        const etaSec: number = totalSec + durationInSec
-        this.eta = moment.utc(etaSec * 1000).format('hh:mm A')
+    const location = async() => {
+      await this.backendSvc.retrieveCurrLocation()
+      .then(result => {
+        this.currLat = result.location.lat
+        this.currLng = result.location.lng
+      })
+      var request: google.maps.DirectionsRequest = {
+        origin: {
+          lat: this.currLat,
+          lng: this.currLng
+        },
+        destination: {
+          query: this.userSvc.getUserPostal()
+        },
+        travelMode: google.maps.TravelMode.DRIVING
       }
+      const start: google.maps.LatLngLiteral = {
+        lat: this.currLat,
+        lng: this.currLng
+      }
+      this.directionResults$ = this.mapDirectionsService.route(request).pipe(
+        map(response => response.result))
+        const distance = new google.maps.DistanceMatrixService()
+        const disReq: google.maps.DistanceMatrixRequest = {
+          origins: [start],
+          destinations: [this.userSvc.getUserPostal()],
+          travelMode: google.maps.TravelMode.DRIVING,
+          unitSystem: google.maps.UnitSystem.METRIC,
+          avoidHighways: false,
+          avoidTolls: false
+        }
+        const handleDistance = async() => {
+          var durationInSec!: number
+          await distance.getDistanceMatrix(disReq)
+            .then(response => this.distance = response.rows[0].elements[0].distance.text)
+          await distance.getDistanceMatrix(disReq)
+            .then(response => this.duration = response.rows[0].elements[0].duration.text)
+          await distance.getDistanceMatrix(disReq)
+            .then(response => durationInSec = response.rows[0].elements[0].duration.value)
+          var jobTime!: string
+          await lastValueFrom(this.ongoingJob$)
+            .then(result => jobTime = result.timestamp)
+          jobTime = jobTime.substring(10).trim()
+          const ampm: string = jobTime.split(' ')[1]
+          var hour: unknown = jobTime.split(':')[0]
+          const other = jobTime.split(':')[1]
+          var min: unknown = other.split(':')[0]
+          if (ampm === 'PM') {
+            const hourN: number = Number(hour)
+            const minN: number = Number(min)
+            const totalSec: number = ((hourN + 12) * 3600) + (minN * 60)
+            const etaSec: number = totalSec + durationInSec
+            this.eta = moment.utc(etaSec * 1000).format('hh:mm A')
+          } else {
+            const hourN: number = Number(hour)
+            const minN: number = Number(min)
+            const totalSec: number = (hourN * 3600) + (minN * 60)
+            const etaSec: number = totalSec + durationInSec
+            this.eta = moment.utc(etaSec * 1000).format('hh:mm A')
+          }
+        }
+        handleDistance()
     }
-    handleDistance()
+    location()
   }
 
   back(): void {

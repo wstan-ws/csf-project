@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable, inject } from "@angular/core";
-import { ChatRecord, JobRequest, LoginDetails, MerchantSignUpDetails, Message, PostReview, Review, UserSignUpDetails } from "./models";
+import { ChatRecord, JobRequest, Joke, LoginDetails, MerchantSignUpDetails, Message, PostReview, Review, UserSignUpDetails } from "./models";
 import { Observable, last, lastValueFrom } from "rxjs";
 
 @Injectable()
@@ -176,5 +176,16 @@ export class BackendService {
     findMerchantByNameP(filter: string): Observable<MerchantSignUpDetails[]> {
         const url: string = `http://localhost:8080/api/findmerchantbynamep?name=${filter}`
         return this.http.get<MerchantSignUpDetails[]>(url)
+    }
+
+    getDadJoke(): Observable<Joke> {
+        const url: string = 'http://localhost:8080/api/getdadjoke'
+        return this.http.get<Joke>(url)
+    }
+
+    retrieveCurrLocation(): Promise<any> {
+        const apiKey = 'AIzaSyCWbhx1cWSqlc2qYafobggsmzCJiuJCKsg'
+        const url: string = `https://www.googleapis.com/geolocation/v1/geolocate?key=${apiKey}`
+        return lastValueFrom(this.http.post(url, {})) 
     }
 }
