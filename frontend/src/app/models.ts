@@ -1,3 +1,5 @@
+import { MerchantInitialState } from "./store/merchant.reducer"
+
 export interface UserSignUpDetails {
     firstName: string
     lastName: string
@@ -26,10 +28,6 @@ export interface MerchantSignUpDetails {
     airconLicenseNo: string
     active: boolean
     rating: string
-}
-
-export interface MerchantSignUpDetailsSlice {
-    merchants: MerchantSignUpDetails[]
 }
 
 export interface LoginDetails {
@@ -81,4 +79,8 @@ export interface PostReview {
 
 export interface Joke {
     joke: string
+}
+
+export interface AppState {
+    merchantDetails: MerchantInitialState
 }

@@ -2,7 +2,8 @@ import { Component, OnInit, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MerchantSignUpDetails } from '../models';
 import { Router } from '@angular/router';
-import { MerchantStore } from '../merchant.store';
+import { Store } from '@ngrx/store';
+import { save } from '../store/merchant.actions';
 
 @Component({
   selector: 'app-merchant-signup',
@@ -15,7 +16,7 @@ export class MerchantSignupComponent implements OnInit {
 
   private fb = inject(FormBuilder)
   private router = inject(Router)
-  private merchantStore = inject(MerchantStore)
+  private store = inject(Store)
 
   ngOnInit(): void {
     this.merchantSignupForm = this.createMerchantSignupForm()
@@ -44,7 +45,8 @@ export class MerchantSignupComponent implements OnInit {
       active: false,
       rating: '' 
     }
-    this.merchantStore.addMerchantSignUpDetails(merchant)
+    this.store.dispatch(save({details: merchant}))
+    console.log('signup 1: ', merchant)
     this.router.navigate(['/merchant-signup-2'])
   }
 

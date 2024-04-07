@@ -1,9 +1,10 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { MerchantStore } from '../merchant.store';
 import { BackendService } from '../backend.service';
 import { Observable } from 'rxjs';
 import { Joke } from '../models';
+import { Store } from '@ngrx/store';
+import { reset } from '../store/merchant.actions';
 
 @Component({
   selector: 'app-home',
@@ -15,11 +16,11 @@ export class HomeComponent implements OnInit {
   joke$!: Observable<Joke>
 
   private router = inject(Router)
-  private merchantStore = inject(MerchantStore)
   private backendSvc = inject(BackendService)
+  private store = inject(Store)
 
   ngOnInit(): void {
-    this.merchantStore.clearData()
+    this.store.dispatch(reset())
     this.joke$ = this.backendSvc.getDadJoke()
   }
 

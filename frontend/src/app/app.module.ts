@@ -41,7 +41,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { AboutUsComponent } from './about-us/about-us.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MerchantSignup2Component } from './merchant-signup-2/merchant-signup-2.component';
-import { MerchantStore } from './merchant.store';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatCardModule } from '@angular/material/card';
 import { MatListModule } from '@angular/material/list';
@@ -56,6 +55,8 @@ import { MerchantHistoryComponent } from './merchant-history/merchant-history.co
 import { FindElectricianComponent } from './find-electrician/find-electrician.component';
 import { FindAirconComponent } from './find-aircon/find-aircon.component';
 import { FindPlumberComponent } from './find-plumber/find-plumber.component';
+import { StoreModule } from '@ngrx/store';
+import { merchantReducer } from './store/merchant.reducer';
 
 const appRoutes: Routes = [
   {path: '', component: HomeComponent},
@@ -150,9 +151,10 @@ const appRoutes: Routes = [
     MatListModule,
     MatDividerModule,
     MatTableModule,
-    GoogleMapsModule
+    GoogleMapsModule,
+    StoreModule.forRoot({merchantDetails: merchantReducer}, {})
   ],
-  providers: [BackendService, UsernameService, WebSocketService, provideAnimationsAsync(), MerchantStore],
+  providers: [BackendService, UsernameService, WebSocketService, provideAnimationsAsync()],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
