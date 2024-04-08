@@ -33,6 +33,13 @@ export class MerchanthomepageComponent implements OnInit, OnDestroy {
     this.username = this.activatedRoute.snapshot.params['username']
     this.merchant$ = this.backendSvc.getMerchantDetails(this.username)
     this.websocketSvc.connectAndLoadRequests(this.username)
+      .then(() => {
+        this.websocketSvc.subscribeRequests(this.username)
+        this.websocketSvc.subscribeNotification(this.username)
+      })
+      .catch(error => {
+        console.error('Websocket connection failed:', error)
+      })
     this.isChecked = this.userSvc.getActivity();
     if (this.isChecked) {
       this.status = 'Active'
@@ -43,8 +50,7 @@ export class MerchanthomepageComponent implements OnInit, OnDestroy {
       this.status = 'Inactive'
     }
     this.activityForm = this.createActivityForm()
-    this.websocketSvc.subscribeRequests(this.username)
-    this.websocketSvc.subscribeNotification(this.username)
+    
   }
 
   ngOnDestroy(): void {

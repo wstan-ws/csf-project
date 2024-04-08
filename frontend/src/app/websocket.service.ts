@@ -17,38 +17,55 @@ export class WebSocketService {
 
     private backendSvc = inject(BackendService)
 
-    connectAndLoadServices(user: string): void {
-        this.backendSvc.getAllUserServices(user)
+    connectAndLoadServices(user: string): Promise<void> {
+        return new Promise<void>((resolve, reject) => {
+            this.backendSvc.getAllUserServices(user)
             .then(result => {
                 if (result !== null) {
                     result.forEach(r => this.ongoingService.push(r))
                 }
             })
-        const serverUrl = 'http://localhost:8080/socket'
-        const ws = new SockJS(serverUrl)
-        this.stompClient = Stomp.over(ws)
+            const serverUrl = 'http://localhost:8080/socket'
+            const ws = new SockJS(serverUrl)
+            this.stompClient = Stomp.over(ws)
+            this.stompClient.connect({}, () => {
+                console.log('WebSocket connected, Services Loaded');
+                resolve()
+            }, (error: any) => {
+                reject(error)
+            })
+        })
     }
 
-    connectAndLoadRequests(merchant: string): void {
-        this.backendSvc.getAllJobRequests(merchant)
+    connectAndLoadRequests(merchant: string): Promise<void> {
+        return new Promise<void>((resolve, reject) => {
+            this.backendSvc.getAllJobRequests(merchant)
             .then(result => {
                 if (result !== null) {
                     result.forEach(r => this.jobRequests.push(r))
                 }
             })
-        this.backendSvc.getAllAcceptedJobs(merchant)
-            .then(result => {
-                if (result !== null) {
-                    result.forEach(r => this.acceptedJobs.push(r))
-                }
+            this.backendSvc.getAllAcceptedJobs(merchant)
+                .then(result => {
+                    if (result !== null) {
+                        result.forEach(r => this.acceptedJobs.push(r))
+                    }
+                })
+            const serverUrl = 'http://localhost:8080/socket'
+            const ws = new SockJS(serverUrl)
+            this.stompClient = Stomp.over(ws)
+            this.stompClient.connect({}, () => {
+                console.log('WebSocket connected, Requests Loaded')
+                resolve()
+            }, (error: any) => {
+                reject(error)
             })
-        const serverUrl = 'http://localhost:8080/socket'
-        const ws = new SockJS(serverUrl)
-        this.stompClient = Stomp.over(ws)
+        })
     }
 
-    connectAndLoadMessage(usernames: string): void {
-        this.backendSvc.getChat(usernames)
+    connectAndLoadMessage(usernames: string): Promise<void> {
+        return new Promise<void>((resolve, reject) => {
+            this.backendSvc.getChat(usernames)
             .then(result => {
                 if (result !== null) {
                     result.forEach(r => this.msg.push(r))
@@ -63,9 +80,16 @@ export class WebSocketService {
                     this.backendSvc.postChatRecord(chatRecord).then()
                 }
             })
-        const serverUrl = 'http://localhost:8080/socket'
-        const ws = new SockJS(serverUrl)
-        this.stompClient = Stomp.over(ws)
+            const serverUrl = 'http://localhost:8080/socket'
+            const ws = new SockJS(serverUrl)
+            this.stompClient = Stomp.over(ws)
+            this.stompClient.connect({}, () => {
+                console.log('WebSocket connected, Messages Loaded')
+                resolve()
+            }, (error: any) => {
+                reject(error)
+            })
+        })
     }
 
     disconnect(): void {
@@ -78,48 +102,40 @@ export class WebSocketService {
 
     subscribeMessage(usernames: string): void {
         const that = this
-        this.stompClient.connect({}, function(frame: any) {
-            that.stompClient.subscribe(`/message/${usernames}`, (message: any) => {
-                if (message) {
-                    that.msg.push(JSON.parse(message.body))
-                    that.newMessageReceived.emit()
-                }
-            })
+        that.stompClient.subscribe(`/message/${usernames}`, (message: any) => {
+            if (message) {
+                that.msg.push(JSON.parse(message.body))
+                that.newMessageReceived.emit()
+            }
         })
     }
 
     subscribeNotification(username: string): void {
         const that = this
-        this.stompClient.connect({}, function(frame: any) {
-            that.stompClient.subscribe(`/message`, (message: any) => {
-                if (message) {
-                    if (JSON.parse(message.body).receiver === username) {
-                        that.newChat.push(JSON.parse(message.body))
-                    }
+        that.stompClient.subscribe(`/message`, (message: any) => {
+            if (message) {
+                if (JSON.parse(message.body).receiver === username) {
+                    that.newChat.push(JSON.parse(message.body))
                 }
-            })
+            }
         })
     }
 
     subscribeRequests(username: string): void {
         const that = this
-        this.stompClient.connect({}, function(frame: any) {
-            that.stompClient.subscribe(`/message/${username}`, (message: any) => {
-                if (message) {
-                    that.jobRequests.push(JSON.parse(message.body))
-                }
-            })
+        that.stompClient.subscribe(`/message/${username}`, (message: any) => {
+            if (message) {
+                that.jobRequests.push(JSON.parse(message.body))
+            }
         })
     }
 
     subscribeServices(username: string): void {
         const that = this
-        this.stompClient.connect({}, function(frame: any) {
-            that.stompClient.subscribe(`/message/accepted/${username}`, (message: any) => {
-                if (message) {
-                    that.ongoingService.push(JSON.parse(message.body))
-                }
-            })
+        that.stompClient.subscribe(`/message/accepted/${username}`, (message: any) => {
+            if (message) {
+                that.ongoingService.push(JSON.parse(message.body))
+            }
         })
     }
 

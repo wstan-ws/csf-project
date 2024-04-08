@@ -29,13 +29,18 @@ export class UserChatComponent implements OnInit, OnDestroy {
     this.usernames = this.activatedRoute.snapshot.params['usernames']
     this.merchantUsername = this.usernames.split('-')[1]
     this.msgSvc.connectAndLoadMessage(this.usernames)
+      .then(() => {
+        this.msgSvc.subscribeMessage(this.usernames)
+        this.msgSvc.enterChatUser(this.usernames)
+      })
+      .catch(error => {
+        console.error('Websocket connection failed:', error)
+      })
     this.msgSvc.newMessageReceived.subscribe(() => {
       this.scrollToBottom()
     })
     this.scrollToBottom()
     this.messageForm = this.createMessageForm()
-    this.msgSvc.subscribeMessage(this.usernames)
-    this.msgSvc.enterChatUser(this.usernames)
   }
 
   ngOnDestroy(): void {

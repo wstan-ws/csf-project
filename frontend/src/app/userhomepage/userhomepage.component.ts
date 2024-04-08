@@ -28,8 +28,13 @@ export class UserhomepageComponent implements OnInit, OnDestroy {
     this.username = this.activatedRoute.snapshot.params['username']
     this.user$ = this.backendSvc.getUserDetails(this.username)
     this.websocketSvc.connectAndLoadServices(this.username)
-    this.websocketSvc.subscribeServices(this.username)
-    this.websocketSvc.subscribeNotification(this.username)
+      .then(() => {
+        this.websocketSvc.subscribeServices(this.username)
+        this.websocketSvc.subscribeNotification(this.username)
+      })
+      .catch(error => {
+        console.error('Websocket connection failed:', error)
+      })
   }
 
   ngOnDestroy(): void {
