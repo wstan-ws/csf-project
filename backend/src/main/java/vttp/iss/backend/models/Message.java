@@ -1,7 +1,6 @@
 package vttp.iss.backend.models;
 
 import java.io.Serializable;
-import java.util.Date;
 
 public class Message implements Serializable {
     
@@ -9,18 +8,21 @@ public class Message implements Serializable {
 
     private String message;
 
-    private Date timestamp;
+    private String timestamp;
 
     private String role;
+
+    private String receiver;
 
     public Message() {
     }
 
-    public Message(String username, String message, Date timestamp, String role) {
+    public Message(String username, String message, String timestamp, String role, String receiver) {
         this.username = username;
         this.message = message;
         this.timestamp = timestamp;
         this.role = role;
+        this.receiver = receiver;
     }
 
     public String getUsername() {
@@ -39,11 +41,11 @@ public class Message implements Serializable {
         this.message = message;
     }
 
-    public Date getTimestamp() {
+    public String getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(Date timestamp) {
+    public void setTimestamp(String timestamp) {
         this.timestamp = timestamp;
     }
 
@@ -55,9 +57,11 @@ public class Message implements Serializable {
         this.role = role;
     }
 
-    @Override
-    public String toString() {
-        return "Message [username=" + username + ", message=" + message + ", timestamp=" + timestamp + ", role=" + role
-                + "]";
+    public String getReceiver() {
+        return receiver;
+    }
+
+    public void setReceiver(String receiver) {
+        this.receiver = receiver;
     }
 }

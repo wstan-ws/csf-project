@@ -56,9 +56,14 @@
     position: relative;
 }
 
+small {
+    margin-left: auto;
+    color: #d4d2d2;
+}
+
 #merchant {
-    background-color: white;
-    color: black;
+    background-color: #919090;
+    color: white;
     margin-left: 10px;
 }
 

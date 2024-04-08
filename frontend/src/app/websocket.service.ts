@@ -88,25 +88,12 @@ export class WebSocketService {
         })
     }
 
-    subscribeUserNotification(usernames: string, user: string): void {
+    subscribeNotification(username: string): void {
         const that = this
         this.stompClient.connect({}, function(frame: any) {
-            that.stompClient.subscribe(`/message/${usernames}`, (message: any) => {
+            that.stompClient.subscribe(`/message`, (message: any) => {
                 if (message) {
-                    if (message.body.username !== user) {
-                        that.newChat.push(JSON.parse(message.body))
-                    }
-                }
-            })
-        })
-    }
-
-    subscribeMerchantNotification(usernames: string, merchant: string): void {
-        const that = this
-        this.stompClient.connect({}, function(frame: any) {
-            that.stompClient.subscribe(`/message/${usernames}`, (message: any) => {
-                if (message) {
-                    if (message.body.username !== merchant) {
+                    if (JSON.parse(message.body).receiver === username) {
                         that.newChat.push(JSON.parse(message.body))
                     }
                 }
@@ -138,13 +125,16 @@ export class WebSocketService {
 
     sendMessageUser(message: string, usernames: string): void {
         const user = usernames.split('-')[0]
+        const merchant = usernames.split('-')[1]
         const body: Message = {
             username: user,
             message: message,
-            timestamp: Date.now(),
-            role: 'user'
+            timestamp: new Date().toLocaleString(),
+            role: 'user',
+            receiver: merchant
           }
         this.stompClient.send(`/app/send/${usernames}`, {}, JSON.stringify(body))
+        this.stompClient.send('/app/send', {}, JSON.stringify(body))
         this.backendSvc.postMessage(usernames, body)
         const chatRecord: ChatRecord = {
             chatId: 0,
@@ -158,13 +148,16 @@ export class WebSocketService {
 
     sendMessageMerchant(message: string, usernames: string): void {
         const merchant = usernames.split('-')[1]
+        const user = usernames.split('-')[0]
         const body: Message = {
             username: merchant,
             message: message,
-            timestamp: Date.now(),
-            role: 'merchant'
+            timestamp: new Date().toLocaleString(),
+            role: 'merchant',
+            receiver: user
           }
         this.stompClient.send(`/app/send/${usernames}`, {}, JSON.stringify(body))
+        this.stompClient.send('/app/send', {}, JSON.stringify(body))
         this.backendSvc.postMessage(usernames, body)
         const chatRecord: ChatRecord = {
             chatId: 0,
@@ -182,10 +175,12 @@ export class WebSocketService {
         const body: Message = {
             username: user,
             message: 'NOTICE: '+user+' has requested for ' +merchant+ '\'s service',
-            timestamp: Date.now(),
-            role: 'user'
+            timestamp: new Date().toLocaleString(),
+            role: 'user',
+            receiver: merchant
             }
         this.stompClient.send(`/app/send/${usernames}`, {}, JSON.stringify(body))
+        this.stompClient.send('/app/send', {}, JSON.stringify(body))
         this.backendSvc.postMessage(usernames, body)
         const chatRecord: ChatRecord = {
             chatId: 0,
@@ -227,12 +222,14 @@ export class WebSocketService {
         this.backendSvc.editJobRequestStatus(usernames, acceptedRequest)
             .subscribe()
         const body: Message = {
-            username: merchant,
+            username: merchant.trim(),
             message: 'NOTICE: '+merchant+' has accepted ' +user+ '\'s request',
-            timestamp: Date.now(),
-            role: 'merchant'
+            timestamp: new Date().toLocaleString(),
+            role: 'merchant',
+            receiver: user
             }
         this.stompClient.send(`/app/send/${usernames}`, {}, JSON.stringify(body))
+        this.stompClient.send('/app/send', {}, JSON.stringify(body))
         this.backendSvc.postMessage(usernames, body)
         const chatRecord: ChatRecord = {
             chatId: 0,
@@ -261,12 +258,14 @@ export class WebSocketService {
         this.backendSvc.editJobRequestStatus(usernames, acceptedRequest)
             .subscribe()
         const body: Message = {
-            username: merchant,
+            username: merchant.trim(),
             message: 'NOTICE: '+merchant+' has rejected ' +user+ '\'s request',
-            timestamp: Date.now(),
-            role: 'merchant'
+            timestamp: new Date().toLocaleString(),
+            role: 'merchant',
+            receiver: user
             }
         this.stompClient.send(`/app/send/${usernames}`, {}, JSON.stringify(body))
+        this.stompClient.send('/app/send', {}, JSON.stringify(body))
         this.backendSvc.postMessage(usernames, body)
         const chatRecord: ChatRecord = {
             chatId: 0,

@@ -12,7 +12,10 @@
     <div class="chatbox-container">
         <div class="chatbox">
             <div *ngFor="let msg of msgSvc.msg" class="all-chat">
-                <p class="chat-bubble" [id]="[msg.role]">{{ msg.message }}</p>
+                <p class="chat-bubble" [id]="[msg.role]">
+                    {{ msg.message }}
+                    <small>{{ msg.timestamp | date: 'shortTime' }}</small>
+                </p>
             </div>
             <div #endOfChat></div>
         </div>

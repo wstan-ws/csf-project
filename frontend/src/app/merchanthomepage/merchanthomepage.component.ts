@@ -44,17 +44,7 @@ export class MerchanthomepageComponent implements OnInit, OnDestroy {
     }
     this.activityForm = this.createActivityForm()
     this.websocketSvc.subscribeRequests(this.username)
-    const getAllChats = async() => {
-      await lastValueFrom(this.backendSvc.getConversationsMerchant(this.username))
-        .then(result => result.forEach(r => {
-          const usernames = r.user + '-' + r.merchant
-          this.chatList.push(usernames)
-        }))
-      for (let i = 0; i < this.chatList.length; i++) {
-        this.websocketSvc.subscribeUserNotification(this.chatList[i], this.username)
-      }
-    }
-    getAllChats()
+    this.websocketSvc.subscribeNotification(this.username)
   }
 
   ngOnDestroy(): void {

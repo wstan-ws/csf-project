@@ -58,8 +58,9 @@ public class MessageController {
                 objBuilder
                     .add("username", message.getUsername())
                     .add("message", message.getMessage())
-                    .add("timestamp", message.getTimestamp().toString().substring(4, 16))
-                    .add("role", message.getRole());
+                    .add("timestamp", message.getTimestamp())
+                    .add("role", message.getRole())
+                    .add("receiver", message.getReceiver());
                 arrBuilder.add(objBuilder);
             }
     
@@ -80,10 +81,11 @@ public class MessageController {
 
         String username = obj.getString("username");
         String message = obj.getString("message");
-        Date timestamp = new Date();
+        String timestamp = obj.getString("timestamp");
         String role = obj.getString("role");
+        String receiver = obj.getString("receiver");
         
-        Message newMessage = new Message(username, message, timestamp, role);
+        Message newMessage = new Message(username, message, timestamp, role, receiver);
 
         mainSvc.postMessage(filter, newMessage);
 
@@ -98,12 +100,30 @@ public class MessageController {
 
         String username = obj.getString("username");
         String message = obj.getString("message");
-        Date timestamp = new Date();
+        String timestamp = obj.getString("timestamp");
         String role = obj.getString("role");
+        String receiver = obj.getString("receiver");
         
-        Message newMessage = new Message(username, message, timestamp, role);
+        Message newMessage = new Message(username, message, timestamp, role, receiver);
 
         template.convertAndSend("/message/" + usernames, newMessage);
+    }
+
+    @MessageMapping("/send")
+    public void sendGlobalMessage(String payload) {
+
+        JsonReader reader = Json.createReader(new StringReader(payload));
+        JsonObject obj = reader.readObject();
+
+        String username = obj.getString("username");
+        String message = obj.getString("message");
+        String timestamp = obj.getString("timestamp");
+        String role = obj.getString("role");
+        String receiver = obj.getString("receiver");
+        
+        Message newMessage = new Message(username, message, timestamp, role, receiver);
+
+        template.convertAndSend("/message", newMessage);
     }
 
     @MessageMapping("/request/{merchant}")

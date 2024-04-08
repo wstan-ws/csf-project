@@ -38,8 +38,9 @@ export interface LoginDetails {
 export interface Message {
     username: string
     message: string
-    timestamp: number
+    timestamp: string
     role: string
+    receiver: string
 }
 
 export interface ChatRecord {

@@ -29,17 +29,7 @@ export class UserhomepageComponent implements OnInit, OnDestroy {
     this.user$ = this.backendSvc.getUserDetails(this.username)
     this.websocketSvc.connectAndLoadServices(this.username)
     this.websocketSvc.subscribeServices(this.username)
-    const getAllChats = async() => {
-      await lastValueFrom(this.backendSvc.getConversationsUser(this.username))
-        .then(result => result.forEach(r => {
-          const usernames = r.user + '-' + r.merchant
-          this.chatList.push(usernames)
-        }))
-      for (let i = 0; i < this.chatList.length; i++) {
-        this.websocketSvc.subscribeUserNotification(this.chatList[i], this.username)
-      }
-    }
-    getAllChats()
+    this.websocketSvc.subscribeNotification(this.username)
   }
 
   ngOnDestroy(): void {
