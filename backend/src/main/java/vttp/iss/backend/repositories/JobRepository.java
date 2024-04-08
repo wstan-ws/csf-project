@@ -1,6 +1,9 @@
 package vttp.iss.backend.repositories;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -166,6 +169,8 @@ public class JobRepository {
             jobList.add(jobRequest);
         }
 
+        Collections.reverse(jobList);
+
         return jobList;
     }
 
@@ -186,6 +191,8 @@ public class JobRepository {
             JobRequest jobRequest = new JobRequest(jobId, timestamp, user, merchant, userPostalCode, merchantPostalCode, status, completedTimestamp);
             jobList.add(jobRequest);
         }
+
+        Collections.reverse(jobList);
 
         return jobList;
     }

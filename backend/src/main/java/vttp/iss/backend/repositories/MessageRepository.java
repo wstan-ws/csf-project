@@ -82,6 +82,8 @@ public class MessageRepository {
             chatList.add(chatRecord);
         }
 
+        Collections.sort(chatList, (c1, c2) -> c2.getTimestamp().compareTo(c1.getTimestamp()));
+
         return chatList;
     }
 
@@ -100,6 +102,8 @@ public class MessageRepository {
             ChatRecord chatRecord = new ChatRecord(chatId, user, merchant, lastMessage, timestamp);
             chatList.add(chatRecord);
         }
+
+        Collections.sort(chatList, (c1, c2) -> c1.getTimestamp().compareTo(c2.getTimestamp()));
 
         return chatList;
     }
