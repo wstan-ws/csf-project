@@ -35,6 +35,7 @@ export class MerchantChatComponent implements OnInit, OnDestroy {
     this.scrollToBottom()
     this.messageForm = this.createMessageForm()
     this.msgSvc.subscribeMessage(this.usernames)
+    this.msgSvc.enterChatMerchant(this.usernames)
   }
 
   ngOnDestroy(): void {

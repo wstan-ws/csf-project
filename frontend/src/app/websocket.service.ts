@@ -12,6 +12,7 @@ export class WebSocketService {
     jobRequests: JobRequest[] = []
     acceptedJobs: JobRequest[] = []
     ongoingService: JobRequest[] = []
+    newChat: Message[] = []
     newMessageReceived: EventEmitter<void> = new EventEmitter<void>()
 
     private backendSvc = inject(BackendService)
@@ -82,6 +83,32 @@ export class WebSocketService {
                 if (message) {
                     that.msg.push(JSON.parse(message.body))
                     that.newMessageReceived.emit()
+                }
+            })
+        })
+    }
+
+    subscribeUserNotification(usernames: string, user: string): void {
+        const that = this
+        this.stompClient.connect({}, function(frame: any) {
+            that.stompClient.subscribe(`/message/${usernames}`, (message: any) => {
+                if (message) {
+                    if (message.body.username !== user) {
+                        that.newChat.push(JSON.parse(message.body))
+                    }
+                }
+            })
+        })
+    }
+
+    subscribeMerchantNotification(usernames: string, merchant: string): void {
+        const that = this
+        this.stompClient.connect({}, function(frame: any) {
+            that.stompClient.subscribe(`/message/${usernames}`, (message: any) => {
+                if (message) {
+                    if (message.body.username !== merchant) {
+                        that.newChat.push(JSON.parse(message.body))
+                    }
                 }
             })
         })
@@ -266,5 +293,15 @@ export class WebSocketService {
         }
         this.backendSvc.completeJobRequest(usernames, completedRequest).subscribe()
         this.acceptedJobs = this.acceptedJobs.filter(job => job.user !== user)
+    }
+
+    enterChatUser(usernames: string): void {
+        const merchant: string = usernames.split('-')[1]
+        this.newChat = this.newChat.filter(chat => chat.username !== merchant)
+    }
+
+    enterChatMerchant(usernames: string): void {
+        const user: string = usernames.split('-')[0]
+        this.newChat = this.newChat.filter(chat => chat.username !== user)
     }
 }

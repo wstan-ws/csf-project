@@ -24,6 +24,21 @@ img {
     margin-right: 5%;
 }
 
+#conversation {
+    position: relative;
+}
+
+#notification {
+    background-color: #fa3e3e;
+    border-radius: 2px;
+    color: white;
+    padding: 1px 3px;
+    font-size: 0.8em;
+    position: absolute;
+    margin-left: 100%;
+    margin-top: -1.5em;
+}
+
 .buttons button {
     margin-left: 10px;
 }

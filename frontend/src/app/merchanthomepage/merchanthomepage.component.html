@@ -6,9 +6,12 @@
 <div class="top-content" *ngIf="merchant$ | async as merchant">
     <p class="title">Hi, {{ merchant.firstName }}!</p>
     <div class="buttons">
-        <button type="button" color="primary" mat-raised-button (click)="convo()">Conversations</button>
+        <button type="button" id="conversation" color="primary" mat-raised-button (click)="convo()">
+            <div *ngIf="websocketSvc.newChat.length !== 0" id="notification">{{ websocketSvc.newChat.length }}</div>
+            Conversations
+        </button>
         <button type="button" color="primary" mat-raised-button (click)="profile()">Profile</button>
-        <button type="button" id="logout" mat-raised-button (click)="logout()">Logout</button>
+        <button type="button" mat-raised-button (click)="logout()">Logout</button>
     </div>
 </div>
 

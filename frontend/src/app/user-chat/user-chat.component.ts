@@ -35,6 +35,7 @@ export class UserChatComponent implements OnInit, OnDestroy {
     this.scrollToBottom()
     this.messageForm = this.createMessageForm()
     this.msgSvc.subscribeMessage(this.usernames)
+    this.msgSvc.enterChatUser(this.usernames)
   }
 
   ngOnDestroy(): void {

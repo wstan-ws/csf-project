@@ -20,13 +20,13 @@ export class MerchanthomepageComponent implements OnInit, OnDestroy {
   isChecked!: boolean
   status!: string
   merchant$!: Observable<MerchantSignUpDetails>
+  chatList: string[] = []
 
   private router = inject(Router)
   private activatedRoute = inject(ActivatedRoute)
   private backendSvc = inject(BackendService)
   private userSvc = inject(UsernameService)
   private fb = inject(FormBuilder)
-
   websocketSvc = inject(WebSocketService)
 
   ngOnInit(): void {
@@ -44,6 +44,17 @@ export class MerchanthomepageComponent implements OnInit, OnDestroy {
     }
     this.activityForm = this.createActivityForm()
     this.websocketSvc.subscribeRequests(this.username)
+    const getAllChats = async() => {
+      await lastValueFrom(this.backendSvc.getConversationsMerchant(this.username))
+        .then(result => result.forEach(r => {
+          const usernames = r.user + '-' + r.merchant
+          this.chatList.push(usernames)
+        }))
+      for (let i = 0; i < this.chatList.length; i++) {
+        this.websocketSvc.subscribeUserNotification(this.chatList[i], this.username)
+      }
+    }
+    getAllChats()
   }
 
   ngOnDestroy(): void {

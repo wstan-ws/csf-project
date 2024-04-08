@@ -91,7 +91,7 @@ public class MessageController {
     }
 
     @MessageMapping("/send/{usernames}")
-    public void sendMessageUser(@DestinationVariable String usernames, String payload) {
+    public void sendMessage(@DestinationVariable String usernames, String payload) {
 
         JsonReader reader = Json.createReader(new StringReader(payload));
         JsonObject obj = reader.readObject();

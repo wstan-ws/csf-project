@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BackendService } from '../backend.service';
 import { UserSignUpDetails } from '../models';
-import { Observable, lastValueFrom } from 'rxjs';
+import { Observable, last, lastValueFrom } from 'rxjs';
 import { WebSocketService } from '../websocket.service';
 import { UsernameService } from '../username.service';
 
@@ -16,6 +16,7 @@ export class UserhomepageComponent implements OnInit, OnDestroy {
   username!: string
   user$!: Observable<UserSignUpDetails>
   usernames!: string
+  chatList: string[] = []
 
   private router = inject(Router)
   private activatedRoute = inject(ActivatedRoute)
@@ -28,6 +29,17 @@ export class UserhomepageComponent implements OnInit, OnDestroy {
     this.user$ = this.backendSvc.getUserDetails(this.username)
     this.websocketSvc.connectAndLoadServices(this.username)
     this.websocketSvc.subscribeServices(this.username)
+    const getAllChats = async() => {
+      await lastValueFrom(this.backendSvc.getConversationsUser(this.username))
+        .then(result => result.forEach(r => {
+          const usernames = r.user + '-' + r.merchant
+          this.chatList.push(usernames)
+        }))
+      for (let i = 0; i < this.chatList.length; i++) {
+        this.websocketSvc.subscribeUserNotification(this.chatList[i], this.username)
+      }
+    }
+    getAllChats()
   }
 
   ngOnDestroy(): void {
