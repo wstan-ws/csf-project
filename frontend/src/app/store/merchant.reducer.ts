@@ -16,8 +16,6 @@ export const merchantReducer = createReducer(
         ...state,
         merchantDetails: [...state.merchantDetails, details]
     })),
-    on(reset, (state) => ({
-        merchantDetails: []
-    }))
+    on(reset, (state) => initialState)
 )
 

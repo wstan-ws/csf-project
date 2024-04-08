@@ -4,7 +4,6 @@ import { MerchantSignUpDetails } from '../models';
 import { BackendService } from '../backend.service';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
 import { selectMerchant } from '../store/merchant.selector';
 import { reset } from '../store/merchant.actions';
 
@@ -16,7 +15,6 @@ import { reset } from '../store/merchant.actions';
 export class MerchantSignup2Component implements OnInit {
 
   merchantSignUpForm!: FormGroup
-  merchantFromStore$!: Observable<MerchantSignUpDetails[]>
   username: string[] = []
   match: boolean = false
   merchantToUse: MerchantSignUpDetails = {
@@ -47,28 +45,6 @@ export class MerchantSignup2Component implements OnInit {
     this.merchantSignUpForm = this.createMerchantSignUpForm()
     this.backendSvc.getMerchantLoginDetails()
       .then(result => result.forEach(r => this.username.push(r.username)))
-    this.merchantFromStore$ = this.store.select(selectMerchant)
-    this.store.select(selectMerchant)
-        .subscribe(result => {
-          this.merchantToUse = {
-            firstName: result[0].firstName,
-            lastName: result[0].lastName,
-            email: result[0].email,
-            phoneNumber: result[0].phoneNumber,
-            companyName: result[0].companyName,
-            postalCode: result[0].postalCode,
-            username: result[0].username,
-            password: result[0].password,
-            elec: false,
-            elecLicenseNo: '',
-            plum: false,
-            plumLicenseNo: '',
-            aircon: false,
-            airconLicenseNo: '',
-            active: false,
-            rating: ''
-          }
-        })
   }
 
   submitForm(): void {
@@ -84,6 +60,29 @@ export class MerchantSignup2Component implements OnInit {
         this.merchantSignUpForm?.get('airconLicenseNo')?.value === '')) {
       alert("Please enter License Number")
     } else {
+      this.store.select(selectMerchant)
+        .subscribe(result => {
+          if (result.length > 0) {
+            this.merchantToUse = {
+              firstName: result[0].firstName,
+              lastName: result[0].lastName,
+              email: result[0].email,
+              phoneNumber: result[0].phoneNumber,
+              companyName: result[0].companyName,
+              postalCode: result[0].postalCode,
+              username: result[0].username,
+              password: result[0].password,
+              elec: false,
+              elecLicenseNo: '',
+              plum: false,
+              plumLicenseNo: '',
+              aircon: false,
+              airconLicenseNo: '',
+              active: false,
+              rating: ''
+            }
+          }
+        })
       this.merchantToUse.elec = this.merchantSignUpForm.value.elec
       this.merchantToUse.plum = this.merchantSignUpForm.value.plum
       this.merchantToUse.aircon = this.merchantSignUpForm.value.aircon
@@ -104,7 +103,6 @@ export class MerchantSignup2Component implements OnInit {
       } else {
         alert('Username already exists')
       }
-
     }
     this.store.dispatch(reset())
   }

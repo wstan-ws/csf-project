@@ -46,7 +46,6 @@ export class MerchantSignupComponent implements OnInit {
       rating: '' 
     }
     this.store.dispatch(save({details: merchant}))
-    console.log('signup 1: ', merchant)
     this.router.navigate(['/merchant-signup-2'])
   }
 

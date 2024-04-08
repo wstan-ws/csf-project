@@ -35,18 +35,3 @@
     <p id="another_login">Already have an account? <a [routerLink]="['/merchant-login']">Log in</a>.</p>
     <a [routerLink]="['/user-signup']">Sign Up as User</a>
 </div>
-
-<div>
-    <p>Test</p>
-    <div *ngFor="let m of merchantFromStore$ | async">
-        <p>{{ m.firstName }}</p>
-        <p>{{ m.lastName }}</p>
-        <p>{{ m.email }}</p>
-        <p>{{ m.phoneNumber }}</p>
-        <p>{{ m.companyName }}</p>
-        <p>{{ m.username }}</p>
-        <p>{{ m.password }}</p>
-    </div>
-</div>
-
-        
