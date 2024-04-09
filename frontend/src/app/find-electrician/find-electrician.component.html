@@ -13,7 +13,7 @@
                 <mat-card>
                     <mat-card-title>{{ elec.firstName }} {{ elec.lastName }}</mat-card-title>
                     <mat-card-content>{{ elec.companyName }}</mat-card-content>
-                    <mat-card-subtitle *ngIf="elec.rating !== ''">{{ elec.rating }} ⭐</mat-card-subtitle>
+                    <mat-card-subtitle *ngIf="elec.rating !== ''; else noRating">{{ elec.rating }} ⭐</mat-card-subtitle>
                 </mat-card>
             </a>
         </div>
@@ -22,4 +22,8 @@
 
 <ng-template #noElec>
     <p class="template">No Electricians Available</p>
+</ng-template>
+
+<ng-template #noRating>
+    <p>No Ratings Yet</p>
 </ng-template>

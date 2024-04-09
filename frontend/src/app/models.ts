@@ -52,7 +52,7 @@ export interface ChatRecord {
 }
 
 export interface JobRequest {
-    jobId: number
+    jobId: string
     timestamp: string
     user: string
     merchant: string
@@ -67,7 +67,7 @@ export interface JobRequest {
 
 export interface Review {
     reviewId: number
-    jobId: number
+    jobId: string
     rating: number
     comments: string
     date: string

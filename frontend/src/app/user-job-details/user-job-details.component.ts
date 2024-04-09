@@ -41,9 +41,9 @@ export class UserJobDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     const usernames = this.activatedRoute.snapshot.params['usernames']
+    const jobId = this.userSvc.getJobId()
     this.userUsername = usernames.split('-')[0]
-    this.ongoingJob$ = this.backendSvc.getOngoingJob(usernames)
-    this.ongoingJob$.subscribe(result => this.userSvc.setJobId(result.jobId))
+    this.ongoingJob$ = this.backendSvc.getOngoingJob(jobId)
 
     const location = async() => {
       await this.backendSvc.retrieveCurrLocation()
@@ -111,9 +111,9 @@ export class UserJobDetailsComponent implements OnInit {
     location()
   }
 
-  complete(): void {
+  complete(jobId: string): void {
     const usernames = this.activatedRoute.snapshot.params['usernames']
-    this.websocketSvc.completeRequest(usernames)
+    this.websocketSvc.completeRequest(usernames, jobId)
     this.router.navigate(['/review', usernames])
   }
 

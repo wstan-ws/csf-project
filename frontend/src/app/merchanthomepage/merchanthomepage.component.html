@@ -40,7 +40,7 @@
                 <mat-card-subtitle *ngIf="req.type === 'Scheduled'">{{ req.scheduledDate }}</mat-card-subtitle>
                 <mat-card-subtitle *ngIf="req.type === 'Scheduled'">{{ req.scheduledTime }}</mat-card-subtitle>
                 <div class="card-buttons">
-                    <button type="button" id="accept" color="primary" mat-raised-button (click)="accept(req.user, req.type, req.scheduledDate, req.scheduledTime)">Accept</button>
+                    <button type="button" id="accept" color="primary" mat-raised-button (click)="accept(req.user, req.type, req.scheduledDate, req.scheduledTime, req.jobId)">Accept</button>
                     <button type="button" id="reject" color="warn" mat-raised-button (click)="reject(req.user)">Reject</button>
                 </div>
             </mat-card>
@@ -49,7 +49,7 @@
     <div class="jobs-child" id="current-jobs">
         <p class="subtitle">Current Jobs</p>
         <div class="flexbox" *ngIf="websocketSvc.acceptedJobs.length > 0; else noJobs">
-            <a *ngFor="let job of websocketSvc.acceptedJobs" (click)="jobDetails(job.user)">
+            <a *ngFor="let job of websocketSvc.acceptedJobs" (click)="jobDetails(job.jobId, job.user)">
                 <mat-card>
                     <mat-card-title>{{ job.user }}</mat-card-title>
                     <mat-card-content>{{ job.type }}</mat-card-content>

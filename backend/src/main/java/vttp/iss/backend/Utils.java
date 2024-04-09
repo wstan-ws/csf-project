@@ -162,9 +162,9 @@ public class Utils {
         // Jobs
         public static final String SQL_POST_NEW_JOB_REQUEST = """
                 INSERT INTO jobs
-                (timestamp, user_username, merchant_username, user_postal_code, merchant_postal_code, status)
+                (job_id, timestamp, user_username, merchant_username, type, scheduled_date, scheduled_time, user_postal_code, merchant_postal_code, status)
                 VALUES
-                (?, ?, ?, ?, ?, ?)                
+                (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)                
         """;
 
         public static final String SQL_CHECK_JOB_REQUEST = """
@@ -200,8 +200,7 @@ public class Utils {
         public static final String SQL_USER_GET_ONGOING_JOBS = """
                 SELECT *
                 FROM jobs
-                WHERE user_username = ?
-                AND merchant_username = ?
+                WHERE job_id = ?
                 AND status = ?                
         """;
 
@@ -210,7 +209,8 @@ public class Utils {
                 SET status = ?, completed_timestamp = ?
                 WHERE user_username = ?
                 AND merchant_username = ?
-                AND status = ?                
+                AND status = ?
+                AND job_id = ?                
         """;
 
         // Review

@@ -161,8 +161,8 @@ public class MainService {
         return jobRepo.getOngoingJob(filter);
     }
 
-    public void completeRequest(String usernames, int status, String completedTimestamp) {
-        jobRepo.completeRequest(usernames, status, completedTimestamp);
+    public void completeRequest(String usernames, int status, String completedTimestamp, String jobId) {
+        jobRepo.completeRequest(usernames, status, completedTimestamp, jobId);
     }
 
     public List<JobRequest> getUserJobHistory(String user) {

@@ -32,7 +32,7 @@
 <div>
     <p class="job-request">Ongoing Job Requests</p>
     <div class="flexbox-card" *ngIf="websocketSvc.ongoingService.length > 0; else noService">
-        <a *ngFor="let svc of websocketSvc.ongoingService" (click)="jobDetails(svc.merchant)">
+        <a *ngFor="let svc of websocketSvc.ongoingService" (click)="jobDetails(svc.jobId, svc.merchant)">
             <mat-card>
                 <mat-card-title>{{ svc.merchant }}</mat-card-title>
                 <mat-card-content>{{ svc.type }}</mat-card-content>

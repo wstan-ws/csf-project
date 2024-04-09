@@ -13,7 +13,7 @@
                 <mat-card>
                     <mat-card-title>{{ aircon.firstName }} {{ aircon.lastName }}</mat-card-title>
                     <mat-card-content>{{ aircon.companyName }}</mat-card-content>
-                    <mat-card-subtitle *ngIf="aircon.rating !== ''">{{ aircon.rating }} ⭐</mat-card-subtitle>
+                    <mat-card-subtitle *ngIf="aircon.rating !== ''; else noRating">{{ aircon.rating }} ⭐</mat-card-subtitle>
                 </mat-card>
             </a>
         </div>
@@ -22,4 +22,8 @@
 
 <ng-template #noAircon>
     <p class="template">No Aircon Repairman Available</p>
+</ng-template>
+
+<ng-template #noRating>
+    <p>No Ratings Yet</p>
 </ng-template>

@@ -11,7 +11,7 @@
 <div class="content" *ngIf="electrician | async as electrician">
     <p><strong>Company:</strong> {{ electrician.companyName }}</p>
     <p><strong>License No:</strong> {{ electrician.elecLicenseNo }}</p>
-    <p *ngIf="electrician.rating !== ''"><strong>Rating:</strong> {{ electrician.rating }} ⭐</p>
+    <p *ngIf="electrician.rating !== ''; else noRating"><strong>Rating:</strong> {{ electrician.rating }} ⭐</p>
     <button type="button" color="primary" mat-raised-button (click)="chat()">Chat</button>
 </div>
 
@@ -27,4 +27,8 @@
 
 <ng-template #noReview>
     <p class="review">No Review Yet</p>
+</ng-template>
+
+<ng-template #noRating>
+    <p>No Ratings Yet</p>
 </ng-template>

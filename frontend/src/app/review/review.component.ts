@@ -15,7 +15,7 @@ export class ReviewComponent implements OnInit {
   reviewForm!: FormGroup
   merchant!: string
   user!: string
-  jobId!: number
+  jobId!: string
 
   private router = inject(Router)
   private activatedRoute = inject(ActivatedRoute)

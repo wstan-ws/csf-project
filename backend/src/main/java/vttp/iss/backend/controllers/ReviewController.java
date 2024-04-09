@@ -37,7 +37,7 @@ public class ReviewController {
         JsonReader reader = Json.createReader(new StringReader(payload));
         JsonObject obj = reader.readObject();
 
-        Integer jobId = obj.getInt("jobId");
+        String jobId = obj.getString("jobId");
         Integer rating = obj.getInt("rating");
         String comments = obj.getString("comments");
         String date = obj.getString("date");

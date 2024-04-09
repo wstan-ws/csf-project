@@ -39,9 +39,13 @@ public class JobController {
         JsonReader reader = Json.createReader(new StringReader(payload));
         JsonObject obj = reader.readObject();
 
+        String jobId = obj.getString("jobId");
         String user = obj.getString("user");
         String merchant = obj.getString("merchant");
         String timestamp = obj.getString("timestamp");
+        String type = obj.getString("type");
+        String scheduledDate = obj.getString("scheduledDate");
+        String scheduledTime = obj.getString("scheduledTime");
 
         User userDetails = mainSvc.getUserDetails(user);
         Merchant merchantDetails = mainSvc.getMerchantDetails(merchant);
@@ -50,7 +54,7 @@ public class JobController {
         String merchantPostalCode = merchantDetails.getPostalCode();
         int status = 0;
 
-        JobRequest jobRequest = new JobRequest(timestamp, user, merchant, userPostalCode, merchantPostalCode, status);
+        JobRequest jobRequest = new JobRequest(jobId, timestamp, user, merchant, type, scheduledDate, scheduledTime, userPostalCode, merchantPostalCode, status);
 
         mainSvc.postNewJobRequest(jobRequest);
 
@@ -70,6 +74,9 @@ public class JobController {
                 .add("timestamp", job.getTimestamp())
                 .add("user", job.getUser())
                 .add("merchant", job.getMerchant())
+                .add("type", job.getType())
+                .add("scheduledDate", job.getScheduledDate())
+                .add("scheduledTime", job.getScheduledTime())
                 .add("userPostalCode", job.getUserPostalCode())
                 .add("merchantPostalCode", job.getMerchantPostalCode())
                 .add("status", job.getStatus())
@@ -79,6 +86,9 @@ public class JobController {
                 .add("timestamp", job.getTimestamp())
                 .add("user", job.getUser())
                 .add("merchant", job.getMerchant())
+                .add("type", job.getType())
+                .add("scheduledDate", job.getScheduledDate())
+                .add("scheduledTime", job.getScheduledTime())
                 .add("userPostalCode", job.getUserPostalCode())
                 .add("merchantPostalCode", job.getMerchantPostalCode())
                 .add("status", job.getStatus())
@@ -120,6 +130,9 @@ public class JobController {
                 .add("timestamp", job.getTimestamp())
                 .add("user", job.getUser())
                 .add("merchant", job.getMerchant())
+                .add("type", job.getType())
+                .add("scheduledDate", job.getScheduledDate())
+                .add("scheduledTime", job.getScheduledTime())
                 .add("userPostalCode", job.getUserPostalCode())
                 .add("merchantPostalCode", job.getMerchantPostalCode())
                 .add("status", job.getStatus())
@@ -129,6 +142,9 @@ public class JobController {
                 .add("timestamp", job.getTimestamp())
                 .add("user", job.getUser())
                 .add("merchant", job.getMerchant())
+                .add("type", job.getType())
+                .add("scheduledDate", job.getScheduledDate())
+                .add("scheduledTime", job.getScheduledTime())
                 .add("userPostalCode", job.getUserPostalCode())
                 .add("merchantPostalCode", job.getMerchantPostalCode())
                 .add("status", job.getStatus())
@@ -156,6 +172,9 @@ public class JobController {
                 .add("timestamp", job.getTimestamp())
                 .add("user", job.getUser())
                 .add("merchant", job.getMerchant())
+                .add("type", job.getType())
+                .add("scheduledDate", job.getScheduledDate())
+                .add("scheduledTime", job.getScheduledTime())
                 .add("userPostalCode", job.getUserPostalCode())
                 .add("merchantPostalCode", job.getMerchantPostalCode())
                 .add("status", job.getStatus())
@@ -165,6 +184,9 @@ public class JobController {
                 .add("timestamp", job.getTimestamp())
                 .add("user", job.getUser())
                 .add("merchant", job.getMerchant())
+                .add("type", job.getType())
+                .add("scheduledDate", job.getScheduledDate())
+                .add("scheduledTime", job.getScheduledTime())
                 .add("userPostalCode", job.getUserPostalCode())
                 .add("merchantPostalCode", job.getMerchantPostalCode())
                 .add("status", job.getStatus())
@@ -190,6 +212,9 @@ public class JobController {
             .add("timestamp", jobRequest.getTimestamp())
             .add("user", jobRequest.getUser())
             .add("merchant", jobRequest.getMerchant())
+            .add("type", jobRequest.getType())
+            .add("scheduledDate", jobRequest.getScheduledDate())
+            .add("scheduledTime", jobRequest.getScheduledTime())
             .add("userPostalCode", jobRequest.getUserPostalCode())
             .add("merchantPostalCode", jobRequest.getMerchantPostalCode())
             .add("status", jobRequest.getStatus())
@@ -199,6 +224,9 @@ public class JobController {
             .add("timestamp", jobRequest.getTimestamp())
             .add("user", jobRequest.getUser())
             .add("merchant", jobRequest.getMerchant())
+            .add("type", jobRequest.getType())
+            .add("scheduledDate", jobRequest.getScheduledDate())
+            .add("scheduledTime", jobRequest.getScheduledTime())
             .add("userPostalCode", jobRequest.getUserPostalCode())
             .add("merchantPostalCode", jobRequest.getMerchantPostalCode())
             .add("status", jobRequest.getStatus())
@@ -217,9 +245,10 @@ public class JobController {
         JsonObject obj = reader.readObject();
 
         int status = obj.getInt("status");
+        String jobId = obj.getString("jobId");
         String completedTimestamp = obj.getString("completedTimestamp");
 
-        mainSvc.completeRequest(filter, status, completedTimestamp);
+        mainSvc.completeRequest(filter, status, completedTimestamp, jobId);
 
         return ResponseEntity.ok().body("{}");
     }
@@ -237,6 +266,9 @@ public class JobController {
                 .add("timestamp", job.getTimestamp())
                 .add("user", job.getUser())
                 .add("merchant", job.getMerchant())
+                .add("type", job.getType())
+                .add("scheduledDate", job.getScheduledDate())
+                .add("scheduledTime", job.getScheduledTime())
                 .add("userPostalCode", job.getUserPostalCode())
                 .add("merchantPostalCode", job.getMerchantPostalCode())
                 .add("status", job.getStatus())
@@ -262,6 +294,9 @@ public class JobController {
                 .add("timestamp", job.getTimestamp())
                 .add("user", job.getUser())
                 .add("merchant", job.getMerchant())
+                .add("type", job.getType())
+                .add("scheduledDate", job.getScheduledDate())
+                .add("scheduledTime", job.getScheduledTime())
                 .add("userPostalCode", job.getUserPostalCode())
                 .add("merchantPostalCode", job.getMerchantPostalCode())
                 .add("status", job.getStatus())

@@ -77,21 +77,22 @@ export class MerchanthomepageComponent implements OnInit, OnDestroy {
     }
   }
 
-  accept(user: string, type: string, scheduledDate: string, scheduledTime: string): void {
-    this.websocketSvc.acceptRequest(user, this.username, type, scheduledDate, scheduledTime)
+  accept(user: string, type: string, scheduledDate: string, scheduledTime: string, jobId: string): void {
+    this.websocketSvc.acceptRequest(user, this.username, type, scheduledDate, scheduledTime, jobId)
   }
 
   reject(user: string): void {
     this.websocketSvc.rejectRequest(user, this.username)
   }
 
-  jobDetails(user: string): void {
+  jobDetails(jobId: string, user: string): void {
     const usernames = user + '-' + this.username
     const registerPostals = async() => {
-      await lastValueFrom(this.backendSvc.getOngoingJob(usernames))
+      await lastValueFrom(this.backendSvc.getOngoingJob(jobId))
         .then(result => this.userSvc.setMerchantPostal(result.merchantPostalCode))
-      await lastValueFrom(this.backendSvc.getOngoingJob(usernames))
+      await lastValueFrom(this.backendSvc.getOngoingJob(jobId))
         .then(result => this.userSvc.setUserPostal(result.userPostalCode))
+      this.userSvc.setJobId(jobId)
       this.router.navigate(['/merchant-job-details', usernames])
     }
     registerPostals()

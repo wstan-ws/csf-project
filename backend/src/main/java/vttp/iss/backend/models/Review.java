@@ -4,7 +4,7 @@ public class Review {
     
     private Integer reviewId;
 
-    private Integer jobId;
+    private String jobId;
 
     private Integer rating;
 
@@ -17,7 +17,7 @@ public class Review {
     public Review() {
     }
 
-    public Review(Integer jobId, Integer rating, String comments, String date, String time) {
+    public Review(String jobId, Integer rating, String comments, String date, String time) {
         this.jobId = jobId;
         this.rating = rating;
         this.comments = comments;
@@ -25,7 +25,7 @@ public class Review {
         this.time = time;
     }
 
-    public Review(Integer reviewId, Integer jobId, Integer rating, String comments, String date, String time) {
+    public Review(Integer reviewId, String jobId, Integer rating, String comments, String date, String time) {
         this.reviewId = reviewId;
         this.jobId = jobId;
         this.rating = rating;
@@ -42,11 +42,11 @@ public class Review {
         this.reviewId = reviewId;
     }
 
-    public Integer getJobId() {
+    public String getJobId() {
         return jobId;
     }
 
-    public void setJobId(Integer jobId) {
+    public void setJobId(String jobId) {
         this.jobId = jobId;
     }
 

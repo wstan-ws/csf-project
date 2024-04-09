@@ -53,10 +53,13 @@ create table chats (
 
 create table jobs (
 
-    job_id int auto_increment,
+    job_id varchar(64) not null,
     timestamp varchar(64) not null,
     user_username varchar(64) not null,
     merchant_username varchar(64) not null,
+    type varchar(64) not null,
+    scheduled_date varchar(64),
+    scheduled_time varchar(64),
     user_postal_code char(6) not null,
     merchant_postal_code char(6) not null,
     status int default 0 not null,
@@ -72,7 +75,7 @@ create table jobs (
 create table reviews (
 
     review_id int auto_increment,
-    job_id int not null,
+    job_id varchar(64) not null,
     rating int not null,
     comments text,
     date varchar(64) not null,

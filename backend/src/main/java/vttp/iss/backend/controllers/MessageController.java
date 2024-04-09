@@ -132,10 +132,18 @@ public class MessageController {
         JsonReader reader = Json.createReader(new StringReader(payload));
         JsonObject obj = reader.readObject();
 
+        String jobId = obj.getString("jobId");
         String user = obj.getString("user");
         String timestamp = obj.getString("timestamp");
-
-        JobRequest jobRequest = new JobRequest(timestamp, user);
+        String type = obj.getString("type");
+        JobRequest jobRequest = null;
+        if (type.equals("Scheduled")) {
+            String scheduledDate = obj.getString("scheduledDate");
+            String scheduledTime = obj.getString("scheduledTime");
+            jobRequest = new JobRequest(jobId, timestamp, user, type, scheduledDate, scheduledTime);
+        } else {
+            jobRequest = new JobRequest(jobId, timestamp, user, type);
+        }
 
         template.convertAndSend("/message/" + merchant, jobRequest);
     }
@@ -146,11 +154,19 @@ public class MessageController {
         JsonReader reader = Json.createReader(new StringReader(payload));
         JsonObject obj = reader.readObject();
 
+        String jobId = obj.getString("jobId");
         String merchant = obj.getString("merchant");
         String timestamp = obj.getString("timestamp");
         int status = obj.getInt("status");
-
-        JobRequest jobRequest = new JobRequest(timestamp, merchant, status);
+        String type = obj.getString("type");
+        JobRequest jobRequest = null;
+        if (type.equals("Scheduled")) {
+            String scheduledDate = obj.getString("scheduledDate");
+            String scheduledTime = obj.getString("scheduledTime");
+            jobRequest = new JobRequest(jobId, timestamp, merchant, status, type, scheduledDate, scheduledTime);
+        } else {
+            jobRequest = new JobRequest(jobId, timestamp, merchant, status, type);
+        }
 
         template.convertAndSend("/message/accepted/" + user, jobRequest);
     }

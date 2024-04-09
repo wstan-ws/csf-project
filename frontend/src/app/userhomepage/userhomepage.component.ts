@@ -49,13 +49,14 @@ export class UserhomepageComponent implements OnInit, OnDestroy {
     this.router.navigate(['/user-conversations', this.username])
   }
 
-  jobDetails(merchant: string): void {
+  jobDetails(jobId: string, merchant: string): void {
     this.usernames = this.username + '-' + merchant
     const registerPortals = async() => {
-      await lastValueFrom(this.backendSvc.getOngoingJob(this.usernames))
+      await lastValueFrom(this.backendSvc.getOngoingJob(jobId))
         .then(result => this.userSvc.setMerchantPostal(result.merchantPostalCode))
-      await lastValueFrom(this.backendSvc.getOngoingJob(this.usernames))
+      await lastValueFrom(this.backendSvc.getOngoingJob(jobId))
         .then(result => this.userSvc.setUserPostal(result.userPostalCode))
+      this.userSvc.setJobId(jobId)
       this.router.navigate(['/user-job-details', this.usernames])
     }
     registerPortals()

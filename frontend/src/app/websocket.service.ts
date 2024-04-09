@@ -1,6 +1,7 @@
 import { EventEmitter, Injectable, inject } from "@angular/core";
 import { BackendService } from "./backend.service";
 import { ChatRecord, JobRequest, Message } from "./models";
+import { v4 as uuidv4 } from 'uuid';
 declare var SockJS: any;
 declare var Stomp: any;
 
@@ -215,8 +216,9 @@ export class WebSocketService {
             timestamp: Date.now()
         }
         this.backendSvc.editLastMessage(chatRecord).subscribe()
+        const myuuid = uuidv4();
         const requestUser: JobRequest = {
-            jobId: 0,
+            jobId: myuuid,
             timestamp: new Date().toLocaleString(),
             user: user,
             merchant: merchant,
@@ -232,10 +234,10 @@ export class WebSocketService {
         this.backendSvc.postNewJobRequest(requestUser).then()
     }
 
-    acceptRequest(user: string, merchant: string, type: string, scheduledDate: string, scheduledTime: string): void {
+    acceptRequest(user: string, merchant: string, type: string, scheduledDate: string, scheduledTime: string, jobId: string): void {
         this.jobRequests = this.jobRequests.filter(job => job.user !== user)
         const acceptedRequest: JobRequest = {
-            jobId: 0,
+            jobId: jobId,
             timestamp: new Date().toLocaleString(),
             user: user,
             merchant: merchant,
@@ -275,7 +277,7 @@ export class WebSocketService {
     rejectRequest(user: string, merchant: string): void {
         this.jobRequests = this.jobRequests.filter(job => job.user !== user)
         const rejectedRequest: JobRequest = {
-            jobId: 0,
+            jobId: '',
             timestamp: new Date().toLocaleString(),
             user: user,
             merchant: merchant,
@@ -310,11 +312,11 @@ export class WebSocketService {
         this.backendSvc.editLastMessage(chatRecord).subscribe()
     }
 
-    completeRequest(usernames: string): void {
+    completeRequest(usernames: string, jobId: string): void {
         const user: string = usernames.split('-')[0]
         const merchant: string = usernames.split('-')[1]
         const completedRequest: JobRequest = {
-            jobId: 0,
+            jobId: jobId,
             timestamp: '',
             user: user,
             merchant: merchant,

@@ -39,8 +39,9 @@ export class MerchantJobDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     const usernames = this.activatedRoute.snapshot.params['usernames']
+    const jobId = this.userSvc.getJobId()
     this.merchantUsername = usernames.split('-')[1]
-    this.ongoingJob$ = this.backendSvc.getOngoingJob(usernames)
+    this.ongoingJob$ = this.backendSvc.getOngoingJob(jobId)
 
     const location = async() => {
       await this.backendSvc.retrieveCurrLocation()

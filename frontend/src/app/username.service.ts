@@ -9,7 +9,7 @@ export class UsernameService {
     active!: boolean
     userPostal!: string
     merchantPostal!: string
-    jobId!: number
+    jobId!: string
 
     setUser(user: UserSignUpDetails): void {
         this.user = user
@@ -51,11 +51,11 @@ export class UsernameService {
         return this.merchantPostal
     }
 
-    setJobId(jobId: number): void {
+    setJobId(jobId: string): void {
         this.jobId = jobId
     }
 
-    getJobId(): number {
+    getJobId(): string {
         return this.jobId
     }
 }
