@@ -179,7 +179,8 @@ public class Utils {
                 SELECT *
                 FROM jobs
                 WHERE merchant_username = ?
-                AND status = ?                
+                AND status = ?
+                ORDER BY completed_timestamp DESC                 
         """;
 
         public static final String SQL_EDIT_JOB_REQUEST_STATUS = """
@@ -194,7 +195,8 @@ public class Utils {
                 SELECT *
                 FROM jobs
                 WHERE user_username = ?
-                AND status = ?                
+                AND status = ?
+                ORDER BY completed_timestamp DESC                
         """;
 
         public static final String SQL_USER_GET_ONGOING_JOBS = """
@@ -227,7 +229,8 @@ public class Utils {
                 LEFT JOIN reviews r
                 ON j.job_id = r.job_id
                 WHERE rating IS NOT NULL
-                AND j.merchant_username = ?             
+                AND j.merchant_username = ?
+                ORDER BY r.date DESC             
         """;
 
         public static final String SQL_SET_MERCHANT_RATING = """
