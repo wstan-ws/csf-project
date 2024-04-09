@@ -7,12 +7,15 @@
         <p class="title">Job Details</p>
         <div class="details">
             <p><strong>Client: </strong>{{ ongoingJob.user }}</p>
-            <p><strong>Job Date: </strong>{{ ongoingJob.timestamp | date: 'mediumDate' }}</p>
-            <p><strong>Job Time: </strong>{{ ongoingJob.timestamp | date: 'hh:mm a' }}</p>
+            <p><strong>Type: </strong>{{ ongoingJob.type }}</p>
+            <p *ngIf="ongoingJob.type === 'On-Demand'"><strong>Job Date: </strong>{{ ongoingJob.timestamp | date: 'M/d/yyyy' }}</p>
+            <p *ngIf="ongoingJob.type === 'On-Demand'"><strong>Job Time: </strong>{{ ongoingJob.timestamp | date: 'hh:mm a' }}</p>
+            <p *ngIf="ongoingJob.type === 'Scheduled'"><strong>Job Date: </strong>{{ ongoingJob.scheduledDate }}</p>
+            <p *ngIf="ongoingJob.type === 'Scheduled'"><strong>Job Time: </strong>{{ ongoingJob.scheduledTime }}</p>
             <p *ngIf="ongoingJob.status === 1"><strong>Job Status: </strong>Ongoing</p>
             <p><strong>Estimated Distance: </strong>{{ distance }}</p>
-            <p><strong>Estimated Duration: </strong>{{ duration }}</p>
-            <p><strong>Estimated Time of Arrival: </strong>{{ eta }}</p>
+            <p *ngIf="ongoingJob.type === 'On-Demand'"><strong>Estimated Duration: </strong>{{ duration }}</p>
+            <p *ngIf="ongoingJob.type === 'On-Demand'"><strong>Estimated Time of Arrival: </strong>{{ eta }}</p>
         </div>
     </div>
     <div class="flexbox">

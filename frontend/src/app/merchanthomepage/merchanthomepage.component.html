@@ -34,10 +34,13 @@
         <div class="flexbox" *ngIf="websocketSvc.jobRequests.length > 0; else noRequests">
             <mat-card *ngFor="let req of websocketSvc.jobRequests">
                 <mat-card-title>{{ req.user }}</mat-card-title>
-                <mat-card-subtitle>{{ req.timestamp | date: 'mediumDate' }}</mat-card-subtitle>
-                <mat-card-subtitle>{{ req.timestamp | date: 'hh:mm a' }}</mat-card-subtitle>
+                <mat-card-content>{{ req.type }}</mat-card-content>
+                <mat-card-subtitle *ngIf="req.type === 'On-Demand'">{{ req.timestamp | date: 'M/d/yyyy' }}</mat-card-subtitle>
+                <mat-card-subtitle *ngIf="req.type === 'On-Demand'">{{ req.timestamp | date: 'hh:mm a' }}</mat-card-subtitle>
+                <mat-card-subtitle *ngIf="req.type === 'Scheduled'">{{ req.scheduledDate }}</mat-card-subtitle>
+                <mat-card-subtitle *ngIf="req.type === 'Scheduled'">{{ req.scheduledTime }}</mat-card-subtitle>
                 <div class="card-buttons">
-                    <button type="button" id="accept" color="primary" mat-raised-button (click)="accept(req.user)">Accept</button>
+                    <button type="button" id="accept" color="primary" mat-raised-button (click)="accept(req.user, req.type, req.scheduledDate, req.scheduledTime)">Accept</button>
                     <button type="button" id="reject" color="warn" mat-raised-button (click)="reject(req.user)">Reject</button>
                 </div>
             </mat-card>
@@ -49,8 +52,11 @@
             <a *ngFor="let job of websocketSvc.acceptedJobs" (click)="jobDetails(job.user)">
                 <mat-card>
                     <mat-card-title>{{ job.user }}</mat-card-title>
-                    <mat-card-subtitle>{{ job.timestamp | date: 'mediumDate' }}</mat-card-subtitle>
-                    <mat-card-subtitle>{{ job.timestamp | date: 'hh:mm a' }}</mat-card-subtitle>
+                    <mat-card-content>{{ job.type }}</mat-card-content>
+                    <mat-card-subtitle *ngIf="job.type === 'On-Demand'">{{ job.timestamp | date: 'M/d/yyyy' }}</mat-card-subtitle>
+                    <mat-card-subtitle *ngIf="job.type === 'On-Demand'">{{ job.timestamp | date: 'hh:mm a' }}</mat-card-subtitle>
+                    <mat-card-subtitle *ngIf="job.type === 'Scheduled'">{{ job.scheduledDate }}</mat-card-subtitle>
+                    <mat-card-subtitle *ngIf="job.type === 'Scheduled'">{{ job.scheduledTime }}</mat-card-subtitle>
                 </mat-card>
             </a>
         </div>

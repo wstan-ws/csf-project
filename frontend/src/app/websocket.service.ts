@@ -17,6 +17,15 @@ export class WebSocketService {
 
     private backendSvc = inject(BackendService)
 
+    connect(): void {
+        const serverUrl = 'http://localhost:8080/socket'
+            const ws = new SockJS(serverUrl)
+            this.stompClient = Stomp.over(ws)
+            this.stompClient.connect({}, () => {
+                console.log('WebSocket connected, Services Loaded');
+            })
+    }
+
     connectAndLoadServices(user: string): Promise<void> {
         return new Promise<void>((resolve, reject) => {
             this.backendSvc.getAllUserServices(user)
@@ -185,7 +194,7 @@ export class WebSocketService {
         this.backendSvc.editLastMessage(chatRecord).subscribe()
     }
 
-    requestMerchant(usernames: string): void {
+    requestMerchant(usernames: string, type: string, date: string, time: string): void {
         const user = usernames.split('-')[0]
         const merchant = usernames.split('-')[1]
         const body: Message = {
@@ -211,6 +220,9 @@ export class WebSocketService {
             timestamp: new Date().toLocaleString(),
             user: user,
             merchant: merchant,
+            type: type,
+            scheduledDate: date,
+            scheduledTime: time,
             userPostalCode: '',
             merchantPostalCode: '',
             status: 0,
@@ -218,16 +230,18 @@ export class WebSocketService {
         }
         this.stompClient.send(`/app/request/${merchant}`, {}, JSON.stringify(requestUser))
         this.backendSvc.postNewJobRequest(requestUser).then()
-
     }
 
-    acceptRequest(user: string, merchant: string): void {
+    acceptRequest(user: string, merchant: string, type: string, scheduledDate: string, scheduledTime: string): void {
         this.jobRequests = this.jobRequests.filter(job => job.user !== user)
         const acceptedRequest: JobRequest = {
             jobId: 0,
             timestamp: new Date().toLocaleString(),
             user: user,
             merchant: merchant,
+            type: type,
+            scheduledDate: scheduledDate,
+            scheduledTime: scheduledTime,
             userPostalCode: '',
             merchantPostalCode: '',
             status: 1,
@@ -260,18 +274,21 @@ export class WebSocketService {
 
     rejectRequest(user: string, merchant: string): void {
         this.jobRequests = this.jobRequests.filter(job => job.user !== user)
-        const acceptedRequest: JobRequest = {
+        const rejectedRequest: JobRequest = {
             jobId: 0,
             timestamp: new Date().toLocaleString(),
             user: user,
             merchant: merchant,
+            type: '',
+            scheduledDate: '',
+            scheduledTime: '',
             userPostalCode: '',
             merchantPostalCode: '',
             status: 2,
             completedTimestamp: ''
         }
         const usernames = user+'-'+merchant
-        this.backendSvc.editJobRequestStatus(usernames, acceptedRequest)
+        this.backendSvc.editJobRequestStatus(usernames, rejectedRequest)
             .subscribe()
         const body: Message = {
             username: merchant.trim(),
@@ -301,6 +318,9 @@ export class WebSocketService {
             timestamp: '',
             user: user,
             merchant: merchant,
+            type: '',
+            scheduledDate: '',
+            scheduledTime: '',
             userPostalCode: '',
             merchantPostalCode: '',
             status: 3,

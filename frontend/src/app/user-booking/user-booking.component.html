@@ -1,0 +1,31 @@
+<div>
+    <button id="back" type="button" (click)="back()" mat-icon-button><mat-icon>keyboard_arrow_left</mat-icon></button>
+</div>
+
+<div>
+    <p class="title">Booking Type</p>
+    <form [formGroup]="bookingForm" (submit)="book()">
+        <div class="flexbox">
+            <mat-form-field>
+                <mat-label>Booking Type</mat-label>
+                <mat-select formControlName="type">
+                    <mat-option value="On-Demand">On-Demand</mat-option>
+                    <mat-option value="Scheduled">Scheduled</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field *ngIf="bookingForm.value.type === 'Scheduled'">
+                <mat-label>Date</mat-label>
+                <input matInput [matDatepicker]="picker" [min]="minDate" formControlName="date">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field *ngIf="bookingForm.value.type === 'Scheduled'">
+                <mat-label>Time</mat-label>
+                <mat-select formControlName="time">
+                    <mat-option *ngFor="let t of time" [value]="t">{{ t }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <button type="submit" id="submit" color="primary" mat-raised-button>Book</button>
+        </div>
+    </form>
+</div>

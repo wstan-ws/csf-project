@@ -58,8 +58,7 @@ export class UserChatComponent implements OnInit, OnDestroy {
   }
 
   request(): void {
-    this.msgSvc.requestMerchant(this.usernames)
-    this.scrollToBottom()
+    this.router.navigate(['/user-booking', this.usernames])
   }
 
   private scrollToBottom(): void {

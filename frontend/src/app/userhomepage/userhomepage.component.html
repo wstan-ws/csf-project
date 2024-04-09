@@ -26,7 +26,7 @@
 </div>
 
 <div class="history">
-    <button type="button" id="history" color="primary" mat-raised-button (click)="history()">Job Request History</button>
+    <button type="button" id="history" color="primary" mat-raised-button (click)="history()">Request History</button>
 </div>
 
 <div>
@@ -35,8 +35,11 @@
         <a *ngFor="let svc of websocketSvc.ongoingService" (click)="jobDetails(svc.merchant)">
             <mat-card>
                 <mat-card-title>{{ svc.merchant }}</mat-card-title>
-                <mat-card-subtitle>{{ svc.timestamp | date: 'mediumDate' }}</mat-card-subtitle>
-                <mat-card-subtitle>{{ svc.timestamp | date: 'hh:mm a' }}</mat-card-subtitle>
+                <mat-card-content>{{ svc.type }}</mat-card-content>
+                <mat-card-subtitle *ngIf="svc.type === 'On-Demand'">{{ svc.timestamp | date: 'M/d/yyyy' }}</mat-card-subtitle>
+                <mat-card-subtitle *ngIf="svc.type === 'On-Demand'">{{ svc.timestamp | date: 'hh:mm a' }}</mat-card-subtitle>
+                <mat-card-subtitle *ngIf="svc.type === 'Scheduled'">{{ svc.scheduledDate }}</mat-card-subtitle>
+                <mat-card-subtitle *ngIf="svc.type === 'Scheduled'">{{ svc.scheduledTime }}</mat-card-subtitle>
             </mat-card>
         </a>
     </div>

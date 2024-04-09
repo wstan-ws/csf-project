@@ -57,6 +57,10 @@ import { FindAirconComponent } from './find-aircon/find-aircon.component';
 import { FindPlumberComponent } from './find-plumber/find-plumber.component';
 import { StoreModule } from '@ngrx/store';
 import { merchantReducer } from './store/merchant.reducer';
+import { UserBookingComponent } from './user-booking/user-booking.component';
+import { MatSelectModule } from '@angular/material/select';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 const appRoutes: Routes = [
   {path: '', component: HomeComponent},
@@ -94,6 +98,7 @@ const appRoutes: Routes = [
   {path: 'search-electricians', component: FindElectricianComponent},
   {path: 'search-aircons', component: FindAirconComponent},
   {path: 'search-plumbers', component: FindPlumberComponent},
+  {path: 'user-booking/:usernames', component: UserBookingComponent},
   {path: '**', redirectTo: '/', pathMatch: 'full'}
 ]
 
@@ -135,6 +140,7 @@ const appRoutes: Routes = [
     FindElectricianComponent,
     FindAirconComponent,
     FindPlumberComponent,
+    UserBookingComponent,
   ],
   imports: [
     BrowserModule,
@@ -152,6 +158,9 @@ const appRoutes: Routes = [
     MatDividerModule,
     MatTableModule,
     GoogleMapsModule,
+    MatSelectModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     StoreModule.forRoot({merchantDetails: merchantReducer}, {})
   ],
   providers: [BackendService, UsernameService, WebSocketService, provideAnimationsAsync()],

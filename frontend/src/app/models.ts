@@ -56,6 +56,9 @@ export interface JobRequest {
     timestamp: string
     user: string
     merchant: string
+    type: string
+    scheduledDate: string
+    scheduledTime: string
     userPostalCode: string
     merchantPostalCode: string
     status: number
