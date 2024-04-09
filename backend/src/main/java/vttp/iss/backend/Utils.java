@@ -215,6 +215,22 @@ public class Utils {
                 AND job_id = ?                
         """;
 
+        public static final String SQL_GET_MERCHANT_HISTORY = """
+                SELECT *
+                FROM jobs
+                WHERE merchant_username = ?
+                AND (status = ? OR ?)
+                ORDER BY completed_timestamp DESC                 
+        """;
+
+        public static final String SQL_GET_USER_HISTORY = """
+                SELECT *
+                FROM jobs
+                WHERE user_username = ?
+                AND (status = ? OR ?)
+                ORDER BY completed_timestamp DESC                
+        """;
+
         // Review
         public static final String SQL_POST_REVIEW = """
                 INSERT INTO reviews

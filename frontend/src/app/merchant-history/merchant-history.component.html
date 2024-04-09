@@ -10,9 +10,10 @@
                 <mat-card-content>
                     <p class="name"><strong>Client: </strong>{{ job.user }}</p>
                     <p *ngIf="job.status === 3"><strong>Status: </strong>Completed</p>
+                    <p *ngIf="job.status === 2"><strong>Status: </strong>Rejected</p>
                 </mat-card-content>
                 <mat-card-subtitle>
-                    <p class="timestamp"><small>{{ job.timestamp }}</small></p>
+                    <p class="timestamp"><small>{{ job.completedTimestamp }}</small></p>
                 </mat-card-subtitle>
             </div>
         </mat-card>
