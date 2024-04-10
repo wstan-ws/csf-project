@@ -61,6 +61,7 @@ import { UserBookingComponent } from './user-booking/user-booking.component';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { MerchantReviewsComponent } from './merchant-reviews/merchant-reviews.component';
 
 const appRoutes: Routes = [
   {path: '', component: HomeComponent},
@@ -99,6 +100,7 @@ const appRoutes: Routes = [
   {path: 'search-aircons', component: FindAirconComponent},
   {path: 'search-plumbers', component: FindPlumberComponent},
   {path: 'user-booking/:usernames', component: UserBookingComponent},
+  {path: 'merchant-reviews/:username', component: MerchantReviewsComponent},
   {path: '**', redirectTo: '/', pathMatch: 'full'}
 ]
 
@@ -141,6 +143,7 @@ const appRoutes: Routes = [
     FindAirconComponent,
     FindPlumberComponent,
     UserBookingComponent,
+    MerchantReviewsComponent,
   ],
   imports: [
     BrowserModule,

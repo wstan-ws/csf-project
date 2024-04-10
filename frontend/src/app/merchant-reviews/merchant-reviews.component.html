@@ -1,0 +1,17 @@
+<div>
+    <button id="back" type="button" (click)="back()" mat-icon-button><mat-icon>keyboard_arrow_left</mat-icon></button>
+</div>
+
+<div class="reviews" *ngIf="reviews$ | async as reviews">
+    <div *ngIf="reviews.length > 0; else noReview">
+        <p class="title">My Reviews</p>
+        <mat-card *ngFor="let r of reviews">
+            <mat-card-content>{{ r.rating }} ⭐ <strong>{{ r.user }}:</strong> {{ r.comments }}</mat-card-content>
+            <mat-card-subtitle><small>{{ r.date }}</small></mat-card-subtitle>
+        </mat-card>
+    </div>
+</div>
+
+<ng-template #noReview>
+    <p class="review">No Review Yet</p>
+</ng-template>

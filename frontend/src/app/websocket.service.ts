@@ -114,7 +114,7 @@ export class WebSocketService {
         const that = this
         that.stompClient.subscribe(`/message/${usernames}`, (message: any) => {
             if (message) {
-                that.msg.push(JSON.parse(message.body))
+                that.msg.unshift(JSON.parse(message.body))
                 that.newMessageReceived.emit()
             }
         })
@@ -125,7 +125,7 @@ export class WebSocketService {
         that.stompClient.subscribe(`/message`, (message: any) => {
             if (message) {
                 if (JSON.parse(message.body).receiver === username) {
-                    that.newChat.push(JSON.parse(message.body))
+                    that.newChat.unshift(JSON.parse(message.body))
                 }
             }
         })
@@ -135,7 +135,7 @@ export class WebSocketService {
         const that = this
         that.stompClient.subscribe(`/message/${username}`, (message: any) => {
             if (message) {
-                that.jobRequests.push(JSON.parse(message.body))
+                that.jobRequests.unshift(JSON.parse(message.body))
             }
         })
     }
@@ -144,7 +144,7 @@ export class WebSocketService {
         const that = this
         that.stompClient.subscribe(`/message/accepted/${username}`, (message: any) => {
             if (message) {
-                that.ongoingService.push(JSON.parse(message.body))
+                that.ongoingService.unshift(JSON.parse(message.body))
             }
         })
     }
@@ -249,7 +249,7 @@ export class WebSocketService {
             status: 1,
             completedTimestamp: ''
         }
-        this.acceptedJobs.push(acceptedRequest)
+        this.acceptedJobs.unshift(acceptedRequest)
         const usernames = user+'-'+merchant
         this.backendSvc.editJobRequestStatus(usernames, acceptedRequest)
             .subscribe()

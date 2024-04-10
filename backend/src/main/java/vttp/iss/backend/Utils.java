@@ -180,7 +180,7 @@ public class Utils {
                 FROM jobs
                 WHERE merchant_username = ?
                 AND status = ?
-                ORDER BY completed_timestamp DESC                 
+                ORDER BY type, scheduled_date, scheduled_time, timestamp        
         """;
 
         public static final String SQL_EDIT_JOB_REQUEST_STATUS = """
@@ -196,7 +196,7 @@ public class Utils {
                 FROM jobs
                 WHERE user_username = ?
                 AND status = ?
-                ORDER BY completed_timestamp DESC                
+                ORDER BY type, scheduled_date, scheduled_time, timestamp               
         """;
 
         public static final String SQL_USER_GET_ONGOING_JOBS = """
@@ -246,7 +246,7 @@ public class Utils {
                 ON j.job_id = r.job_id
                 WHERE rating IS NOT NULL
                 AND j.merchant_username = ?
-                ORDER BY r.date DESC             
+                ORDER BY r.date           
         """;
 
         public static final String SQL_SET_MERCHANT_RATING = """

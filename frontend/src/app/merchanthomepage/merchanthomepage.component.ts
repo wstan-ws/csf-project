@@ -98,6 +98,10 @@ export class MerchanthomepageComponent implements OnInit, OnDestroy {
     registerPostals()
   }
 
+  reviews(): void {
+    this.router.navigate(['/merchant-reviews', this.username])
+  }
+
   history(): void {
     this.router.navigate(['/merchant-history', this.username])
   }
