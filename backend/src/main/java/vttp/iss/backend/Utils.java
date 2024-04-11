@@ -134,6 +134,30 @@ public class Utils {
                 AND active = 1
         """;
 
+        public static final String SQL_FIND_MERCHANT_BY_RATING_ELEC = """
+                SELECT *
+                FROM merchants
+                WHERE rating > ?
+                AND electrician = 1
+                AND active = 1                
+        """;
+
+        public static final String SQL_FIND_MERCHANT_BY_RATING_AIRCON = """
+                SELECT *
+                FROM merchants
+                WHERE rating > ?
+                AND aircon = 1
+                AND active = 1                
+        """;
+
+        public static final String SQL_FIND_MERCHANT_BY_RATING_PLUM = """
+                SELECT *
+                FROM merchants
+                WHERE rating > ?
+                AND plumber = 1
+                AND active = 1                
+        """;
+
         // Messages
         public static final String SQL_POST_CHAT_RECORD = """
                 INSERT INTO chats
@@ -269,7 +293,7 @@ public class Utils {
                 ON j.job_id = r.job_id
                 WHERE rating IS NOT NULL
                 AND j.merchant_username = ?
-                ORDER BY r.date           
+                ORDER BY r.date DESC           
         """;
 
         public static final String SQL_SET_MERCHANT_RATING = """

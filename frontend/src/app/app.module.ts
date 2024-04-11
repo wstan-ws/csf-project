@@ -64,6 +64,9 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MerchantReviewsComponent } from './merchant-reviews/merchant-reviews.component';
 import { UserCancelHistoryComponent } from './user-cancel-history/user-cancel-history.component';
 import { MerchantCancelHistoryComponent } from './merchant-cancel-history/merchant-cancel-history.component';
+import { SearchElectricianRatingComponent } from './search-electrician-rating/search-electrician-rating.component';
+import { SearchAirconRatingComponent } from './search-aircon-rating/search-aircon-rating.component';
+import { SearchPlumberRatingComponent } from './search-plumber-rating/search-plumber-rating.component';
 
 const appRoutes: Routes = [
   {path: '', component: HomeComponent},
@@ -105,6 +108,9 @@ const appRoutes: Routes = [
   {path: 'merchant-reviews/:username', component: MerchantReviewsComponent},
   {path: 'user-cancel-history/:username', component: UserCancelHistoryComponent},
   {path: 'merchant-cancel-history/:username', component: MerchantCancelHistoryComponent},
+  {path: 'search-electrician-rating', component: SearchElectricianRatingComponent},
+  {path: 'search-aircon-rating', component: SearchAirconRatingComponent},
+  {path: 'search-plumber-rating', component: SearchPlumberRatingComponent},
   {path: '**', redirectTo: '/', pathMatch: 'full'}
 ]
 
@@ -150,6 +156,9 @@ const appRoutes: Routes = [
     MerchantReviewsComponent,
     UserCancelHistoryComponent,
     MerchantCancelHistoryComponent,
+    SearchElectricianRatingComponent,
+    SearchAirconRatingComponent,
+    SearchPlumberRatingComponent,
   ],
   imports: [
     BrowserModule,

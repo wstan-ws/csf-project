@@ -109,6 +109,18 @@ public class MainService {
         return merchantRepo.findMerchantByNameP(name);
     }
 
+    public List<Merchant> findMerchantByRatingE(int rating) {
+        return merchantRepo.findMerchantByRatingE(rating);
+    }
+
+    public List<Merchant> findMerchantByRatingA(int rating) {
+        return merchantRepo.findMerchantByRatingA(rating);
+    }
+
+    public List<Merchant> findMerchantByRatingP(int rating) {
+        return merchantRepo.findMerchantByRatingP(rating);
+    }
+
     // Messages
     public List<Message> getChat(String usernames, String user, String merchant) throws InterruptedException, ExecutionException {
         return messageRepo.getChat(usernames, user, merchant);

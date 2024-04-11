@@ -178,13 +178,28 @@ export class BackendService {
         return this.http.get<MerchantSignUpDetails[]>(url)
     }
 
+    findMerchantByRatingE(filter: number): Observable<MerchantSignUpDetails[]> {
+        const url: string = `http://localhost:8080/api/findmerchantbyratinge?rating=${filter}`
+        return this.http.get<MerchantSignUpDetails[]>(url)
+    }
+
     findMerchantByNameA(filter: string): Observable<MerchantSignUpDetails[]> {
         const url: string = `http://localhost:8080/api/findmerchantbynamea?name=${filter}`
         return this.http.get<MerchantSignUpDetails[]>(url)
     }
 
+    findMerchantByRatingA(filter: number): Observable<MerchantSignUpDetails[]> {
+        const url: string = `http://localhost:8080/api/findmerchantbyratinga?rating=${filter}`
+        return this.http.get<MerchantSignUpDetails[]>(url)
+    }
+
     findMerchantByNameP(filter: string): Observable<MerchantSignUpDetails[]> {
         const url: string = `http://localhost:8080/api/findmerchantbynamep?name=${filter}`
+        return this.http.get<MerchantSignUpDetails[]>(url)
+    }
+
+    findMerchantByRatingP(filter: number): Observable<MerchantSignUpDetails[]> {
+        const url: string = `http://localhost:8080/api/findmerchantbyratingp?rating=${filter}`
         return this.http.get<MerchantSignUpDetails[]>(url)
     }
 

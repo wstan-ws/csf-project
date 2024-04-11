@@ -321,4 +321,106 @@ public class MerchantController {
 
         return ResponseEntity.ok().body(arr.toString());
     }
+
+    @GetMapping(path = "/findmerchantbyratinge")
+    public ResponseEntity<String> findMerchantByRatingE(@RequestParam int rating) {
+
+        List<Merchant> merchantList = mainSvc.findMerchantByRatingE(rating);
+
+        JsonArrayBuilder arrBuilder = Json.createArrayBuilder();
+
+        for (Merchant merchant : merchantList) {
+            JsonObjectBuilder objBuilder = Json.createObjectBuilder();
+            JsonObjectBuilder o = objBuilder
+                .add("firstName", merchant.getFirstName())
+                .add("lastName", merchant.getLastName())
+                .add("email", merchant.getEmail())
+                .add("phoneNumber", merchant.getPhoneNumber())
+                .add("companyName", merchant.getCompanyName())
+                .add("postalCode", merchant.getPostalCode())
+                .add("username", merchant.getUsername())
+                .add("password", merchant.getPassword())
+                .add("elec", merchant.getElec())
+                .add("elecLicenseNo", merchant.getElecLicenseNo())
+                .add("plum", merchant.getPlum())
+                .add("plumLicenseNo", merchant.getPlumLicenseNo())
+                .add("aircon", merchant.getAircon())
+                .add("airconLicenseNo", merchant.getAirconLicenseNo())
+                .add("active", merchant.getActive())
+                .add("rating", merchant.getRating());
+            arrBuilder.add(o);
+        }
+
+        JsonArray arr = arrBuilder.build();
+
+        return ResponseEntity.ok().body(arr.toString());
+    }
+
+    @GetMapping(path = "/findmerchantbyratinga")
+    public ResponseEntity<String> findMerchantByRatingA(@RequestParam int rating) {
+
+        List<Merchant> merchantList = mainSvc.findMerchantByRatingA(rating);
+
+        JsonArrayBuilder arrBuilder = Json.createArrayBuilder();
+
+        for (Merchant merchant : merchantList) {
+            JsonObjectBuilder objBuilder = Json.createObjectBuilder();
+            JsonObjectBuilder o = objBuilder
+                .add("firstName", merchant.getFirstName())
+                .add("lastName", merchant.getLastName())
+                .add("email", merchant.getEmail())
+                .add("phoneNumber", merchant.getPhoneNumber())
+                .add("companyName", merchant.getCompanyName())
+                .add("postalCode", merchant.getPostalCode())
+                .add("username", merchant.getUsername())
+                .add("password", merchant.getPassword())
+                .add("elec", merchant.getElec())
+                .add("elecLicenseNo", merchant.getElecLicenseNo())
+                .add("plum", merchant.getPlum())
+                .add("plumLicenseNo", merchant.getPlumLicenseNo())
+                .add("aircon", merchant.getAircon())
+                .add("airconLicenseNo", merchant.getAirconLicenseNo())
+                .add("active", merchant.getActive())
+                .add("rating", merchant.getRating());
+            arrBuilder.add(o);
+        }
+
+        JsonArray arr = arrBuilder.build();
+
+        return ResponseEntity.ok().body(arr.toString());
+    }
+
+    @GetMapping(path = "/findmerchantbyratingp")
+    public ResponseEntity<String> findMerchantByRatingP(@RequestParam int rating) {
+
+        List<Merchant> merchantList = mainSvc.findMerchantByRatingP(rating);
+
+        JsonArrayBuilder arrBuilder = Json.createArrayBuilder();
+
+        for (Merchant merchant : merchantList) {
+            JsonObjectBuilder objBuilder = Json.createObjectBuilder();
+            JsonObjectBuilder o = objBuilder
+                .add("firstName", merchant.getFirstName())
+                .add("lastName", merchant.getLastName())
+                .add("email", merchant.getEmail())
+                .add("phoneNumber", merchant.getPhoneNumber())
+                .add("companyName", merchant.getCompanyName())
+                .add("postalCode", merchant.getPostalCode())
+                .add("username", merchant.getUsername())
+                .add("password", merchant.getPassword())
+                .add("elec", merchant.getElec())
+                .add("elecLicenseNo", merchant.getElecLicenseNo())
+                .add("plum", merchant.getPlum())
+                .add("plumLicenseNo", merchant.getPlumLicenseNo())
+                .add("aircon", merchant.getAircon())
+                .add("airconLicenseNo", merchant.getAirconLicenseNo())
+                .add("active", merchant.getActive())
+                .add("rating", merchant.getRating());
+            arrBuilder.add(o);
+        }
+
+        JsonArray arr = arrBuilder.build();
+
+        return ResponseEntity.ok().body(arr.toString());
+    }
 }

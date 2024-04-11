@@ -36,6 +36,22 @@ export class SearchElectricianComponent implements OnInit {
       this.router.navigate(['/search-electricians'], {queryParams: {name: this.searchForm.value.search}})
     }
 
+    two(): void {
+      this.router.navigate(['/search-electrician-rating'], {queryParams: {rating: 2}})
+    }
+
+    three(): void {
+      this.router.navigate(['/search-electrician-rating'], {queryParams: {rating: 3}})
+    }
+
+    four(): void {
+      this.router.navigate(['/search-electrician-rating'], {queryParams: {rating: 4}})
+    }
+
+    five(): void {
+      this.router.navigate(['/search-electrician-rating'], {queryParams: {rating: 5}})
+    }
+
     private createSearchForm(): FormGroup {
       return this.fb.group({
         search: this.fb.control<string>("")

@@ -19,7 +19,7 @@
     font-size: 18px;
 }
 
-.electricians {
+.plumbers {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -33,26 +33,4 @@ mat-card {
     text-align: center;
     width: 500px;
     margin-bottom: 5px;
-}
-
-.search {
-    text-align: center;
-}
-
-#submit {
-    margin-left: 20px;
-}
-
-mat-form-field {
-    width: 400px;
-}
-
-.buttons {
-    margin-bottom: 20px;
-    text-align: center;
-}
-
-.rate {
-    margin-left: 5px;
-    margin-right: 5px;
 }
