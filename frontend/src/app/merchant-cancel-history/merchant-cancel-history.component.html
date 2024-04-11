@@ -5,8 +5,8 @@
 <div class="history" *ngIf="jobHistory$ | async as jobHistory">
     <p class="title">Job History</p>
     <div id="tabs">
-        <button type="button" id="completed" color="primary" mat-raised-button (click)="history()">Completed Jobs</button>
-        <button type="button" id="cancelreject" mat-raised-button>Cancelled/Rejected Jobs</button>
+        <button type="button" id="completed" mat-raised-button (click)="history()">Completed Jobs</button>
+        <button type="button" id="cancelreject" color="primary" mat-raised-button>Cancelled/Rejected Jobs</button>
     </div>
     <div *ngFor="let job of jobHistory">
         <mat-card>
