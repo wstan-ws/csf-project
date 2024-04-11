@@ -261,35 +261,47 @@ public class JobController {
         JsonArrayBuilder arrBuilder = Json.createArrayBuilder();
         for (JobRequest job : jobList) {
             JsonObjectBuilder objBuilder = Json.createObjectBuilder();
-            if (job.getCompletedTimestamp() == null) {
-                objBuilder
-                    .add("jobId", job.getJobId())
-                    .add("timestamp", job.getTimestamp())
-                    .add("user", job.getUser())
-                    .add("merchant", job.getMerchant())
-                    .add("type", job.getType())
-                    .add("scheduledDate", job.getScheduledDate())
-                    .add("scheduledTime", job.getScheduledTime())
-                    .add("userPostalCode", job.getUserPostalCode())
-                    .add("merchantPostalCode", job.getMerchantPostalCode())
-                    .add("status", job.getStatus())
-                    .add("completedTimestamp", "Not Completed");
-                arrBuilder.add(objBuilder);
-            } else {
-                objBuilder
-                    .add("jobId", job.getJobId())
-                    .add("timestamp", job.getTimestamp())
-                    .add("user", job.getUser())
-                    .add("merchant", job.getMerchant())
-                    .add("type", job.getType())
-                    .add("scheduledDate", job.getScheduledDate())
-                    .add("scheduledTime", job.getScheduledTime())
-                    .add("userPostalCode", job.getUserPostalCode())
-                    .add("merchantPostalCode", job.getMerchantPostalCode())
-                    .add("status", job.getStatus())
-                    .add("completedTimestamp", job.getCompletedTimestamp());
-                arrBuilder.add(objBuilder);
-            }
+            objBuilder
+                .add("jobId", job.getJobId())
+                .add("timestamp", job.getTimestamp())
+                .add("user", job.getUser())
+                .add("merchant", job.getMerchant())
+                .add("type", job.getType())
+                .add("scheduledDate", job.getScheduledDate())
+                .add("scheduledTime", job.getScheduledTime())
+                .add("userPostalCode", job.getUserPostalCode())
+                .add("merchantPostalCode", job.getMerchantPostalCode())
+                .add("status", job.getStatus())
+                .add("completedTimestamp", job.getCompletedTimestamp());
+            arrBuilder.add(objBuilder);
+        }
+
+        JsonArray arr = arrBuilder.build();
+
+        return ResponseEntity.ok().body(arr.toString());
+    }
+
+    @GetMapping(path = "/getusercanceljobhistory/{filter}")
+    public ResponseEntity<String> getUserCancelJobHistory(@PathVariable String filter) {
+
+        List<JobRequest> jobList = mainSvc.getUserCancelJobHistory(filter);
+
+        JsonArrayBuilder arrBuilder = Json.createArrayBuilder();
+        for (JobRequest job : jobList) {
+            JsonObjectBuilder objBuilder = Json.createObjectBuilder();
+            objBuilder
+                .add("jobId", job.getJobId())
+                .add("timestamp", job.getTimestamp())
+                .add("user", job.getUser())
+                .add("merchant", job.getMerchant())
+                .add("type", job.getType())
+                .add("scheduledDate", job.getScheduledDate())
+                .add("scheduledTime", job.getScheduledTime())
+                .add("userPostalCode", job.getUserPostalCode())
+                .add("merchantPostalCode", job.getMerchantPostalCode())
+                .add("status", job.getStatus())
+                .add("completedTimestamp", "");
+            arrBuilder.add(objBuilder);
         }
 
         JsonArray arr = arrBuilder.build();
@@ -305,35 +317,47 @@ public class JobController {
         JsonArrayBuilder arrBuilder = Json.createArrayBuilder();
         for (JobRequest job : jobList) {
             JsonObjectBuilder objBuilder = Json.createObjectBuilder();
-            if (job.getCompletedTimestamp() == null) {
-                objBuilder
-                    .add("jobId", job.getJobId())
-                    .add("timestamp", job.getTimestamp())
-                    .add("user", job.getUser())
-                    .add("merchant", job.getMerchant())
-                    .add("type", job.getType())
-                    .add("scheduledDate", job.getScheduledDate())
-                    .add("scheduledTime", job.getScheduledTime())
-                    .add("userPostalCode", job.getUserPostalCode())
-                    .add("merchantPostalCode", job.getMerchantPostalCode())
-                    .add("status", job.getStatus())
-                    .add("completedTimestamp", "Not Completed");
-                arrBuilder.add(objBuilder);
-            } else {
-                objBuilder
-                    .add("jobId", job.getJobId())
-                    .add("timestamp", job.getTimestamp())
-                    .add("user", job.getUser())
-                    .add("merchant", job.getMerchant())
-                    .add("type", job.getType())
-                    .add("scheduledDate", job.getScheduledDate())
-                    .add("scheduledTime", job.getScheduledTime())
-                    .add("userPostalCode", job.getUserPostalCode())
-                    .add("merchantPostalCode", job.getMerchantPostalCode())
-                    .add("status", job.getStatus())
-                    .add("completedTimestamp", job.getCompletedTimestamp());
-                arrBuilder.add(objBuilder);
-            }
+            objBuilder
+                .add("jobId", job.getJobId())
+                .add("timestamp", job.getTimestamp())
+                .add("user", job.getUser())
+                .add("merchant", job.getMerchant())
+                .add("type", job.getType())
+                .add("scheduledDate", job.getScheduledDate())
+                .add("scheduledTime", job.getScheduledTime())
+                .add("userPostalCode", job.getUserPostalCode())
+                .add("merchantPostalCode", job.getMerchantPostalCode())
+                .add("status", job.getStatus())
+                .add("completedTimestamp", job.getCompletedTimestamp());
+            arrBuilder.add(objBuilder);
+        }
+
+        JsonArray arr = arrBuilder.build();
+
+        return ResponseEntity.ok().body(arr.toString());
+    }
+
+    @GetMapping(path = "/getmerchantcanceljobhistory/{filter}")
+    public ResponseEntity<String> getMerchantCancelJobHistory(@PathVariable String filter) {
+
+        List<JobRequest> jobList = mainSvc.getMerchantCancelJobHistory(filter);
+
+        JsonArrayBuilder arrBuilder = Json.createArrayBuilder();
+        for (JobRequest job : jobList) {
+            JsonObjectBuilder objBuilder = Json.createObjectBuilder();
+            objBuilder
+                .add("jobId", job.getJobId())
+                .add("timestamp", job.getTimestamp())
+                .add("user", job.getUser())
+                .add("merchant", job.getMerchant())
+                .add("type", job.getType())
+                .add("scheduledDate", job.getScheduledDate())
+                .add("scheduledTime", job.getScheduledTime())
+                .add("userPostalCode", job.getUserPostalCode())
+                .add("merchantPostalCode", job.getMerchantPostalCode())
+                .add("status", job.getStatus())
+                .add("completedTimestamp", "");
+            arrBuilder.add(objBuilder);
         }
 
         JsonArray arr = arrBuilder.build();

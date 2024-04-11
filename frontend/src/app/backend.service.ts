@@ -158,8 +158,18 @@ export class BackendService {
         return this.http.get<JobRequest[]>(url)
     }
 
+    getUserCancelJobHistory(filter: string): Observable<JobRequest[]> {
+        const url: string = `http://localhost:8080/api/getusercanceljobhistory/${filter}`
+        return this.http.get<JobRequest[]>(url)
+    }
+
     getMerchantJobHistory(filter: string): Observable<JobRequest[]> {
         const url: string = `http://localhost:8080/api/getmerchantjobhistory/${filter}`
+        return this.http.get<JobRequest[]>(url)
+    }
+
+    getMerchantCancelJobHistory(filter: string): Observable<JobRequest[]> {
+        const url: string = `http://localhost:8080/api/getmerchantcanceljobhistory/${filter}`
         return this.http.get<JobRequest[]>(url)
     }
 

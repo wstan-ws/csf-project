@@ -169,8 +169,16 @@ public class MainService {
         return jobRepo.getUserJobHistory(user);
     }
 
+    public List<JobRequest> getUserCancelJobHistory(String user) {
+        return jobRepo.getUserCancelJobHistory(user);
+    }
+
     public List<JobRequest> getMerchantJobHistory(String merchant) {
         return jobRepo.getMerchantJobHistory(merchant);
+    }
+
+    public List<JobRequest> getMerchantCancelJobHistory(String merchant) {
+        return jobRepo.getMerchantCancelJobHistory(merchant);
     }
 
     public void cancelJobRequest(String jobId, String timestamp, int status) {

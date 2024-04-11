@@ -1,15 +1,15 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { BackendService } from '../backend.service';
 import { Observable } from 'rxjs';
 import { JobRequest } from '../models';
+import { ActivatedRoute, Router } from '@angular/router';
+import { BackendService } from '../backend.service';
 
 @Component({
-  selector: 'app-user-history',
-  templateUrl: './user-history.component.html',
-  styleUrl: './user-history.component.css'
+  selector: 'app-user-cancel-history',
+  templateUrl: './user-cancel-history.component.html',
+  styleUrl: './user-cancel-history.component.css'
 })
-export class UserHistoryComponent implements OnInit {
+export class UserCancelHistoryComponent implements OnInit {
 
   username!: string
   jobHistory$!: Observable<JobRequest[]>
@@ -20,11 +20,11 @@ export class UserHistoryComponent implements OnInit {
 
   ngOnInit(): void {
     this.username = this.activatedRoute.snapshot.params['username']
-    this.jobHistory$ = this.backendSvc.getUserJobHistory(this.username)
+    this.jobHistory$ = this.backendSvc.getUserCancelJobHistory(this.username)
   }
 
-  cancel(): void {
-    this.router.navigate(['/user-cancel-history', this.username])
+  history(): void {
+    this.router.navigate(['/user-history', this.username])
   }
 
   back(): void {

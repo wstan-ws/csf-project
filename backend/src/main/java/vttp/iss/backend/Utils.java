@@ -219,7 +219,15 @@ public class Utils {
                 SELECT *
                 FROM jobs
                 WHERE merchant_username = ?
-                AND (status = ? OR status = ? OR status = ?)
+                AND status = ?
+                ORDER BY completed_timestamp DESC                 
+        """;
+
+        public static final String SQL_GET_MERCHANT_CANCEL_HISTORY = """
+                SELECT *
+                FROM jobs
+                WHERE merchant_username = ?
+                AND (status = ? OR status = ?)
                 ORDER BY completed_timestamp DESC                 
         """;
 
@@ -227,8 +235,16 @@ public class Utils {
                 SELECT *
                 FROM jobs
                 WHERE user_username = ?
-                AND (status = ? OR status = ? OR status = ?)
+                AND status = ?
                 ORDER BY completed_timestamp DESC                
+        """;
+
+        public static final String SQL_GET_USER_CANCEL_HISTORY = """
+                SELECT *
+                FROM jobs
+                WHERE user_username = ?
+                AND (status = ? OR status = ?)
+                ORDER BY timestamp DESC        
         """;
 
         public static final String SQL_CANCEL_JOB = """

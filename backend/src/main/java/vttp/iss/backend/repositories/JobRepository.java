@@ -163,7 +163,31 @@ public class JobRepository {
 
     public List<JobRequest> getUserJobHistory(String username) {
 
-        SqlRowSet rs = template.queryForRowSet(Utils.SQL_GET_USER_HISTORY, username, 2, 3, 4);
+        SqlRowSet rs = template.queryForRowSet(Utils.SQL_GET_USER_HISTORY, username, 3);
+
+        List<JobRequest> jobList = new ArrayList<>();
+        while (rs.next()) {
+            String jobId = rs.getString("job_id");
+            String timestamp = rs.getString("timestamp");
+            String user = rs.getString("user_username");
+            String merchant = rs.getString("merchant_username");
+            String type = rs.getString("type");
+            String scheduledDate = rs.getString("scheduled_date");
+            String scheduledTime = rs.getString("scheduled_time");
+            String userPostalCode = rs.getString("user_postal_code");
+            String merchantPostalCode = rs.getString("merchant_postal_code");
+            int status = rs.getInt("status");
+            String completedTimestamp = rs.getString("completed_timestamp");
+            JobRequest jobRequest = new JobRequest(jobId, timestamp, user, merchant, type, scheduledDate, scheduledTime, userPostalCode, merchantPostalCode, status, completedTimestamp);
+            jobList.add(jobRequest);
+        }
+
+        return jobList;
+    }
+
+    public List<JobRequest> getUserCancelJobHistory(String username) {
+
+        SqlRowSet rs = template.queryForRowSet(Utils.SQL_GET_USER_CANCEL_HISTORY, username, 2, 4);
 
         List<JobRequest> jobList = new ArrayList<>();
         while (rs.next()) {
@@ -187,7 +211,31 @@ public class JobRepository {
 
     public List<JobRequest> getMerchantJobHistory(String username) {
 
-        SqlRowSet rs = template.queryForRowSet(Utils.SQL_GET_MERCHANT_HISTORY, username, 2, 3, 4);
+        SqlRowSet rs = template.queryForRowSet(Utils.SQL_GET_MERCHANT_HISTORY, username, 3);
+
+        List<JobRequest> jobList = new ArrayList<>();
+        while (rs.next()) {
+            String jobId = rs.getString("job_id");
+            String timestamp = rs.getString("timestamp");
+            String user = rs.getString("user_username");
+            String merchant = rs.getString("merchant_username");
+            String type = rs.getString("type");
+            String scheduledDate = rs.getString("scheduled_date");
+            String scheduledTime = rs.getString("scheduled_time");
+            String userPostalCode = rs.getString("user_postal_code");
+            String merchantPostalCode = rs.getString("merchant_postal_code");
+            int status = rs.getInt("status");
+            String completedTimestamp = rs.getString("completed_timestamp");
+            JobRequest jobRequest = new JobRequest(jobId, timestamp, user, merchant, type, scheduledDate, scheduledTime, userPostalCode, merchantPostalCode, status, completedTimestamp);
+            jobList.add(jobRequest);
+        }
+
+        return jobList;
+    }
+
+    public List<JobRequest> getMerchantCancelJobHistory(String username) {
+
+        SqlRowSet rs = template.queryForRowSet(Utils.SQL_GET_MERCHANT_CANCEL_HISTORY, username, 2, 4);
 
         List<JobRequest> jobList = new ArrayList<>();
         while (rs.next()) {

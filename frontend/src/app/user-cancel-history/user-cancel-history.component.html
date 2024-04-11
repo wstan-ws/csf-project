@@ -5,18 +5,19 @@
 <div class="history" *ngIf="jobHistory$ | async as jobHistory">
     <p class="title">Job History</p>
     <div id="tabs">
-        <button type="button" id="completed" color="primary" mat-raised-button>Completed Jobs</button>
-        <button type="button" id="cancelreject" mat-raised-button (click)="cancel()">Cancelled/Rejected Jobs</button>
+        <button type="button" id="completed" color="primary" mat-raised-button (click)="history()">Completed Jobs</button>
+        <button type="button" id="cancelreject" mat-raised-button>Cancelled/Rejected Jobs</button>
     </div>
     <div *ngFor="let job of jobHistory">
         <mat-card>
             <div class="flexbox">
                 <mat-card-content>
                     <p class="name"><strong>Handyman: </strong>{{ job.merchant }}</p>
-                    <p *ngIf="job.status === 3"><strong>Status: </strong>Completed</p>
+                    <p *ngIf="job.status === 2"><strong>Status: </strong>Rejected</p>
+                    <p *ngIf="job.status === 4"><strong>Status: </strong>Cancelled</p>
                 </mat-card-content>
                 <mat-card-subtitle>
-                    <p class="timestamp"><small>{{ job.completedTimestamp }}</small></p>
+                    <p class="timestamp"><small>{{ job.timestamp }}</small></p>
                 </mat-card-subtitle>
             </div>
         </mat-card>

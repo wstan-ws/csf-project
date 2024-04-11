@@ -62,6 +62,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MerchantReviewsComponent } from './merchant-reviews/merchant-reviews.component';
+import { UserCancelHistoryComponent } from './user-cancel-history/user-cancel-history.component';
+import { MerchantCancelHistoryComponent } from './merchant-cancel-history/merchant-cancel-history.component';
 
 const appRoutes: Routes = [
   {path: '', component: HomeComponent},
@@ -101,6 +103,8 @@ const appRoutes: Routes = [
   {path: 'search-plumbers', component: FindPlumberComponent},
   {path: 'user-booking/:usernames', component: UserBookingComponent},
   {path: 'merchant-reviews/:username', component: MerchantReviewsComponent},
+  {path: 'user-cancel-history/:username', component: UserCancelHistoryComponent},
+  {path: 'merchant-cancel-history/:username', component: MerchantCancelHistoryComponent},
   {path: '**', redirectTo: '/', pathMatch: 'full'}
 ]
 
@@ -144,6 +148,8 @@ const appRoutes: Routes = [
     FindPlumberComponent,
     UserBookingComponent,
     MerchantReviewsComponent,
+    UserCancelHistoryComponent,
+    MerchantCancelHistoryComponent,
   ],
   imports: [
     BrowserModule,
