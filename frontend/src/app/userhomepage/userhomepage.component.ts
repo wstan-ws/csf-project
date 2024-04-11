@@ -31,6 +31,7 @@ export class UserhomepageComponent implements OnInit, OnDestroy {
       .then(() => {
         this.websocketSvc.subscribeServices(this.username)
         this.websocketSvc.subscribeNotification(this.username)
+        this.websocketSvc.subscribeCancel()
       })
       .catch(error => {
         console.error('Websocket connection failed:', error)

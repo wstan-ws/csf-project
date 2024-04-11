@@ -44,6 +44,7 @@ export class UserJobDetailsComponent implements OnInit {
     const jobId = this.userSvc.getJobId()
     this.userUsername = usernames.split('-')[0]
     this.ongoingJob$ = this.backendSvc.getOngoingJob(jobId)
+    this.websocketSvc.connect()
 
     const location = async() => {
       await this.backendSvc.retrieveCurrLocation()
@@ -115,6 +116,12 @@ export class UserJobDetailsComponent implements OnInit {
     const usernames = this.activatedRoute.snapshot.params['usernames']
     this.websocketSvc.completeRequest(usernames, jobId)
     this.router.navigate(['/review', usernames])
+  }
+
+  cancel(jobId: string): void {
+    const usernames = this.activatedRoute.snapshot.params['usernames']
+    this.websocketSvc.cancelRequestUser(jobId, usernames)
+    this.router.navigate(['/user-homepage', this.userUsername])
   }
 
   back(): void {

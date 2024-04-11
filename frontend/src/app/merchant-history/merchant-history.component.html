@@ -11,9 +11,11 @@
                     <p class="name"><strong>Client: </strong>{{ job.user }}</p>
                     <p *ngIf="job.status === 3"><strong>Status: </strong>Completed</p>
                     <p *ngIf="job.status === 2"><strong>Status: </strong>Rejected</p>
+                    <p *ngIf="job.status === 4"><strong>Status: </strong>Cancelled</p>
                 </mat-card-content>
                 <mat-card-subtitle>
-                    <p class="timestamp"><small>{{ job.completedTimestamp }}</small></p>
+                    <p class="timestamp" *ngIf="job.completedTimestamp !== 'Not Completed'"><small>{{ job.completedTimestamp }}</small></p>
+                    <p class="timestamp" *ngIf="job.completedTimestamp === 'Not Completed'"><small>{{ job.timestamp }}</small></p>
                 </mat-card-subtitle>
             </div>
         </mat-card>

@@ -188,4 +188,9 @@ export class BackendService {
         const url: string = `https://www.googleapis.com/geolocation/v1/geolocate?key=${apiKey}`
         return lastValueFrom(this.http.post(url, {})) 
     }
+
+    cancelJobRequest(filter: string, body: JobRequest): Observable<any> {
+        const url: string = `http://localhost:8080/api/canceljobrequest/${filter}`
+        return this.http.patch<string>(url, body)
+    }
 }

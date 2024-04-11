@@ -173,6 +173,10 @@ public class MainService {
         return jobRepo.getMerchantJobHistory(merchant);
     }
 
+    public void cancelJobRequest(String jobId, String timestamp, int status) {
+        jobRepo.cancelJobRequest(jobId, timestamp, status);
+    }
+
     // Review
     public void postReview(Review review, String merchant) {
         reviewRepo.postReview(review, merchant);

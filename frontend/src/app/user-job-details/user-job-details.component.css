@@ -29,4 +29,10 @@
 
 #complete {
     margin-top: 20px;
+    margin-right: 5px;
+}
+
+#cancel {
+    margin-top: 20px;
+    margin-left: 5px;
 }

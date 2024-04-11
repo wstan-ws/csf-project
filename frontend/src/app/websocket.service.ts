@@ -149,6 +149,17 @@ export class WebSocketService {
         })
     }
 
+    subscribeCancel(): void {
+        const that = this
+        that.stompClient.subscribe('/message/cancel', (message: any) => {
+            if (message) {
+                console.log('received request')
+                that.ongoingService = that.ongoingService.filter(job => job.jobId !== message.body)
+                that.acceptedJobs = that.acceptedJobs.filter(job => job.jobId !== message.body)
+            }
+        })
+    }
+
     sendMessageUser(message: string, usernames: string): void {
         const user = usernames.split('-')[0]
         const merchant = usernames.split('-')[1]
@@ -162,6 +173,7 @@ export class WebSocketService {
         this.stompClient.send(`/app/send/${usernames}`, {}, JSON.stringify(body))
         this.stompClient.send('/app/send', {}, JSON.stringify(body))
         this.backendSvc.postMessage(usernames, body)
+          .then()
         const chatRecord: ChatRecord = {
             chatId: 0,
             user: usernames.split('-')[0],
@@ -185,6 +197,7 @@ export class WebSocketService {
         this.stompClient.send(`/app/send/${usernames}`, {}, JSON.stringify(body))
         this.stompClient.send('/app/send', {}, JSON.stringify(body))
         this.backendSvc.postMessage(usernames, body)
+          .then()
         const chatRecord: ChatRecord = {
             chatId: 0,
             user: usernames.split('-')[0],
@@ -208,6 +221,7 @@ export class WebSocketService {
         this.stompClient.send(`/app/send/${usernames}`, {}, JSON.stringify(body))
         this.stompClient.send('/app/send', {}, JSON.stringify(body))
         this.backendSvc.postMessage(usernames, body)
+            .then()
         const chatRecord: ChatRecord = {
             chatId: 0,
             user: usernames.split('-')[0],
@@ -263,6 +277,7 @@ export class WebSocketService {
         this.stompClient.send(`/app/send/${usernames}`, {}, JSON.stringify(body))
         this.stompClient.send('/app/send', {}, JSON.stringify(body))
         this.backendSvc.postMessage(usernames, body)
+            .then()
         const chatRecord: ChatRecord = {
             chatId: 0,
             user: usernames.split('-')[0],
@@ -302,6 +317,7 @@ export class WebSocketService {
         this.stompClient.send(`/app/send/${usernames}`, {}, JSON.stringify(body))
         this.stompClient.send('/app/send', {}, JSON.stringify(body))
         this.backendSvc.postMessage(usernames, body)
+            .then()
         const chatRecord: ChatRecord = {
             chatId: 0,
             user: usernames.split('-')[0],
@@ -329,7 +345,7 @@ export class WebSocketService {
             completedTimestamp: new Date().toLocaleString()
         }
         this.backendSvc.completeJobRequest(usernames, completedRequest).subscribe()
-        this.acceptedJobs = this.acceptedJobs.filter(job => job.user !== user)
+        this.stompClient.send('/app/cancel', {}, JSON.stringify(completedRequest))
     }
 
     enterChatUser(usernames: string): void {
@@ -340,5 +356,85 @@ export class WebSocketService {
     enterChatMerchant(usernames: string): void {
         const user: string = usernames.split('-')[0]
         this.newChat = this.newChat.filter(chat => chat.username !== user)
+    }
+
+    cancelRequestUser(jobId: string, usernames: string): void {
+        const cancelRequest: JobRequest = {
+            jobId: jobId,
+            timestamp: new Date().toLocaleString(),
+            user: '',
+            merchant: '',
+            type: '',
+            scheduledDate: '',
+            scheduledTime: '',
+            userPostalCode: '',
+            merchantPostalCode: '',
+            status: 4,
+            completedTimestamp: ''
+        }
+        this.backendSvc.cancelJobRequest(jobId, cancelRequest)
+            .subscribe()
+        this.stompClient.send('/app/cancel', {}, JSON.stringify(cancelRequest))
+        const user = usernames.split('-')[0]
+        const merchant = usernames.split('-')[1]
+        const body: Message = {
+            username: user,
+            message: 'NOTICE: '+user+' has cancelled their booking',
+            timestamp: new Date().toLocaleString(),
+            role: 'user',
+            receiver: merchant
+            }
+        this.stompClient.send(`/app/send/${usernames}`, {}, JSON.stringify(body))
+        this.stompClient.send('/app/send', {}, JSON.stringify(body))
+        this.backendSvc.postMessage(usernames, body)
+            .then()
+        const chatRecord: ChatRecord = {
+            chatId: 0,
+            user: user,
+            merchant: merchant,
+            lastMessage: 'NOTICE: '+user+' has cancelled their booking',
+            timestamp: Date.now()
+        }
+        this.backendSvc.editLastMessage(chatRecord).subscribe()
+    }
+
+    cancelRequestMerchant(jobId: string, usernames: string): void {
+        const cancelRequest: JobRequest = {
+            jobId: jobId,
+            timestamp: new Date().toLocaleString(),
+            user: '',
+            merchant: '',
+            type: '',
+            scheduledDate: '',
+            scheduledTime: '',
+            userPostalCode: '',
+            merchantPostalCode: '',
+            status: 4,
+            completedTimestamp: ''
+        }
+        this.backendSvc.cancelJobRequest(jobId, cancelRequest)
+            .subscribe()
+        this.stompClient.send('/app/cancel', {}, JSON.stringify(cancelRequest))
+        const user = usernames.split('-')[0]
+        const merchant = usernames.split('-')[1]
+        const body: Message = {
+            username: merchant,
+            message: 'NOTICE: '+merchant+' has cancelled the job',
+            timestamp: new Date().toLocaleString(),
+            role: 'merchant',
+            receiver: user
+            }
+        this.stompClient.send(`/app/send/${usernames}`, {}, JSON.stringify(body))
+        this.stompClient.send('/app/send', {}, JSON.stringify(body))
+        this.backendSvc.postMessage(usernames, body)
+            .then()
+        const chatRecord: ChatRecord = {
+            chatId: 0,
+            user: user,
+            merchant: merchant,
+            lastMessage: 'NOTICE: '+merchant+' has cancelled the job',
+            timestamp: Date.now()
+        }
+        this.backendSvc.editLastMessage(chatRecord).subscribe()
     }
 }

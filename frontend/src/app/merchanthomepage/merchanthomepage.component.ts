@@ -36,6 +36,7 @@ export class MerchanthomepageComponent implements OnInit, OnDestroy {
       .then(() => {
         this.websocketSvc.subscribeRequests(this.username)
         this.websocketSvc.subscribeNotification(this.username)
+        this.websocketSvc.subscribeCancel()
       })
       .catch(error => {
         console.error('Websocket connection failed:', error)

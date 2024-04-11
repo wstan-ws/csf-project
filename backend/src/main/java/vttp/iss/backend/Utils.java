@@ -219,7 +219,7 @@ public class Utils {
                 SELECT *
                 FROM jobs
                 WHERE merchant_username = ?
-                AND (status = ? OR ?)
+                AND (status = ? OR status = ? OR status = ?)
                 ORDER BY completed_timestamp DESC                 
         """;
 
@@ -227,8 +227,15 @@ public class Utils {
                 SELECT *
                 FROM jobs
                 WHERE user_username = ?
-                AND (status = ? OR ?)
+                AND (status = ? OR status = ? OR status = ?)
                 ORDER BY completed_timestamp DESC                
+        """;
+
+        public static final String SQL_CANCEL_JOB = """
+                UPDATE jobs
+                SET timestamp = ?, status = ?
+                WHERE job_id = ?
+                AND status = 1                
         """;
 
         // Review

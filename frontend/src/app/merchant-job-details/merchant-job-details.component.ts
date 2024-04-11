@@ -6,6 +6,7 @@ import { UsernameService } from '../username.service';
 import { Observable, lastValueFrom, map } from 'rxjs';
 import { JobRequest } from '../models';
 import moment from 'moment';
+import { WebSocketService } from '../websocket.service';
 
 @Component({
   selector: 'app-merchant-job-details',
@@ -36,12 +37,14 @@ export class MerchantJobDetailsComponent implements OnInit {
   private backendSvc = inject(BackendService)
   private userSvc = inject(UsernameService)
   private mapDirectionsService = inject(MapDirectionsService)
+  private websocketSvc = inject(WebSocketService)
 
   ngOnInit(): void {
     const usernames = this.activatedRoute.snapshot.params['usernames']
     const jobId = this.userSvc.getJobId()
     this.merchantUsername = usernames.split('-')[1]
     this.ongoingJob$ = this.backendSvc.getOngoingJob(jobId)
+    this.websocketSvc.connect()
 
     const location = async() => {
       await this.backendSvc.retrieveCurrLocation()
@@ -107,6 +110,12 @@ export class MerchantJobDetailsComponent implements OnInit {
         handleDistance()
     }
     location()
+  }
+
+  cancel(jobId: string): void {
+    const usernames = this.activatedRoute.snapshot.params['usernames']
+    this.websocketSvc.cancelRequestMerchant(jobId, usernames)
+    this.router.navigate(['/merchant-homepage', this.merchantUsername])
   }
 
   back(): void {

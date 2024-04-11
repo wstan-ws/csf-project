@@ -17,6 +17,7 @@
             <p *ngIf="ongoingJob.type === 'On-Demand'"><strong>Estimated Duration: </strong>{{ duration }}</p>
             <p *ngIf="ongoingJob.type === 'On-Demand'"><strong>Estimated Time of Arrival: </strong>{{ eta }}</p>
             <button type="button" id="complete" color="primary" mat-raised-button (click)="complete(ongoingJob.jobId)">Job Completed</button>
+            <button type="button" id="cancel" color="warn" mat-raised-button (click)="cancel(ongoingJob.jobId)">Cancel Booking</button>
         </div>
     </div>
     <div class="flexbox">

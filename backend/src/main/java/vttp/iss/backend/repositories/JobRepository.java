@@ -163,7 +163,7 @@ public class JobRepository {
 
     public List<JobRequest> getUserJobHistory(String username) {
 
-        SqlRowSet rs = template.queryForRowSet(Utils.SQL_GET_USER_HISTORY, username, 2, 3);
+        SqlRowSet rs = template.queryForRowSet(Utils.SQL_GET_USER_HISTORY, username, 2, 3, 4);
 
         List<JobRequest> jobList = new ArrayList<>();
         while (rs.next()) {
@@ -187,7 +187,7 @@ public class JobRepository {
 
     public List<JobRequest> getMerchantJobHistory(String username) {
 
-        SqlRowSet rs = template.queryForRowSet(Utils.SQL_GET_MERCHANT_HISTORY, username, 2, 3);
+        SqlRowSet rs = template.queryForRowSet(Utils.SQL_GET_MERCHANT_HISTORY, username, 2, 3, 4);
 
         List<JobRequest> jobList = new ArrayList<>();
         while (rs.next()) {
@@ -207,5 +207,10 @@ public class JobRepository {
         }
 
         return jobList;
+    }
+
+    public void cancelJobRequest(String jobId, String timestamp, int status) {
+
+        template.update(Utils.SQL_CANCEL_JOB, timestamp, status, jobId);
     }
 }

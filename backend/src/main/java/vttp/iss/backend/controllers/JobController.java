@@ -340,4 +340,18 @@ public class JobController {
 
         return ResponseEntity.ok().body(arr.toString());
     }
+
+    @PatchMapping(path = "/canceljobrequest/{filter}")
+    public ResponseEntity<String> cancelJobRequest(@PathVariable String filter, @RequestBody String payload) {
+
+        JsonReader reader = Json.createReader(new StringReader(payload));
+        JsonObject obj = reader.readObject();
+
+        String timestamp = obj.getString("timestamp");
+        int status = obj.getInt("status");
+
+        mainSvc.cancelJobRequest(filter, timestamp, status);
+
+        return ResponseEntity.ok().body("{}");
+    }
 }

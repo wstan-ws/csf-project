@@ -171,6 +171,17 @@ public class MessageController {
         template.convertAndSend("/message/accepted/" + user, jobRequest);
     }
 
+    @MessageMapping("/cancel")
+    public void cancelRequest(String payload) {
+
+        JsonReader reader = Json.createReader(new StringReader(payload));
+        JsonObject obj = reader.readObject();
+
+        String jobId = obj.getString("jobId");
+
+        template.convertAndSend("/message/cancel", jobId);
+    }
+
     @PostMapping(path = "/postchat")
     @ResponseBody
     public ResponseEntity<String> postChatRecord(@RequestBody String payload) {
