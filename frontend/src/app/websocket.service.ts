@@ -19,7 +19,7 @@ export class WebSocketService {
     private backendSvc = inject(BackendService)
 
     connect(): void {
-        const serverUrl = 'http://localhost:8080/socket'
+        const serverUrl = '/socket'
             const ws = new SockJS(serverUrl)
             this.stompClient = Stomp.over(ws)
             this.stompClient.connect({}, () => {
@@ -35,7 +35,7 @@ export class WebSocketService {
                     result.forEach(r => this.ongoingService.push(r))
                 }
             })
-            const serverUrl = 'http://localhost:8080/socket'
+            const serverUrl = '/socket'
             const ws = new SockJS(serverUrl)
             this.stompClient = Stomp.over(ws)
             this.stompClient.connect({}, () => {
@@ -61,7 +61,7 @@ export class WebSocketService {
                         result.forEach(r => this.acceptedJobs.push(r))
                     }
                 })
-            const serverUrl = 'http://localhost:8080/socket'
+            const serverUrl = '/socket'
             const ws = new SockJS(serverUrl)
             this.stompClient = Stomp.over(ws)
             this.stompClient.connect({}, () => {
@@ -90,7 +90,7 @@ export class WebSocketService {
                     this.backendSvc.postChatRecord(chatRecord).then()
                 }
             })
-            const serverUrl = 'http://localhost:8080/socket'
+            const serverUrl = '/socket'
             const ws = new SockJS(serverUrl)
             this.stompClient = Stomp.over(ws)
             this.stompClient.connect({}, () => {
@@ -114,7 +114,7 @@ export class WebSocketService {
         const that = this
         that.stompClient.subscribe(`/message/${usernames}`, (message: any) => {
             if (message) {
-                that.msg.unshift(JSON.parse(message.body))
+                that.msg.push(JSON.parse(message.body))
                 that.newMessageReceived.emit()
             }
         })

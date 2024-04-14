@@ -1,8 +1,7 @@
 package vttp.iss.backend;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Objects;
 
 import org.springframework.boot.SpringApplication;
@@ -19,12 +18,17 @@ public class BackendApplication {
 
 		ClassLoader classLoader = BackendApplication.class.getClassLoader();
 
-		File file = new File(Objects.requireNonNull(classLoader.getResource("serviceAccountKey.json")).getFile());
-		FileInputStream serviceAccount = new FileInputStream(file.getAbsolutePath());
+		InputStream is = Objects.requireNonNull(classLoader.getResourceAsStream("serviceAccountKey.json"));
+		// FileInputStream sa = new FileInputStream(is);
+
+		// File file = new File(Objects.requireNonNull(classLoader.getResource("serviceAccountKey.json")).getFile());
+		// FileInputStream serviceAccount = new FileInputStream(file.getAbsolutePath());
+
+		// FileInputStream serviceAccount = new FileInputStream("serviceAccountKey.json");
 
 		@SuppressWarnings("deprecation")
 		FirebaseOptions options = new FirebaseOptions.Builder()
-			.setCredentials(GoogleCredentials.fromStream(serviceAccount))
+			.setCredentials(GoogleCredentials.fromStream(is))
 			.build();
 
 		if (FirebaseApp.getApps().isEmpty()) {

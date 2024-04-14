@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
@@ -67,6 +67,7 @@ import { MerchantCancelHistoryComponent } from './merchant-cancel-history/mercha
 import { SearchElectricianRatingComponent } from './search-electrician-rating/search-electrician-rating.component';
 import { SearchAirconRatingComponent } from './search-aircon-rating/search-aircon-rating.component';
 import { SearchPlumberRatingComponent } from './search-plumber-rating/search-plumber-rating.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 const appRoutes: Routes = [
   {path: '', component: HomeComponent},
@@ -179,7 +180,13 @@ const appRoutes: Routes = [
     MatSelectModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    StoreModule.forRoot({merchantDetails: merchantReducer}, {})
+    StoreModule.forRoot({merchantDetails: merchantReducer}, {}),
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: !isDevMode(),
+      // Register the ServiceWorker as soon as the application is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000'
+    })
   ],
   providers: [BackendService, UsernameService, WebSocketService, provideAnimationsAsync()],
   bootstrap: [AppComponent]
