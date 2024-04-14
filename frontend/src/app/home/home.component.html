@@ -1,16 +1,17 @@
 <div class="header">
     <img src="/assets/overhaul.png" alt="">
-    <!-- <button id="about" type="button" mat-button (click)="about()">ABOUT US</button> -->
 </div>
 
 
-<div class="container">
-    <p class="title">OVERHAUL</p>
-    <button type="button" color="primary" mat-raised-button (click)="login()">Login</button>
-    <br>
-    <button type="button" color="primary" mat-raised-button (click)="signup()">Sign Up</button>
-</div>
-
-<div *ngIf="joke$ | async as joke">
-    <p class="joke">{{ joke.joke }}</p>
+<div class="absolute">
+    <div class="container">
+        <p class="title">OVERHAUL</p>
+        <button type="button" color="primary" mat-raised-button (click)="login()">Login</button>
+        <br>
+        <button type="button" color="primary" mat-raised-button (click)="signup()">Sign Up</button>
+    </div>
+    
+    <div *ngIf="joke$ | async as joke">
+        <p class="joke">{{ joke.joke }}</p>
+    </div>    
 </div>

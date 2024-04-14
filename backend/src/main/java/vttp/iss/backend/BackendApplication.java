@@ -19,12 +19,6 @@ public class BackendApplication {
 		ClassLoader classLoader = BackendApplication.class.getClassLoader();
 
 		InputStream is = Objects.requireNonNull(classLoader.getResourceAsStream("serviceAccountKey.json"));
-		// FileInputStream sa = new FileInputStream(is);
-
-		// File file = new File(Objects.requireNonNull(classLoader.getResource("serviceAccountKey.json")).getFile());
-		// FileInputStream serviceAccount = new FileInputStream(file.getAbsolutePath());
-
-		// FileInputStream serviceAccount = new FileInputStream("serviceAccountKey.json");
 
 		@SuppressWarnings("deprecation")
 		FirebaseOptions options = new FirebaseOptions.Builder()
