@@ -27,6 +27,7 @@
 
 a {
     text-decoration: none;
+    color: black;
 }
 
 mat-card {
@@ -45,4 +46,8 @@ mat-card {
 
 mat-form-field {
     width: 400px;
+}
+
+mat-card-title {
+    margin-top: 10px;
 }

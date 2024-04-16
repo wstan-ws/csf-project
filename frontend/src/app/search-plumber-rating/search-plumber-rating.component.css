@@ -27,10 +27,15 @@
 
 a {
     text-decoration: none;
+    color: black;
 }
 
 mat-card {
     text-align: center;
     width: 500px;
     margin-bottom: 5px;
+}
+
+mat-card-title {
+    margin-top: 10px;
 }

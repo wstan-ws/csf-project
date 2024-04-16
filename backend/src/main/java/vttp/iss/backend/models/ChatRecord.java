@@ -1,7 +1,5 @@
 package vttp.iss.backend.models;
 
-import java.util.Date;
-
 public class ChatRecord {
     
     private int chatId;
@@ -12,17 +10,18 @@ public class ChatRecord {
 
     private String lastMessage;
 
-    private Date timestamp;
+    private String timestamp;
 
     public ChatRecord() {
     }
 
-    public ChatRecord(String user, String merchant) {
+    public ChatRecord(String user, String merchant, String timestamp) {
         this.user = user;
         this.merchant = merchant;
+        this.timestamp = timestamp;
     }
 
-    public ChatRecord(int chatId, String user, String merchant, String lastMessage, Date timestamp) {
+    public ChatRecord(int chatId, String user, String merchant, String lastMessage, String timestamp) {
         this.chatId = chatId;
         this.user = user;
         this.merchant = merchant;
@@ -62,11 +61,11 @@ public class ChatRecord {
         this.lastMessage = lastMessage;
     }
 
-    public Date getTimestamp() {
+    public String getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(Date timestamp) {
+    public void setTimestamp(String timestamp) {
         this.timestamp = timestamp;
     }
 

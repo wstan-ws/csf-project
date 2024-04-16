@@ -85,7 +85,7 @@ export class WebSocketService {
                         user: usernames.split('-')[0],
                         merchant: usernames.split('-')[1],
                         lastMessage: '',
-                        timestamp: 0
+                        timestamp: new Date().toLocaleString()
                     }
                     this.backendSvc.postChatRecord(chatRecord).then()
                 }
@@ -179,7 +179,7 @@ export class WebSocketService {
             user: usernames.split('-')[0],
             merchant: usernames.split('-')[1],
             lastMessage: message,
-            timestamp: Date.now()
+            timestamp: new Date().toLocaleString()
         }
         this.backendSvc.editLastMessage(chatRecord).subscribe()
     }
@@ -203,7 +203,7 @@ export class WebSocketService {
             user: usernames.split('-')[0],
             merchant: usernames.split('-')[1],
             lastMessage: message,
-            timestamp: Date.now()
+            timestamp: new Date().toLocaleString()
         }
         this.backendSvc.editLastMessage(chatRecord).subscribe()
     }
@@ -227,7 +227,7 @@ export class WebSocketService {
             user: usernames.split('-')[0],
             merchant: usernames.split('-')[1],
             lastMessage: 'NOTICE: '+user+' has requested for ' +merchant+ '\'s service',
-            timestamp: Date.now()
+            timestamp: new Date().toLocaleString()
         }
         this.backendSvc.editLastMessage(chatRecord).subscribe()
         const myuuid = uuidv4();
@@ -283,7 +283,7 @@ export class WebSocketService {
             user: usernames.split('-')[0],
             merchant: usernames.split('-')[1],
             lastMessage: 'NOTICE: '+merchant+' has accepted ' +user+ '\'s request',
-            timestamp: Date.now()
+            timestamp: new Date().toLocaleString()
         }
         this.backendSvc.editLastMessage(chatRecord).subscribe()
         this.stompClient.send(`/app/request/accepted/${user}`, {}, JSON.stringify(acceptedRequest))
@@ -323,7 +323,7 @@ export class WebSocketService {
             user: usernames.split('-')[0],
             merchant: usernames.split('-')[1],
             lastMessage: 'NOTICE: '+merchant+' has rejected ' +user+ '\'s request',
-            timestamp: Date.now()
+            timestamp: new Date().toLocaleString()
         }
         this.backendSvc.editLastMessage(chatRecord).subscribe()
     }
@@ -393,7 +393,7 @@ export class WebSocketService {
             user: user,
             merchant: merchant,
             lastMessage: 'NOTICE: '+user+' has cancelled their booking',
-            timestamp: Date.now()
+            timestamp: new Date().toLocaleString()
         }
         this.backendSvc.editLastMessage(chatRecord).subscribe()
     }
@@ -433,7 +433,7 @@ export class WebSocketService {
             user: user,
             merchant: merchant,
             lastMessage: 'NOTICE: '+merchant+' has cancelled the job',
-            timestamp: Date.now()
+            timestamp: new Date().toLocaleString()
         }
         this.backendSvc.editLastMessage(chatRecord).subscribe()
     }

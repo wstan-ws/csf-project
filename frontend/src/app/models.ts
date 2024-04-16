@@ -48,7 +48,7 @@ export interface ChatRecord {
     user: string
     merchant: string
     lastMessage: string
-    timestamp: number
+    timestamp: string
 }
 
 export interface JobRequest {

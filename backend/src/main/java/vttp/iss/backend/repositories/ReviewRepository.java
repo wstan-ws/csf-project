@@ -3,6 +3,7 @@ package vttp.iss.backend.repositories;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Collections;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -68,6 +69,8 @@ public class ReviewRepository {
             }
             reviewList.add(review);
         }
+
+        Collections.sort(reviewList, (r1, r2) -> r2.getDate().compareTo(r1.getDate())); 
 
         return reviewList;
     }

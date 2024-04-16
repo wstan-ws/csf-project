@@ -1,7 +1,6 @@
 package vttp.iss.backend.controllers;
 
 import java.io.StringReader;
-import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -191,8 +190,9 @@ public class MessageController {
 
         String user = obj.getString("user");
         String merchant = obj.getString("merchant");
+        String timestamp = obj.getString("timestamp");
 
-        ChatRecord chatRecord = new ChatRecord(user, merchant);
+        ChatRecord chatRecord = new ChatRecord(user, merchant, timestamp);
 
         mainSvc.postChatRecord(chatRecord);
 
@@ -214,7 +214,7 @@ public class MessageController {
                 .add("user", chat.getUser())
                 .add("merchant", chat.getMerchant())
                 .add("lastMessage", chat.getLastMessage())
-                .add("timestamp", chat.getTimestamp().toString());
+                .add("timestamp", chat.getTimestamp());
             arrBuilder.add(objBuilder);
         }
 
@@ -238,7 +238,7 @@ public class MessageController {
                 .add("user", chat.getUser())
                 .add("merchant", chat.getMerchant())
                 .add("lastMessage", chat.getLastMessage())
-                .add("timestamp", chat.getTimestamp().toString());
+                .add("timestamp", chat.getTimestamp());
             arrBuilder.add(objBuilder);
         }
 
@@ -257,7 +257,7 @@ public class MessageController {
         String user = obj.getString("user");
         String merchant = obj.getString("merchant");
         String lastMessage = obj.getString("lastMessage");
-        Date timestamp = new Date();
+        String timestamp = obj.getString("timestamp");
 
         mainSvc.editLastMsg(user, merchant, lastMessage, timestamp);
 

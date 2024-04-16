@@ -3,7 +3,6 @@ package vttp.iss.backend.repositories;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -62,8 +61,9 @@ public class MessageRepository {
 
         String user = chatRecord.getUser();
         String merchant = chatRecord.getMerchant();
+        String timestamp = chatRecord.getTimestamp();
 
-        template.update(Utils.SQL_POST_CHAT_RECORD, user, merchant);
+        template.update(Utils.SQL_POST_CHAT_RECORD, user, merchant, timestamp);
     }
 
     public List<ChatRecord> getConversationsMerchant(String merchantUser) {
@@ -77,7 +77,7 @@ public class MessageRepository {
             String user = rs.getString("user");
             String merchant = rs.getString("merchant");
             String lastMessage = rs.getString("last_message");
-            Date timestamp = rs.getTimestamp("timestamp");
+            String timestamp = rs.getString("timestamp");
             ChatRecord chatRecord = new ChatRecord(chatId, user, merchant, lastMessage, timestamp);
             chatList.add(chatRecord);
         }
@@ -98,17 +98,17 @@ public class MessageRepository {
             String user = rs.getString("user");
             String merchant = rs.getString("merchant");
             String lastMessage = rs.getString("last_message");
-            Date timestamp = rs.getTimestamp("timestamp");
+            String timestamp = rs.getString("timestamp");
             ChatRecord chatRecord = new ChatRecord(chatId, user, merchant, lastMessage, timestamp);
             chatList.add(chatRecord);
         }
 
-        Collections.sort(chatList, (c1, c2) -> c1.getTimestamp().compareTo(c2.getTimestamp()));
+        Collections.sort(chatList, (c1, c2) -> c2.getTimestamp().compareTo(c1.getTimestamp()));
 
         return chatList;
     }
 
-    public void editLastMsg(String user, String merchant, String lastMessage, Date timestamp) {
+    public void editLastMsg(String user, String merchant, String lastMessage, String timestamp) {
 
         template.update(Utils.SQL_EDIT_LAST_MESSAGE, lastMessage, timestamp, user, merchant);
     }

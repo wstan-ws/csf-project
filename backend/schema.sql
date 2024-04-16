@@ -46,7 +46,7 @@ create table chats (
     user varchar(128) not null,
     merchant varchar(128) not null,
     last_message text,
-    timestamp timestamp default current_timestamp,
+    timestamp varchar(64) not null,
 
     primary key (chat_id)
 );

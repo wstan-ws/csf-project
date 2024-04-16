@@ -1,6 +1,5 @@
 package vttp.iss.backend.services;
 
-import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -143,7 +142,7 @@ public class MainService {
         return messageRepo.getConversationsUser(user);
     }
 
-    public void editLastMsg(String user, String merchant, String lastMessage, Date timestamp) {
+    public void editLastMsg(String user, String merchant, String lastMessage, String timestamp) {
 
         messageRepo.editLastMsg(user, merchant, lastMessage, timestamp);
     }

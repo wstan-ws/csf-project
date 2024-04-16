@@ -161,9 +161,9 @@ public class Utils {
         // Messages
         public static final String SQL_POST_CHAT_RECORD = """
                 INSERT INTO chats
-                (user, merchant)
+                (user, merchant, timestamp)
                 VALUES
-                (?, ?)
+                (?, ?, ?)
         """;
 
         public static final String SQL_GET_CONVERSATIONS_MERCHANT = """
