@@ -48,9 +48,14 @@ button {
 .joke {
     text-align: center;
     margin-top: -140px;
-    color: #4b2aad;
     font-weight: 500;
     overflow-wrap: break-word;
     position: relative;
     transform: translate(-50%, -50%);
+}
+
+#catchphrase {
+    font-size: 16px;
+    margin-top: 40px;
+    margin-left: 10px;
 }
